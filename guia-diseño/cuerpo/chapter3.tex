@@ -1,0 +1,13 @@
+% !TEX root = ../main.tex
+% called by main.tex
+\chapter{Recomendaciones de diseño}\label{ch:cad-recommendations}
+
+\section{Puentes y geometría no soportada}
+Durante el diseño de numerosas piezas, es muy frecuente encontrarse en una situación donde la geometría requiere voladizos. Estos requisitos pueden ser de origen estructural, garantizando que la orientación de las capas va a ir según los esfuerzos, estéticos, o simplemente porque la única orientación en la que la pieza se puede imprimir es con voladizos. 
+\par La primera recomendación a la hora de diseñar este tipo de características en una pieza \textbf{es evitarlas}. Sin embargo, por los motivos explicados anteriormente, es posible que no quede más remedio. En esos casos, se presentan a continuación algunas formas de conservar las características y asimismo mejorar la geometría para una impresión más eficiente. 
+
+\subsection{Añadir un chaflán al voladizo}
+Una de las mejores formas de facilitar la impresión de estas características es evitando el voladizo (desde el punto de vista de la impresora). Esto se puede conseguir añadiendo material de forma gradual para construir la plataforma sobre la que se irán depositando las capas del voladizo. De esta forma, se evita la necesidad de material de soporte, optimizando la impresión de las piezas. 
+
+\subsection{Soportar el voladizo en ambos extremos}
+Si se busca conseguir un ``techo,'' se pueden mejorar notablemente los resultados al soportar el mismo en los dos extremos, especialmente si se aplican las sugerencias de la sección anterior y se añaden chaflanes (o \textit{fillets}). De esta forma, la distancia que será impresa sin soporte será lo menor posible, siempre que el resto de restricciones de diseño lo permitan. 
