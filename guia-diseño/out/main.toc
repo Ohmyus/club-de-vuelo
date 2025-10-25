@@ -18,4 +18,4 @@
 \contentsline {section}{\numberline {3.1}Puentes y geometría no soportada}{5}{section.3.1}%
 \contentsline {subsection}{\numberline {3.1.1}Añadir un chaflán al voladizo}{5}{subsection.3.1.1}%
 \contentsline {subsection}{\numberline {3.1.2}Soportar el voladizo en ambos extremos}{5}{subsection.3.1.2}%
-\contentsline {chapter}{Lista de cosas pendientes}{6}{chapter*.4}%
+\contentsline {chapter}{Lista de cosas pendientes}{7}{chapter*.6}%

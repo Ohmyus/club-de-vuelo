@@ -8,6 +8,19 @@ Durante el diseño de numerosas piezas, es muy frecuente encontrarse en una situ
 
 \subsection{Añadir un chaflán al voladizo}
 Una de las mejores formas de facilitar la impresión de estas características es evitando el voladizo (desde el punto de vista de la impresora). Esto se puede conseguir añadiendo material de forma gradual para construir la plataforma sobre la que se irán depositando las capas del voladizo. De esta forma, se evita la necesidad de material de soporte, optimizando la impresión de las piezas. 
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.75\textwidth]{figures/chaflan.png}
+    \caption{Ejemplo de un chaflán en geometría de fijación}
+    \label{fig:fusion-chaflan}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.75\textwidth]{figures/chaflan-prusa.png}
+    \caption[GCODE de un chaflán en un voladizo]{GCODE de un chaflán en un voladizo. En azul se puede observar donde se sigue imprimiendo sin soportes}
+    \label{fig:prusa-chaflan}
+\end{figure}
 
 \subsection{Soportar el voladizo en ambos extremos}
 Si se busca conseguir un ``techo,'' se pueden mejorar notablemente los resultados al soportar el mismo en los dos extremos, especialmente si se aplican las sugerencias de la sección anterior y se añaden chaflanes (o \textit{fillets}). De esta forma, la distancia que será impresa sin soporte será lo menor posible, siempre que el resto de restricciones de diseño lo permitan. 
