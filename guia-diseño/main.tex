@@ -1,0 +1,95 @@
+% --------------------------
+% Document class
+% --------------------------
+\documentclass[
+%A4paper,                % Tamaño del papel A4 -- comentado porque ya se encarga el paquete geometry
+twoside,                % A una columna o a dos
+openany,                % openright para que Los capítulos y secciones empiezan siempre a la derecha, openany para que empiecen donde caigan
+%chapterprefix=true,     % Añade un prefijo a los títulos -- no funciona en la clase book
+12pt,                   % Tamaño de fuente
+%headings=normal,        % Tamaño de las cabeceras -- eliminado por el paquete fancyheader
+%titlepage=on            % Separa las páginas con título -- ya es por defecto en la clase libro
+]{book}                 % el documento es clase libro
+
+% ==================================================
+% THESIS details
+% ==================================================
+
+
+\input{DatosTrabajo}
+
+% ==================================================
+% Settings
+% ==================================================
+
+\input{settings}
+\author{Pablo Mart\´in Yuste}
+% ==================================================
+% Begin document
+% ==================================================
+\begin{document}
+
+% --------------------------
+% Cover and front matter
+% --------------------------
+\frontmatter
+\pagestyle{empty}				    % no header nor footer
+%\input{preliminares/1_cubierta}    %No queremos cubierta, pasamos directamente a la portada
+%\newpage
+\input{preliminares/2_portada}
+\newpage
+
+\pagenumbering{Roman}			    % roman page numbering 
+\pagestyle{plain}				    % empty header, just page number in footer
+
+\selectlanguage{spanish}
+
+\setcounter{tocdepth}{3}		% define depth of toc
+\tableofcontents				% display table of contents
+\addcontentsline{toc}{section}{Índice General}
+
+\listoffigures
+\addcontentsline{toc}{section}{Índice de figuras}
+
+\listoftables
+\addcontentsline{toc}{section}{Índice de tablas}
+%\newpage
+% --------------------------
+% Main matter
+% --------------------------
+\mainmatter
+\pagenumbering{arabic}			% arabic page numbering
+\setcounter{page}{1}			% set page counter
+\pagestyle{fancy} 	            % fancy header and footer
+\parskip=7pt                    % space after each paragraph
+\parindent=0pt                  % suppress indentation of paragraphs
+
+
+\include{cuerpo/chapter1}
+\include{cuerpo/chapter2}
+%\include{cuerpo/chapter3}
+%\include{cuerpo/chapter4}
+%\include{cuerpo/chapter5}
+%\include{cuerpo/chapter6}
+
+% --------------------------
+% Back matter
+% --------------------------
+%\backmatter
+\listoftodos
+\bibliographystyle{IEEEtranSpa}
+\cleardoublepage
+\phantomsection
+%\addcontentsline{toc}{chapter}{Referencias}
+%\bibliography{references}
+
+\appendix
+\setcounter{secnumdepth}{2} %Reactiva la numeración para los anexos
+\selectlanguage{spanish}
+%\include{anexos/anexo1}
+%\include{anexos/anexo2}
+
+% ==================================================
+% End of document
+% ==================================================
+\end{document}

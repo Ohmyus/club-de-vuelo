@@ -1,0 +1,51 @@
+% called by main.tex
+\begin{titlepage}
+
+%La barra azul, debería salir sólo en la primera página
+    \AddToShipoutPictureBG*{
+        \begin{tikzpicture}[remember picture,overlay]
+
+            \fill[coverBlue] (current page.south west) ++(1cm, 2cm) rectangle ++(0.5cm,\paperheight-3cm);
+            \fill[coverBlue] (current page.south west) ++(1cm, 1cm) rectangle ++(0.5cm,0.75cm);
+        \end{tikzpicture}
+    }
+
+    \begin{minipage}{0.475\textwidth}\raggedright
+        \includegraphics[height = 3cm, keepaspectratio]{figures/logoETSIAE.png}
+    \end{minipage}
+    \begin{minipage}{0.475\textwidth}\raggedleft
+        \textbf{\LARGE{\fechaTrabajo}}
+    \end{minipage}
+
+    \begin{minipage}{1\textwidth} \raggedleft 
+        \begin{spacing}{1.25}
+        \textbf{
+        \textcolor{coverBlue}{\Huge{\tituloTrabajo}}\\
+        {\Large{\Asignatura}}\\
+        } \end{spacing}
+
+    \end{minipage}
+
+    \vspace{10mm}
+
+    \begin{minipage}{1\textwidth}
+        \centering
+        \includegraphics[width=0.75\linewidth, keepaspectratio]{figures/placeholder.png}
+    \end{minipage}
+
+    \vspace{\fill}
+    \begin{flushright}
+        \begin{spacing}{1}
+            \textbf{
+                \textcolor{coverBlue}{\LARGE{\detallesTrabajo}}\\
+                \Large{\autorTrabajo}
+                }\\
+            \end{spacing}
+        \end{flushright}
+
+        \vspace{5 mm}
+        \begin{flushright}
+            \textcolor{coverBlue}{\large{Curso \cursoAcademico}}
+        \end{flushright}
+
+\end{titlepage}

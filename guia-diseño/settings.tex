@@ -1,0 +1,163 @@
+% !TEX root = main.tex
+% **************************************************
+% Settings
+% **************************************************
+% --------------------------
+% Packages
+% --------------------------
+\usepackage[export]{adjustbox}
+\usepackage{blindtext}
+\usepackage{booktabs}    % nicer horizontal rules in tables
+\usepackage[small,hang,bf]{caption}    % caption options
+\usepackage{comment} 
+\usepackage{csquotes}
+\usepackage{emptypage}  % no headers in empty pages
+\usepackage{eso-pic}    % Para tener control sobre los márgenes y fondo
+\usepackage{enumitem}
+\usepackage{fancyhdr}   % personalizar encabezado
+\usepackage{float}      % control más fino sobre dónde se colocan las imágenes/tablas
+\usepackage[T1]{fontenc}
+\usepackage[a4paper]{geometry}
+\usepackage[acronym,nonumberlist,nomain]{glossaries}  % package for list of acronyms
+\usepackage{graphicx,graphics}   % packages to manage images
+\usepackage[protrusion=true, expansion=true, nopatch=footnote]{microtype}  % Use microtype to improve readability
+%\usepackage[lining]{ebgaramond}   %Una opción para la fuente
+%\usepackage[lining]{CormorantGaramond}     %Otra opción para la fuente
+%\usepackage{tgpagella}     %Otra opción para la fuente
+\usepackage{lmodern}     %La fuente actual
+\usepackage{longtable}   % tables spanning more than one page
+\usepackage{ltablex}
+\usepackage{listings}
+\usepackage{makecell}   % Super útil para arreglar problemas en las tablas, recomiendo usar -P
+\usepackage{multicol}    % multi-columns in tables
+\usepackage{multirow}    % multi-rows in tables
+\usepackage{nicematrix}
+\usepackage{setspace}
+\usepackage{subcaption}
+\usepackage{parskip}     % paragraph spacing (suppress indentation)
+\usepackage{ragged2e} 
+\usepackage{pdfpages}
+\usepackage{tabularx}    % tables spanning the full text width
+\usepackage{tikz}                % drawing custom shapes
+\usepackage{textcomp}   % Inserting special text characters
+\usepackage[table, dvipsnames]{xcolor}
+%%% BIBLIOGRAPHY
+% The style used is IEEE. A list of available styles is available  at https://www.overleaf.com/learn/latex/Biblatex_bibliography_styles
+\usepackage[square,numbers]{natbib}
+
+\usepackage[spanish,english,es-tabla]{babel}
+\usepackage{amsmath,amssymb} 
+\usepackage{hyperref}
+
+% ==================================================
+% Customize document
+% ==================================================
+% Define the geometry of the document
+\newgeometry{top=2.5cm, bottom=2.5cm, right=2.5cm, left=2.5cm}
+
+\setlength{\parskip}{7pt}   % Change the default value of paragraph spacing
+\setlength{\parindent}{0pt}    %Change default paragraph indentation
+
+% ----------------------------
+% hiperlinks
+% ----------------------------
+\hypersetup{
+    colorlinks=true,          % Enable colored links
+    linkcolor=black,          % Color for internal links
+    urlcolor=blue,            % Color para las URL's u texto que mande a URL's
+    citecolor=blue            % Color para las citas (comando \cite{} o \citet{})
+}
+
+% ----------------------------
+% Header and footer
+% ----------------------------
+\fancyhf{}   % Clear the default header and footer
+\renewcommand{\headrulewidth}{0.2pt}
+
+\setlength{\headheight}{14.5pt}
+\fancyhead[RO]{\nouppercase \leftmark}  % Define the header for rigth (odd) pages
+\fancyhead[LE]{\Asignatura}           % Define the header for left (even) pages
+\fancyfoot[C]{\thepage}                 % Define the page number as the footer
+
+% ----------------------------
+% Colores para el documento
+% ----------------------------
+\definecolor{coverBlue}{HTML}{0070C0}
+\definecolor{tableHeader}{rgb}{0.7,0.7,0.7}
+
+% ----------------------------
+% Español - Las traducciones se pueden cambiar a gusto del autor
+% ----------------------------
+% Cambia el título del índice general:
+\addto\captionsspanish{\renewcommand{\contentsname}{Índice General}} 
+% Cambia el título de la Bibliografía:
+\addto\captionsspanish{\renewcommand{\bibname}{Referencias}} % Alternativamente: Bibliografía
+% Cambia los apéndices por anexos:
+\addto\captionsspanish{\renewcommand{\appendixname}{Apéndice}} %Deshabilitado porque si son de elaboración propia se deben llamar apéndices
+\addto\extrasspanish{\def\appendixautorefname{\appendixname}}
+% Cambia capítulo por parte:
+\addto\captionsspanish{\renewcommand{\chaptername}{Parte}}
+
+% ----------------------------
+% Increase indentation in lists - No he sido capaz de que esta parte del código funcione correctamente, lo dejo a modo de reliquia - P
+% ----------------------------
+\newlist{mydescription}{description}{1}
+\setlist[mydescription,1]{labelindent=2em, leftmargin=2em}
+\setlist[description]{align=right, labelwidth=2cm}
+
+% ----------------------------
+% Increase height of table cells - 1 no hace nada, si es necesario aumentarlo, cambiarlo por 1.1 e ir incrementando poco a poco. Es un factor de escala, así que cuidado.
+% ----------------------------
+\renewcommand{\arraystretch}{1}
+
+%------------ Fuentes en las figuras --------------
+\newlength{\captionlabelwidth}
+
+\newcommand{\source}[1]{
+  \settowidth{\captionlabelwidth}{\small\bfseries\figurename~\thefigure:\hspace{\labelsep}}
+  \par\nopagebreak\vspace{2pt}
+  \noindent
+  \hspace*{\captionlabelwidth}
+  \parbox[t]{\dimexpr\linewidth-\captionlabelwidth\relax}{
+    \small FUENTE: #1
+  }
+}
+% --------------- TODO Command Configuration ---------------
+\makeatletter % Allow use of @ in command names
+
+\newcounter{mytodocounter}
+
+\newcommand{\todo}[1]{%
+    \stepcounter{mytodocounter}%
+    \ifnum\value{mytodocounter}=1 % Only do this for the first todo item
+        \@bsphack % Prevents unwanted spaces
+        \protected@write\@auxout{}{%
+            \string\gdef\string\todosfound{true}% Define \todosfound globally for next run
+        }\@esphack % Prevents unwanted spaces
+    \fi
+    \textcolor{red}{\textbf{ToDo~\themytodocounter:} #1}%
+    \addcontentsline{tdo}{todoitem}{\protect\numberline{\themytodocounter}#1}%
+}
+
+\newcommand{\listoftodos}{%
+    \@ifundefined{todosfound}{}{
+        \chapter*{Lista de cosas pendientes}% 
+        \addcontentsline{toc}{chapter}{Lista de cosas pendientes}
+        \@starttoc{tdo}%
+    }%
+}
+
+\newcommand*\l@todoitem[2]{%
+    \setlength{\parskip}{7pt}
+    \par
+    \setlength{\@tempdima}{1.5em}% 
+    \noindent
+    {#1}% 
+    \nobreak
+    \hfill
+    (#2)%
+    \par
+}
+
+\makeatother % Revert @ to its special meaning
+% --------------- End of TODO Command Configuration ---------------
