@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.8.27)  25 OCT 2025 21:28
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.8.27)  25 OCT 2025 21:34
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -9,8 +9,8 @@ LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-08-13>
 (c:/texlive/2025/texmf-dist/tex/latex/base/book.cls
 Document Class: book 2025/01/22 v1.4n Standard LaTeX document class
-(c:/texlive/2025/texmf-dist/tex/latex/base/bk12.clo
-File: bk12.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
+(c:/texlive/2025/texmf-dist/tex/latex/base/bk10.clo
+File: bk10.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
 )
 \c@part=\count275
 \c@chapter=\count276
@@ -1100,15 +1100,15 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 28
 * \textheight=652.70622pt
 * \oddsidemargin=-1.1381pt
 * \evensidemargin=-1.1381pt
-* \topmargin=-33.0119pt
+* \topmargin=-31.2056pt
 * \headheight=12.0pt
-* \headsep=19.8738pt
-* \topskip=12.0pt
-* \footskip=30.0pt
-* \marginparwidth=98.0pt
+* \headsep=18.06749pt
+* \topskip=10.0pt
+* \footskip=25.29494pt
+* \marginparwidth=125.0pt
 * \marginparsep=7.0pt
 * \columnsep=10.0pt
-* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
 * \hoffset=0.0pt
 * \voffset=0.0pt
 * \mag=1000
@@ -1127,7 +1127,7 @@ Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Adjusting default style.
 Package csquotes Info: Redefining alias 'default' -> 'english'.
-LaTeX Font Info:    Trying to load font information for T1+lmr on input line 30.
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 29.
  (c:/texlive/2025/texmf-dist/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) (c:/texlive/2025/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
@@ -1144,24 +1144,24 @@ LaTeX Info: Redefining \% on input line 26.
 )
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
  (c:/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count477
@@ -1208,15 +1208,15 @@ Package caption Info: End \AtBeginDocument code.
 * \textheight=652.70622pt
 * \oddsidemargin=-1.1381pt
 * \evensidemargin=-1.1381pt
-* \topmargin=-33.0119pt
+* \topmargin=-31.2056pt
 * \headheight=14.5pt
-* \headsep=19.8738pt
-* \topskip=12.0pt
-* \footskip=30.0pt
-* \marginparwidth=98.0pt
+* \headsep=18.06749pt
+* \topskip=10.0pt
+* \footskip=25.29494pt
+* \marginparwidth=125.0pt
 * \marginparsep=7.0pt
 * \columnsep=10.0pt
-* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
 * \hoffset=0.0pt
 * \voffset=0.0pt
 * \mag=1000
@@ -1229,12 +1229,12 @@ Package caption Info: End \AtBeginDocument code.
 Package microtype Info: Patching varwidth to enable character protrusion.
 \MT@vwid@leftmargin=\dimen419
 \MT@vwid@rightmargin=\dimen420
-LaTeX Info: Redefining \microtypecontext on input line 30.
-Package microtype Info: Applying patch `item' on input line 30.
-Package microtype Info: Applying patch `toc' on input line 30.
-Package microtype Info: Applying patch `eqnum' on input line 30.
-Package microtype Info: Applying patch `verbatim' on input line 30.
-LaTeX Info: Redefining \microtypesetup on input line 30.
+LaTeX Info: Redefining \microtypecontext on input line 29.
+Package microtype Info: Applying patch `item' on input line 29.
+Package microtype Info: Applying patch `toc' on input line 29.
+Package microtype Info: Applying patch `eqnum' on input line 29.
+Package microtype Info: Applying patch `verbatim' on input line 29.
+LaTeX Info: Redefining \microtypesetup on input line 29.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
@@ -1264,7 +1264,7 @@ Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
 )
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 ))
-Package hyperref Info: Link coloring ON on input line 30.
+Package hyperref Info: Link coloring ON on input line 29.
  (out/main.out) (out/main.out)
 \@outlinefile=\write5
 \openout5 = `main.out'.
@@ -1292,11 +1292,11 @@ LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 1
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 15.
+(Font)              <10> on input line 15.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 15.
+(Font)              <7> on input line 15.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 15.
+(Font)              <5> on input line 15.
 LaTeX Font Info:    Trying to load font information for U+msa on input line 15.
  (c:/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -1315,9 +1315,9 @@ File: figures/placeholder.png Graphic file (type png)
 Package pdftex.def Info: figures/placeholder.png  used on input line 33.
 (pdftex.def)             Requested size: 354.02342pt x 235.11969pt.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <20.74> on input line 42.
+(Font)              <17.28> on input line 42.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <14.4> on input line 42.
+(Font)              <12> on input line 42.
 
 
 [1
@@ -1326,8 +1326,8 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 
 
 {c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{c:/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc} <./figures/logoETSIAE.png> <./figures/placeholder.png>])
-LaTeX Info: Redefining \. on input line 45.
-LaTeX Info: Redefining \% on input line 45.
+LaTeX Info: Redefining \. on input line 44.
+LaTeX Info: Redefining \% on input line 44.
  (out/main.toc
 LaTeX Info: Redefining \. on input line 2.
 LaTeX Info: Redefining \% on input line 2.
@@ -1344,8 +1344,8 @@ LaTeX Info: Redefining \% on input line 22.
 ] (out/main.lof
 LaTeX Info: Redefining \. on input line 2.
 LaTeX Info: Redefining \% on input line 2.
-LaTeX Info: Redefining \. on input line 8.
-LaTeX Info: Redefining \% on input line 8.
+LaTeX Info: Redefining \. on input line 9.
+LaTeX Info: Redefining \% on input line 9.
 )
 \tf@lof=\write7
 \openout7 = `main.lof'.
@@ -1388,10 +1388,12 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `lmtt' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-Package hyperref Info: bookmark level for unknown todoitem defaults to 0 on input line 19.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
+<figures/fusion-download.png, id=139, 1445.4pt x 776.14969pt>
+File: figures/fusion-download.png Graphic file (type png)
+<use figures/fusion-download.png>
+Package pdftex.def Info: figures/fusion-download.png  used on input line 22.
+(pdftex.def)             Requested size: 354.02342pt x 190.10504pt.
+Package hyperref Info: bookmark level for unknown todoitem defaults to 0 on input line 27.
 
 
 [1
@@ -1399,7 +1401,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 {c:/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}])
 
-[2]
+[2 <./figures/fusion-download.png>]
 \openout2 = `cuerpo/chapter2.aux'.
 
  (./cuerpo/chapter2.tex
@@ -1418,12 +1420,12 @@ Parte 2.
 
  (./cuerpo/chapter3.tex
 Parte 3.
-<figures/chaflan.png, id=155, 585.68813pt x 453.94594pt>
+<figures/chaflan.png, id=163, 585.68813pt x 453.94594pt>
 File: figures/chaflan.png Graphic file (type png)
 <use figures/chaflan.png>
 Package pdftex.def Info: figures/chaflan.png  used on input line 13.
 (pdftex.def)             Requested size: 354.02342pt x 274.39917pt.
-<figures/chaflan-prusa.png, id=156, 707.64375pt x 511.15968pt>
+<figures/chaflan-prusa.png, id=164, 707.64375pt x 511.15968pt>
 File: figures/chaflan-prusa.png Graphic file (type png)
 <use figures/chaflan-prusa.png>
 Package pdftex.def Info: figures/chaflan-prusa.png  used on input line 20.
@@ -1441,8 +1443,8 @@ Package pdftex.def Info: figures/chaflan-prusa.png  used on input line 20.
 \tf@tdo=\write9
 \openout9 = `main.tdo'.
 
-LaTeX Info: Redefining \. on input line 88.
-LaTeX Info: Redefining \% on input line 88.
+LaTeX Info: Redefining \. on input line 87.
+LaTeX Info: Redefining \% on input line 87.
 
 
 [7
@@ -1461,21 +1463,21 @@ LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-08-13>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: AA9726D4E9BB99BDFFDE87EAEAF602A9;3312.
+(rerunfilecheck)             Checksum: A0FF92AE45EC2C911E64B357702ED40D;3312.
  ) 
 Here is how much of TeX's memory you used:
- 41398 strings out of 467800
- 819734 string characters out of 5436061
- 1304516 words of memory out of 5000000
- 69215 multiletter control sequences out of 15000+600000
- 692001 words of font info for 145 fonts, out of 8000000 for 9000
+ 41416 strings out of 467800
+ 820055 string characters out of 5436061
+ 1304476 words of memory out of 5000000
+ 69227 multiletter control sequences out of 15000+600000
+ 697458 words of font info for 146 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  91i,11n,120p,2611b,556s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<c:/texlive/2025/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/lm/lmri12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/lm/lmtt12.pfb>
-Output written on out/main.pdf (12 pages, 427898 bytes).
+<c:/texlive/2025/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/lm/lmbx9.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/lm/lmr9.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/lm/lmtt10.pfb>
+Output written on out/main.pdf (12 pages, 705796 bytes).
 PDF statistics:
- 220 PDF objects out of 1000 (max. 8388607)
- 183 compressed objects within 2 object streams
- 35 named destinations out of 1000 (max. 500000)
- 37561 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 234 PDF objects out of 1000 (max. 8388607)
+ 191 compressed objects within 2 object streams
+ 36 named destinations out of 1000 (max. 500000)
+ 41662 words of extra memory for PDF output out of 42996 (max. 10000000)
 
