@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.8.27)  25 OCT 2025 21:34
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.8.27)  26 OCT 2025 01:59
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -9,8 +9,8 @@ LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-08-13>
 (c:/texlive/2025/texmf-dist/tex/latex/base/book.cls
 Document Class: book 2025/01/22 v1.4n Standard LaTeX document class
-(c:/texlive/2025/texmf-dist/tex/latex/base/bk10.clo
-File: bk10.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
+(c:/texlive/2025/texmf-dist/tex/latex/base/bk12.clo
+File: bk12.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
 )
 \c@part=\count275
 \c@chapter=\count276
@@ -1100,15 +1100,15 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 28
 * \textheight=652.70622pt
 * \oddsidemargin=-1.1381pt
 * \evensidemargin=-1.1381pt
-* \topmargin=-31.2056pt
+* \topmargin=-33.0119pt
 * \headheight=12.0pt
-* \headsep=18.06749pt
-* \topskip=10.0pt
-* \footskip=25.29494pt
-* \marginparwidth=125.0pt
+* \headsep=19.8738pt
+* \topskip=12.0pt
+* \footskip=30.0pt
+* \marginparwidth=98.0pt
 * \marginparsep=7.0pt
 * \columnsep=10.0pt
-* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
 * \hoffset=0.0pt
 * \voffset=0.0pt
 * \mag=1000
@@ -1208,15 +1208,15 @@ Package caption Info: End \AtBeginDocument code.
 * \textheight=652.70622pt
 * \oddsidemargin=-1.1381pt
 * \evensidemargin=-1.1381pt
-* \topmargin=-31.2056pt
+* \topmargin=-33.0119pt
 * \headheight=14.5pt
-* \headsep=18.06749pt
-* \topskip=10.0pt
-* \footskip=25.29494pt
-* \marginparwidth=125.0pt
+* \headsep=19.8738pt
+* \topskip=12.0pt
+* \footskip=30.0pt
+* \marginparwidth=98.0pt
 * \marginparsep=7.0pt
 * \columnsep=10.0pt
-* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
 * \hoffset=0.0pt
 * \voffset=0.0pt
 * \mag=1000
@@ -1292,11 +1292,11 @@ LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 1
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 15.
+(Font)              <12> on input line 15.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 15.
+(Font)              <8> on input line 15.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 15.
+(Font)              <6> on input line 15.
 LaTeX Font Info:    Trying to load font information for U+msa on input line 15.
  (c:/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -1315,9 +1315,9 @@ File: figures/placeholder.png Graphic file (type png)
 Package pdftex.def Info: figures/placeholder.png  used on input line 33.
 (pdftex.def)             Requested size: 354.02342pt x 235.11969pt.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <17.28> on input line 42.
+(Font)              <20.74> on input line 42.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 42.
+(Font)              <14.4> on input line 42.
 
 
 [1
@@ -1388,12 +1388,15 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `lmtt' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-<figures/fusion-download.png, id=139, 1445.4pt x 776.14969pt>
+<figures/fusion-download.png, id=137, 1445.4pt x 776.14969pt>
 File: figures/fusion-download.png Graphic file (type png)
 <use figures/fusion-download.png>
 Package pdftex.def Info: figures/fusion-download.png  used on input line 22.
 (pdftex.def)             Requested size: 354.02342pt x 190.10504pt.
 Package hyperref Info: bookmark level for unknown todoitem defaults to 0 on input line 27.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 
 
 [1
@@ -1420,12 +1423,12 @@ Parte 2.
 
  (./cuerpo/chapter3.tex
 Parte 3.
-<figures/chaflan.png, id=163, 585.68813pt x 453.94594pt>
+<figures/chaflan.png, id=161, 585.68813pt x 453.94594pt>
 File: figures/chaflan.png Graphic file (type png)
 <use figures/chaflan.png>
 Package pdftex.def Info: figures/chaflan.png  used on input line 13.
 (pdftex.def)             Requested size: 354.02342pt x 274.39917pt.
-<figures/chaflan-prusa.png, id=164, 707.64375pt x 511.15968pt>
+<figures/chaflan-prusa.png, id=162, 707.64375pt x 511.15968pt>
 File: figures/chaflan-prusa.png Graphic file (type png)
 <use figures/chaflan-prusa.png>
 Package pdftex.def Info: figures/chaflan-prusa.png  used on input line 20.
@@ -1466,18 +1469,18 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: A0FF92AE45EC2C911E64B357702ED40D;3312.
  ) 
 Here is how much of TeX's memory you used:
- 41416 strings out of 467800
- 820055 string characters out of 5436061
- 1304476 words of memory out of 5000000
- 69227 multiletter control sequences out of 15000+600000
- 697458 words of font info for 146 fonts, out of 8000000 for 9000
+ 41407 strings out of 467800
+ 820004 string characters out of 5436061
+ 1304570 words of memory out of 5000000
+ 69223 multiletter control sequences out of 15000+600000
+ 692001 words of font info for 145 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  91i,11n,120p,2611b,556s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<c:/texlive/2025/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/lm/lmbx9.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/lm/lmr9.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/lm/lmtt10.pfb>
-Output written on out/main.pdf (12 pages, 705796 bytes).
+<c:/texlive/2025/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/lm/lmri12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/lm/lmtt12.pfb>
+Output written on out/main.pdf (12 pages, 651631 bytes).
 PDF statistics:
- 234 PDF objects out of 1000 (max. 8388607)
- 191 compressed objects within 2 object streams
+ 224 PDF objects out of 1000 (max. 8388607)
+ 185 compressed objects within 2 object streams
  36 named destinations out of 1000 (max. 500000)
- 41662 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 37566 words of extra memory for PDF output out of 42996 (max. 10000000)
 
