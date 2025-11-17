@@ -7,7 +7,7 @@ Para fabricar piezas impresas en 3D, es necesario de alguna manera, hacer llegar
 \par La obtención de estos códigos \texttt{GCODE} es muy sencilla. El proceso lo explicaré secuencialmente partiendo desde el programa de diseño 3D, hasta el momento de dar la orden a la impresora de fabricar la pieza. 
 
 \subsection{De un diseño a una pieza real}
-Teniendo por fin el diseño terminado, este no es más que una colección de ecuaciones que describen la geometría de la pieza. Para fabricarla, exportaremos este diseño como un archivo \texttt{.stl} o \texttt{.step/.stp}. Este tipo de archivos son un conjunto de triángulos en el caso del \texttt{.stl}, o un conjunto de ecuaciones en el caso del \texttt{.step/.stp} (esta vez estandarizado para ser comprensible para cualquier otro programa) que describen la geometría de la pieza. 
+Teniendo por fin el diseño terminado, este no es más que una colección de ecuaciones que describen la geometría de la pieza. Para fabricarla, \textbf{exportaremos} este diseño como un archivo \texttt{.stl} o \texttt{.step/.stp}. Este tipo de archivos son un conjunto de triángulos en el caso del \texttt{.stl}, o un conjunto de ecuaciones en el caso del \texttt{.step/.stp} (esta vez estandarizado para ser comprensible para cualquier otro programa) que describen la geometría de la pieza. 
 \par Ahora tenemos un archivo que es fácilmente comprensible para cualquier programa, no solo nuestro programa de diseño. Ahora, abriremos nuestro Slicer. En el slicer, deberemos elegir la orientación y la posición de la pieza en la cama de la impresora, así como algunos parámetros adicionales. Una vez satisfechos, solamente hay que hacer click en \textbf{slice} y el programa nos enseñará una previsualización de cómo quedará la pieza, mostrando las pasadas individuales del cabezal de la impresora.
 \par Este archivo \texttt{GCODE} contendrá todas las instrucciones para la impresora, la temperatura a la que deberá calentar el cabezal, la cama, a dónde se tendrá que mover para cada deposición de filamento, etc. No hace falta entender nada de esto a más bajo nivel, ni siquiera es importante entender qué quieren decir las líneas dentro del archivo, no hace falta mirar dentro. Simplemente este archivo lo pasaremos a la impresora, guardándolo en la tarjeta micro SD de la impresora.
 \todo{Añadir imágenes de la impresora, la tarjeta  y el lector del ordenador}. 
@@ -16,9 +16,16 @@ Teniendo por fin el diseño terminado, este no es más que una colección de ecu
 \section{Importancia del Slicer}
 Como se puede observar, el Slicer es una de las herramientas más poderosas en la impresión 3D, y un buen resultado dependerá tanto del diseño de la pieza, su geometría, como del Slicer. Esto es porque el Slicer tiene en cuenta una infinidad de parámetros, como las dimensiones de la impresora, las velocidades a las que se moverá, qué filamento estamos imprimiendo, qué temperaturas se utilizarán para ese filamento, etc. 
 \par Generalmente, se utilizará la configuración predeterminada y ajustada a nuestra impresora, y no habrá que cambiar mucho estos ajustes. Por otro lado, para conseguir piezas más rígidas o más resistentes, en muchas ocasiones es suficiente con cambiar ajustes del Slicer y no es necesario rediseñar la geometría de la pieza. 
+\par Es importante recalcar que con la experiencia y el uso, hemos conseguido encontrar en el club de vuelo una serie de ajustes para el Slicer que nos permiten conseguir impresiones rápidas, de una resistencia más que suficiente y con un nivel de detalles perfectamente adecuado para todos nuestros diseños. Por otro lado, si una pieza requiere una configuración muy particular de los ajustes del Slicer, el diseño de la propia pieza se deberá hacer con todo esto en cuenta. 
 
 \section{Anisotropía de las piezas}
 Por la propia naturaleza de la impresión 3D, es importante considerar cuál será el funcionamiento de las piezas, y a qué tipo de esfuerzos estarán sometidas. Esto nos permitirá elegir en qué orientación sería preferente imprimirlas. 
 
-\par Debemos tener en cuenta que las piezas son mucho más susceptibles a romper bajo esfuerzos de tracción o pelado perpendiculares a los planos de las capas. Por ello hay que elegir una orientación que coloque los esfuerzos de tracción en el plano de las capas. Sin embargo, las piezas impresas en 3D  funcionan mejor a compresión perpendicular al plano de las capas que en el plano. 
-\todo{Añadir imágenes de fallos en piezas impresas}
+\par Debemos tener en cuenta que las piezas son mucho más susceptibles a romper bajo esfuerzos de tracción o pelado perpendiculares a los planos de las capas. Por ello hay que elegir una orientación que coloque los esfuerzos de tracción en el plano de las capas, como se puede observar en la \autoref{fig:fallo-traccion}. Sin embargo, las piezas impresas en 3D  funcionan mejor a compresión perpendicular al plano de las capas que en el plano. 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fallo-traccion.jpg}
+    \caption{Ejemplo de un fallo por tracción en la dirección perpendicular a las capas}
+    \label{fig:fallo-traccion}
+\end{figure}
+\todo{Añadir más imágenes de fallos en piezas impresas}
