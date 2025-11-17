@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.8.27)  17 NOV 2025 11:46
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.8.27)  17 NOV 2025 12:20
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1344,8 +1344,8 @@ LaTeX Info: Redefining \% on input line 24.
 ] (out/main.lof
 LaTeX Info: Redefining \. on input line 2.
 LaTeX Info: Redefining \% on input line 2.
-LaTeX Info: Redefining \. on input line 12.
-LaTeX Info: Redefining \% on input line 12.
+LaTeX Info: Redefining \. on input line 10.
+LaTeX Info: Redefining \% on input line 10.
 )
 \tf@lof=\write7
 \openout7 = `main.lof'.
@@ -1388,7 +1388,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `lmtt' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-<figures/fusion-download.png, id=153, 1445.4pt x 776.14969pt>
+<figures/fusion-download.png, id=149, 1445.4pt x 776.14969pt>
 File: figures/fusion-download.png Graphic file (type png)
 <use figures/fusion-download.png>
 Package pdftex.def Info: figures/fusion-download.png  used on input line 22.
@@ -1417,16 +1417,12 @@ Parte 2.
 
 
 ]
-<figures/fallo-traccion.jpg, id=174, 2007.5pt x 1505.625pt>
+<figures/fallo-traccion.jpg, id=170, 2007.5pt x 1505.625pt>
 File: figures/fallo-traccion.jpg Graphic file (type jpg)
 <use figures/fallo-traccion.jpg>
 Package pdftex.def Info: figures/fallo-traccion.jpg  used on input line 27.
 (pdftex.def)             Requested size: 236.01561pt x 176.99136pt.
 )
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
 
 [4]
 
@@ -1439,16 +1435,16 @@ Package babel Info: 'spanish' activates 'spanish' shorthands.
 
  (./cuerpo/chapter3.tex
 Parte 3.
-<figures/chaflan.png, id=183, 585.68813pt x 453.94594pt>
+<figures/chaflan.png, id=179, 585.68813pt x 453.94594pt>
 File: figures/chaflan.png Graphic file (type png)
 <use figures/chaflan.png>
-Package pdftex.def Info: figures/chaflan.png  used on input line 13.
-(pdftex.def)             Requested size: 236.01561pt x 182.92584pt.
-<figures/chaflan-prusa.png, id=184, 707.64375pt x 511.15968pt>
+Package pdftex.def Info: figures/chaflan.png  used on input line 14.
+(pdftex.def)             Requested size: 231.2979pt x 179.26857pt.
+<figures/chaflan-prusa.png, id=180, 707.64375pt x 511.15968pt>
 File: figures/chaflan-prusa.png Graphic file (type png)
 <use figures/chaflan-prusa.png>
-Package pdftex.def Info: figures/chaflan-prusa.png  used on input line 20.
-(pdftex.def)             Requested size: 236.01561pt x 170.47713pt.
+Package pdftex.def Info: figures/chaflan-prusa.png  used on input line 21.
+(pdftex.def)             Requested size: 231.2979pt x 167.06868pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -1460,24 +1456,20 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 ]
-<figures/engranaje.png, id=191, 502.12593pt x 463.7325pt>
+<figures/engranaje.png, id=187, 502.12593pt x 463.7325pt>
 File: figures/engranaje.png Graphic file (type png)
 <use figures/engranaje.png>
-Package pdftex.def Info: figures/engranaje.png  used on input line 35.
+Package pdftex.def Info: figures/engranaje.png  used on input line 37.
 (pdftex.def)             Requested size: 236.01561pt x 217.97552pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<figures/engranaje-agujeros.png, id=193, 549.55313pt x 557.08125pt>
+<figures/engranaje-agujeros.png, id=189, 549.55313pt x 557.08125pt>
 File: figures/engranaje-agujeros.png Graphic file (type png)
 <use figures/engranaje-agujeros.png>
-Package pdftex.def Info: figures/engranaje-agujeros.png  used on input line 45.
+Package pdftex.def Info: figures/engranaje-agujeros.png  used on input line 47.
 (pdftex.def)             Requested size: 231.2979pt x 234.46555pt.
-<figures/engranaje-agujeros-slice.png, id=194, 647.41875pt x 636.87938pt>
+<figures/engranaje-agujeros-slice.png, id=190, 647.41875pt x 636.87938pt>
 File: figures/engranaje-agujeros-slice.png Graphic file (type png)
 <use figures/engranaje-agujeros-slice.png>
-Package pdftex.def Info: figures/engranaje-agujeros-slice.png  used on input line 52.
+Package pdftex.def Info: figures/engranaje-agujeros-slice.png  used on input line 54.
 (pdftex.def)             Requested size: 231.2979pt x 227.52716pt.
 )
 
@@ -1485,15 +1477,7 @@ LaTeX Info: Redefining \. on input line 69.
 LaTeX Info: Redefining \% on input line 69.
 [7 <./figures/chaflan.png> <./figures/chaflan-prusa.png>]
 
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-
-[8 <./figures/engranaje.png>]
-
-LaTeX Info: Redefining \. on input line 69.
-LaTeX Info: Redefining \% on input line 69.
-[9 <./figures/engranaje-agujeros.png> <./figures/engranaje-agujeros-slice.png>] (out/main.tdo)
+[8 <./figures/engranaje.png> <./figures/engranaje-agujeros.png> <./figures/engranaje-agujeros-slice.png>] (out/main.tdo)
 \tf@tdo=\write9
 \openout9 = `main.tdo'.
 
@@ -1501,7 +1485,7 @@ LaTeX Info: Redefining \. on input line 87.
 LaTeX Info: Redefining \% on input line 87.
 
 
-[10
+[9
 
 
 
@@ -1517,21 +1501,21 @@ LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-08-13>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: E4A323FCC77A11849C1CFA1777532BE9;3739.
+(rerunfilecheck)             Checksum: 120B54DAC7D8A58B6EF8D6FA5E80183A;3738.
  ) 
 Here is how much of TeX's memory you used:
  41484 strings out of 467800
- 821818 string characters out of 5436061
- 1306080 words of memory out of 5000000
- 69276 multiletter control sequences out of 15000+600000
+ 821840 string characters out of 5436061
+ 1306225 words of memory out of 5000000
+ 69278 multiletter control sequences out of 15000+600000
  698710 words of font info for 155 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 91i,11n,120p,2611b,741s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 91i,11n,120p,2611b,735s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2025/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/lm/lmri12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/lm/lmtt12.pfb>
-Output written on out/main.pdf (15 pages, 1609141 bytes).
+Output written on out/main.pdf (14 pages, 1608630 bytes).
 PDF statistics:
- 268 PDF objects out of 1000 (max. 8388607)
- 218 compressed objects within 3 object streams
- 44 named destinations out of 1000 (max. 500000)
+ 260 PDF objects out of 1000 (max. 8388607)
+ 211 compressed objects within 3 object streams
+ 42 named destinations out of 1000 (max. 500000)
  41698 words of extra memory for PDF output out of 42996 (max. 10000000)
 

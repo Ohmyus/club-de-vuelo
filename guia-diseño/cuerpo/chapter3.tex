@@ -9,17 +9,19 @@ Durante el diseño de numerosas piezas, es muy frecuente encontrarse en una situ
 \subsection{Añadir un chaflán al voladizo}
 Una de las mejores formas de facilitar la impresión de estas características es evitando el voladizo (desde el punto de vista de la impresora). Esto se puede conseguir añadiendo material de forma gradual para construir la plataforma sobre la que se irán depositando las capas del voladizo. De esta forma, se evita la necesidad de material de soporte, optimizando la impresión de las piezas. 
 \begin{figure}[ht]
-    \centering
-    \includegraphics[width=0.5\textwidth]{figures/chaflan.png}
-    \caption{Ejemplo de un chaflán en geometría de fijación}
-    \label{fig:fusion-chaflan}
-\end{figure}
-
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=0.5\textwidth]{figures/chaflan-prusa.png}
-    \caption[GCODE de un chaflán en un voladizo]{GCODE de un chaflán en un voladizo. En azul se puede observar donde se sigue imprimiendo sin soportes}
-    \label{fig:prusa-chaflan}
+    \begin{subfigure}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/chaflan.png}
+        \caption{Ejemplo de un chaflán en geometría de fijación}
+        \label{fig:fusion-chaflan}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/chaflan-prusa.png}
+        \caption[GCODE de un chaflán en un voladizo]{GCODE de un chaflán en un voladizo. En azul se puede observar donde se sigue imprimiendo sin soportes}
+        \label{fig:prusa-chaflan}
+    \end{subfigure}
 \end{figure}
 
 \subsection{Soportar el voladizo en ambos extremos}
@@ -30,7 +32,7 @@ En muchas ocasiones, sobre todo en diseños mecánicos, habrá piezas de respons
 
 \subsection{Cargas en un plano}
 Cuando el diseño permite conocer de antemano que las cargas a las que una pieza va a estar sometida estarán contenidas en un plano, (tracción-compresión, cortantes, etc.), lo más recomendable en  la mayoría de los casos es contener todos estos esfuerzos en el plano. Por ejemplo, con un engranaje muy solicitado, como el de la \autoref{fig:engranaje-cargas}
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.5\textwidth]{figures/engranaje.png}
     \caption{Diseño de un engranaje con la previsión de las cargas}
@@ -38,7 +40,7 @@ Cuando el diseño permite conocer de antemano que las cargas a las que una pieza
 \end{figure}
 
 El el caso de que sea necesario aumentar la resistencia en el plano de la pieza, una de las mejores recomendaciones es conseguir más perímetros en las direcciones de la carga. En el caso del engranaje, por contra-intuitivo que parezca, haciendo un patrón de agujeros como el de la \autoref{fig:engranaje-rediseño} puede aumentar la resistencia a fallos en el plano.
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \begin{subfigure}[b]{0.49\textwidth}
         \centering

@@ -555,6 +555,8 @@ INPUT ./figures/chaflan.png
 INPUT ./figures/chaflan.png
 INPUT ./figures/chaflan.png
 INPUT ./figures/chaflan.png
+INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/lm/ec-lmr10.tfm
+INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/lm/ec-lmbx10.tfm
 INPUT ./figures/chaflan-prusa.png
 INPUT ./figures/chaflan-prusa.png
 INPUT ./figures/chaflan-prusa.png
@@ -571,8 +573,6 @@ INPUT ./figures/engranaje-agujeros.png
 INPUT ./figures/engranaje-agujeros.png
 INPUT ./figures/engranaje-agujeros.png
 INPUT ./figures/engranaje-agujeros.png
-INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/lm/ec-lmr10.tfm
-INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/lm/ec-lmbx10.tfm
 INPUT ./figures/engranaje-agujeros-slice.png
 INPUT ./figures/engranaje-agujeros-slice.png
 INPUT ./figures/engranaje-agujeros-slice.png
