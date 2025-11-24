@@ -20,5 +20,11 @@
 \contentsline {subsection}{\numberline {3.1.2}Soportar el voladizo en ambos extremos}{6}{subsection.3.1.2}%
 \contentsline {section}{\numberline {3.2}Piezas o partes de piezas estructurales}{7}{section.3.2}%
 \contentsline {subsection}{\numberline {3.2.1}Cargas en un plano}{7}{subsection.3.2.1}%
-\contentsline {chapter}{Lista de cosas pendientes}{9}{chapter*.9}%
+\contentsline {section}{\numberline {3.3}Ejes y montajes con tolerancias estrechas}{7}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Ejes no impresos}{8}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Montajes con tolerancias estrechas}{8}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}Agujeros}{9}{subsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.3.4}Juntas en Cola de Milano}{9}{subsection.3.3.4}%
+\contentsline {section}{\numberline {3.4}Piezas planas o placas}{9}{section.3.4}%
+\contentsline {chapter}{Lista de cosas pendientes}{10}{chapter*.9}%
 \babel@toc {spanish}{}\relax 

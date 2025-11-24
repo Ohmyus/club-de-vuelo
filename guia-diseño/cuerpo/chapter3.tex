@@ -52,9 +52,35 @@ El el caso de que sea necesario aumentar la resistencia en el plano de la pieza,
     \begin{subfigure}[b]{0.49\textwidth}
         \centering
         \includegraphics[width=\linewidth, angle=90]{figures/engranaje-agujeros-slice.png}
-        \caption{Vista del GCODE}
-        \label{fig:engranaje-agujeros-slice}
+        \caption{Vista del GCODE}\label{fig:engranaje-agujeros-slice}
     \end{subfigure}
-    \caption{Rediseño del engranaje}
-    \label{fig:engranaje-rediseño}
+    \caption{Rediseño del engranaje}\label{fig:engranaje-rediseño}
 \end{figure}
+
+\section{Ejes y montajes con tolerancias estrechas}
+Continuando con el tema de diseños mecánicos donde va a haber movimiento entre piezas, van a ser fundamentales los ``ejes'' y los montajes con tolerancias.
+\par Detallar los procedimientos para diseño de este tipo de mecanismos es algo mucho más complejo de lo que esta guía pretende abarcar, incluso sin tener en cuenta que esto debe ser para piezas optimizadas para la impresión 3D. En su defecto, se proponen a continuación una serie de guías interesantes para asistir con el diseño funcional de estas piezas.
+
+\subsection{Ejes no impresos}
+En primer lugar, una de las mejores recomendaciones es considerar utilizar ejes no impresos, ya que los materiales metálicos (acero, o aluminio) en el formato de barras redondas (mecanizadas o extruidas), son baratos y accesibles, y su inclusión en los diseños puede mejorar notablemente el funcionamiento y la resistencia del producto final. 
+\par Sin embargo, la utilización de ejes no impresos en mecanismos de grandes solicitaciones implica otro tipo de consideraciones, entre ellas:
+\begin{itemize}
+    \item Correcta orientación de las capas en las piezas que interactúan con el eje
+    \item Posible desgaste por fricción de las piezas que interactúan con el eje
+    \item Montaje del conjunto
+\end{itemize}
+De todas las anteriores, probablemente la consideración más importante es la del montaje, ya que utilizar una pieza más para el eje es añadir complejidad al conjunto. Al diseñar esto, se debe asegurar que el montaje es posible, aunque se complique de forma notable.
+
+\subsection{Montajes con tolerancias estrechas}
+Para este tipo de montajes, el mejor consejo es el siguiente: evitarlos. Cuando se deben montar varias piezas con tolerancias estrechas, debido a las irregularidades de la impresión 3D, se busca que los montajes queden clasificados como montajes con `interferencia'. Esto quiere decir que dos piezas, en sus dimensiones nominales, compartirán un espacio y tiempo (lo que debería ser imposible si no hubiera deformación). Para mejorar este tipo de uniones o montajes, la recomendación es añadir mecanismos flexibles a las piezas que permitan acomodar las posibles variaciones en las dimensiones de los elementos del montaje. \todo{añadir imágenes ilustrativas de montajes `flexibles'}
+\par La idea con la que el diseño se debe realizar es que si en lugar de querer montar las piezas perfectas del software CAD, se montaran algo un poco más ``amorfo'', todo vaya bien porque las piezas son flexibles \textbf{donde importa}.
+
+\subsection{Agujeros}
+Este tipo de geometría, cuando es funcional, no necesita mucha especificación. No obstante, es interesante mencionar los fallos más típicos que se pueden dar, sobre todo para la interacción entre varias piezas. 
+\par Los agujeros se suelen deformar cuando se imprimen en la dirección perpendicular a las capas. Una recomendación sería incluir, cuando la precisión dimensional sea necesaria, modificaciones en el propio diseño del agujero, para que este no sea exactamente circular sino que el ángulo del saliente esté limitado. \todo{Incluir foto del rediseño del agujero.}
+
+\subsection{Juntas en Cola de Milano}
+Este tipo de juntas son geniales para conseguir montajes rápidos e inequívocos (si se utilizan correctamente). \todo{añadir foto de junta en cola de milano, explicar cómo hacerla asimétrica.}
+
+\section{Piezas planas o placas}
+A la hora de imprimir piezas planas o placas, es muy importante considerar si es realmente necesario imprimirlas. 
