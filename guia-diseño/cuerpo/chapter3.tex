@@ -4,10 +4,21 @@
 
 \section{Puentes y geometría no soportada}
 Durante el diseño de numerosas piezas, es muy frecuente encontrarse en una situación donde la geometría requiere voladizos. Estos requisitos pueden ser de origen estructural, garantizando que la orientación de las capas va a ir según los esfuerzos, estéticos, o simplemente porque la única orientación en la que la pieza se puede imprimir es con voladizos. 
-\par La primera recomendación a la hora de diseñar este tipo de características en una pieza \textbf{es evitarlas}. Sin embargo, por los motivos explicados anteriormente, es posible que no quede más remedio. En esos casos, se presentan a continuación algunas formas de conservar las características y asimismo mejorar la geometría para una impresión más eficiente. 
+\par La primera recomendación a la hora de diseñar este tipo de características en una pieza \textbf{es evitarlas}. Sin embargo, por los motivos explicados anteriormente, es posible que no quede más remedio. En esos casos, se presentan a continuación algunas formas de conservar las características y asimismo mejorar la geometría para una impresión más eficiente.
 
-\subsection{Añadir un chaflán al voladizo}
-Una de las mejores formas de facilitar la impresión de estas características es evitando el voladizo (desde el punto de vista de la impresora). Esto se puede conseguir añadiendo material de forma gradual para construir la plataforma sobre la que se irán depositando las capas del voladizo. De esta forma, se evita la necesidad de material de soporte, optimizando la impresión de las piezas. 
+\subsection*{Añadir un chaflán al voladizo}
+Una de las mejores formas de facilitar la impresión de estas características es evitando el voladizo (desde el punto de vista de la impresora). Esto se puede conseguir añadiendo material de forma gradual para construir la plataforma sobre la que se irán depositando las capas del voladizo. De esta forma, se evita la necesidad de material de soporte, optimizando la impresión de las piezas. Esta geometría se puede conseguir muy fácilmente con un redondeo de los bordes o un chaflán.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.6\linewidth]{figures/chaflan.pdf}
+    \caption{Ejemplo de cómo un chaflán permite la impresión de un voladizo}
+    \label{fig:chaflán-idea} 
+\end{figure} 
+
+\subsection*{Soportar el voladizo en ambos extremos}
+Si se busca conseguir un ``techo,'' se pueden mejorar notablemente los resultados al soportar el mismo en los dos extremos, especialmente si se aplican las sugerencias de la sección anterior y se añaden chaflanes (o \textit{fillets}). De esta forma, la distancia que será impresa sin soporte será lo menor posible, siempre que el resto de restricciones de diseño lo permitan. 
+
 \begin{figure}[ht]
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
@@ -23,9 +34,6 @@ Una de las mejores formas de facilitar la impresión de estas características e
         \label{fig:prusa-chaflan}
     \end{subfigure}
 \end{figure}
-
-\subsection{Soportar el voladizo en ambos extremos}
-Si se busca conseguir un ``techo,'' se pueden mejorar notablemente los resultados al soportar el mismo en los dos extremos, especialmente si se aplican las sugerencias de la sección anterior y se añaden chaflanes (o \textit{fillets}). De esta forma, la distancia que será impresa sin soporte será lo menor posible, siempre que el resto de restricciones de diseño lo permitan. 
 
 \section{Piezas o partes de piezas estructurales}
 En muchas ocasiones, sobre todo en diseños mecánicos, habrá piezas de responsabilidad estructural para el correcto funcionamiento del diseño. En estos casos, es fundamental entender el recorrido de las cargas, dónde podrá haber concentraciones de esfuerzos y retocar el diseño funcional de la pieza para poder reforzar estos aspectos. 
@@ -77,10 +85,18 @@ Para este tipo de montajes, el mejor consejo es el siguiente: evitarlos. Cuando 
 
 \subsection{Agujeros}
 Este tipo de geometría, cuando es funcional, no necesita mucha especificación. No obstante, es interesante mencionar los fallos más típicos que se pueden dar, sobre todo para la interacción entre varias piezas. 
-\par Los agujeros se suelen deformar cuando se imprimen en la dirección perpendicular a las capas. Una recomendación sería incluir, cuando la precisión dimensional sea necesaria, modificaciones en el propio diseño del agujero, para que este no sea exactamente circular sino que el ángulo del saliente esté limitado. \todo{Incluir foto del rediseño del agujero.}
+\par Los agujeros se suelen deformar cuando se imprimen en la dirección perpendicular a las capas. Una recomendación sería incluir, cuando la precisión dimensional sea necesaria, modificaciones en el propio diseño del agujero, para que este no sea exactamente circular sino que el ángulo del saliente esté limitado.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width= 0.20\linewidth]{figures/agujero-rediseño.pdf}
+    \caption{Muestra de cómo puede quedar un agujero habiendo aplanado la parte superior.}
+    \label{fig:agujero-rediseño}
+\end{figure}
 
 \subsection{Juntas en Cola de Milano}
-Este tipo de juntas son geniales para conseguir montajes rápidos e inequívocos (si se utilizan correctamente). \todo{añadir foto de junta en cola de milano, explicar cómo hacerla asimétrica.}
+Este tipo de juntas son geniales para conseguir montajes rápidos e inequívocos (si se utilizan correctamente). \todo{añadir foto de junta en cola de milano, explicar cómo hacerla asimétrica.} Su principal función es la unión rígida de componentes, teniendo en cuenta que la versión más básica de esta unión no soportará cargas en una dirección (la que desmontaría la junta).
 
 \section{Piezas planas o placas}
-A la hora de imprimir piezas planas o placas, es muy importante considerar si es realmente necesario imprimirlas. 
+A la hora de imprimir piezas planas o placas, es muy importante considerar si es realmente necesario imprimirlas. En la mayoría de los casos, las piezas con esta geometría se pueden diseñar para tener unos requisitos dimensionales menos estrictos y poder ser fabricada mediante otros métodos (como en madera con taladros). 
+\par No obstante, puede ser interesante imprimir en 3D plantillas para la fabricación de estas piezas (un localizador para los agujeros, por ejemplo). 

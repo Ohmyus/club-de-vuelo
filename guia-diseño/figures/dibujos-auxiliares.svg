@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg1"
+   inkscape:export-filename="agujero-rediseño.pdf"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)"
+   sodipodi:docname="dibujos-auxiliares.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="2.3733534"
+     inkscape:cx="386.37314"
+     inkscape:cy="166.2205"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="0"
+     inkscape:window-y="31"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1">
+    <marker
+       style="overflow:visible"
+       id="ConcaveTriangle"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Concave triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.7)"
+         d="M -2,-4 9,0 -2,4 c 2,-2.33 2,-5.66 0,-8 z"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         id="path7" />
+    </marker>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.094;stroke-dasharray:0.37599979, 0.094;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect3"
+       width="44.880665"
+       height="28.041143"
+       x="44.159885"
+       y="53.205498" />
+    <path
+       id="path1"
+       style="fill:none;stroke:#000000;stroke-width:0.3;stroke-dasharray:none;stroke-opacity:1"
+       d="m -36.823206,8.4751957 a 12.429208,9.5980272 0 0 0 -9.410278,3.3279623 12.414186,12.414186 0 0 0 -2.967261,7.14375 12.414186,12.414186 0 0 0 -0.03669,0.952913 12.414186,12.414186 0 0 0 12.414229,12.41423 12.414186,12.414186 0 0 0 12.41423,-12.41423 12.414186,12.414186 0 0 0 -0.03669,-0.952913 12.414186,12.414186 0 0 0 -2.96726,-7.14375 12.429208,9.5980272 0 0 0 -9.410279,-3.3279623 z" />
+    <circle
+       style="fill:#000000;fill-opacity:0;stroke:#000000;stroke-width:0.2;stroke-dasharray:0.8, 0.2;stroke-dashoffset:0;stroke-opacity:1"
+       id="path3"
+       cx="-36.823204"
+       cy="19.9643"
+       r="12.349751"
+       inkscape:export-filename="agujero-rediseño.pdf"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       style="fill:none;fill-opacity:1;stroke:none;stroke-width:0.0690159;stroke-dasharray:0.587368, 0.146842;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect4"
+       width="115.40899"
+       height="46.036034"
+       x="47.417267"
+       y="11.981981"
+       inkscape:export-filename="chaflan.pdf"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       id="rect5"
+       style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0940001;stroke-dasharray:0.799999, 0.2;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 59.298189 21.749577 L 59.298189 30.768665 L 59.298189 33.789152 L 59.298189 47.713883 L 73.902466 47.713883 L 73.902466 33.789152 L 88.506226 33.789152 L 88.506226 21.749577 L 59.298189 21.749577 z " />
+    <path
+       id="rect5-1"
+       style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0940001;stroke-dasharray:0.799999, 0.2;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 122.38633,21.749577 v 9.019088 3.020487 13.924731 h 14.60376 c 0,-10.768307 2.79051,-13.924731 14.60427,-13.924731 V 21.749577 Z"
+       sodipodi:nodetypes="cccccccc" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#00d010;stroke-width:0.494;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#ConcaveTriangle)"
+       d="M 98.214584,35.562376 H 108.91674"
+       id="path5" />
+  </g>
+</svg>
