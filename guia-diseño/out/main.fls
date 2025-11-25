@@ -389,6 +389,9 @@ INPUT out/cuerpo/chapter2.aux
 INPUT out/cuerpo/chapter3.aux
 INPUT out/cuerpo/chapter3.aux
 INPUT out/cuerpo/chapter3.aux
+INPUT out/cuerpo/chapter4.aux
+INPUT out/cuerpo/chapter4.aux
+INPUT out/cuerpo/chapter4.aux
 OUTPUT out/main.aux
 INPUT /usr/local/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 INPUT /usr/local/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
@@ -531,6 +534,8 @@ INPUT ./figures/fallo-traccion.jpg
 INPUT ./figures/fallo-traccion.jpg
 INPUT ./figures/fallo-traccion.jpg
 INPUT ./figures/fallo-traccion.jpg
+INPUT /usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc
+INPUT /usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc
 INPUT ./cuerpo/chapter3.tex
 INPUT ./cuerpo/chapter3.tex
 OUTPUT out/cuerpo/chapter3.aux
@@ -575,6 +580,12 @@ INPUT ./figures/agujero-rediseño.pdf
 INPUT ./figures/agujero-rediseño.pdf
 INPUT ./figures/agujero-rediseño.pdf
 INPUT ./figures/agujero-rediseño.pdf
+INPUT ./cuerpo/chapter4.tex
+INPUT ./cuerpo/chapter4.tex
+OUTPUT out/cuerpo/chapter4.aux
+INPUT ./cuerpo/chapter4.tex
+INPUT ./cuerpo/chapter4.tex
+INPUT cuerpo/chapter4.tex
 INPUT out/main.tdo
 INPUT out/main.tdo
 INPUT out/main.tdo
@@ -589,6 +600,9 @@ INPUT out/cuerpo/chapter2.aux
 INPUT out/cuerpo/chapter3.aux
 INPUT out/cuerpo/chapter3.aux
 INPUT out/cuerpo/chapter3.aux
+INPUT out/cuerpo/chapter4.aux
+INPUT out/cuerpo/chapter4.aux
+INPUT out/cuerpo/chapter4.aux
 INPUT out/main.out
 INPUT out/main.out
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmbx10.pfb
@@ -596,4 +610,5 @@ INPUT /usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmbx12.pfb
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmr10.pfb
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmr12.pfb
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmri12.pfb
+INPUT /usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy10.pfb
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmtt12.pfb

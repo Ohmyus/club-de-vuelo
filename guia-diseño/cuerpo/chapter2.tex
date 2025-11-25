@@ -22,6 +22,7 @@ Como se puede observar, el Slicer es una de las herramientas más poderosas en l
 Por la propia naturaleza de la impresión 3D, es importante considerar cuál será el funcionamiento de las piezas, y a qué tipo de esfuerzos estarán sometidas. Esto nos permitirá elegir en qué orientación sería preferente imprimirlas. 
 
 \par Debemos tener en cuenta que las piezas son mucho más susceptibles a romper bajo esfuerzos de tracción o pelado perpendiculares a los planos de las capas. Por ello hay que elegir una orientación que coloque los esfuerzos de tracción en el plano de las capas, como se puede observar en la \autoref{fig:fallo-traccion}. Sin embargo, las piezas impresas en 3D  funcionan mejor a compresión perpendicular al plano de las capas que en el plano. 
+
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.5\textwidth]{figures/fallo-traccion.jpg}
@@ -29,3 +30,9 @@ Por la propia naturaleza de la impresión 3D, es importante considerar cuál ser
     \label{fig:fallo-traccion}
 \end{figure}
 \todo{Añadir más imágenes de fallos en piezas impresas}
+
+\section{Enfriamiento de las piezas}
+Otro de los factores que más pueden conducir a error es no considerar, en piezas con cambios muy importantes en la sección, el enfriamiento desigual de la pieza.
+\par El filamento es calentado hasta a unos 200\textdegree{}C típicamente para ser impreso, e inmediatamente después es enfriado hasta su temperatura de transición vítrea ($\approx 180$\textdegree{}C) al salir por la boquilla de la impresora. Una vez ha sido depositado, continúa enfriándose lentamente hasta la temperatura del resto de la pieza, que serán unos 60\textdegree{}C. Los gradientes térmicos que se presentan en estas situaciones son muy significativos, y el plástico experimentará expansiones y sobre todo, contracciones térmicas al ir reduciendo su temperatura. 
+\par El enfriamiento genera esfuerzos internos en la pieza, generarán tracción en la dirección en la que el filamento haya sido depositado, pudiendo llegar a combar las piezas planas si la adherencia a la cama de la impresora no es suficiente.
+\par Este tipo de problemas está agravado por el hecho de que la adherencia del PETG al vidrio (el material con el que más se imprime en el Club de Vuelo y el material de la cama de nuestra impresora) es muy baja. Es por esto que es tan importante utilizar la laca de la impresora generosamente, o conseguir un fleje metálico y texturizado para colocar en la cama. 

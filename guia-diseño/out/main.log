@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.10.15)  25 NOV 2025 17:57
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.10.15)  25 NOV 2025 18:22
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1110,9 +1110,9 @@ LaTeX Info: Redefining \. on input line 17.
 LaTeX Info: Redefining \% on input line 17.
 Package babel Info: 'spanish' activates 'spanish' shorthands.
 (babel)             Reported on input line 17.
- (out/cuerpo/chapter1.aux) (out/cuerpo/chapter2.aux) (out/cuerpo/chapter3.aux)
-LaTeX Info: Redefining \. on input line 26.
-LaTeX Info: Redefining \% on input line 26.
+ (out/cuerpo/chapter1.aux) (out/cuerpo/chapter2.aux) (out/cuerpo/chapter3.aux) (out/cuerpo/chapter4.aux)
+LaTeX Info: Redefining \. on input line 27.
+LaTeX Info: Redefining \% on input line 27.
 )
 \openout1 = `main.aux'.
 
@@ -1233,7 +1233,7 @@ Package hyperref Info: Link coloring ON on input line 29.
 \openout5 = `main.out'.
 
  (./preliminares/2_portada.tex
-<figures/logoETSIAE.png, id=107, 182.8431pt x 121.4136pt>
+<figures/logoETSIAE.png, id=135, 182.8431pt x 121.4136pt>
 File: figures/logoETSIAE.png Graphic file (type png)
 <use figures/logoETSIAE.png>
 Package pdftex.def Info: figures/logoETSIAE.png  used on input line 14.
@@ -1272,7 +1272,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
-<figures/placeholder.png, id=109, 182.8431pt x 121.4136pt>
+<figures/placeholder.png, id=137, 182.8431pt x 121.4136pt>
 File: figures/placeholder.png Graphic file (type png)
 <use figures/placeholder.png>
 Package pdftex.def Info: figures/placeholder.png  used on input line 33.
@@ -1294,43 +1294,42 @@ LaTeX Info: Redefining \% on input line 44.
  (out/main.toc
 LaTeX Info: Redefining \. on input line 2.
 LaTeX Info: Redefining \% on input line 2.
-LaTeX Info: Redefining \. on input line 28.
-LaTeX Info: Redefining \% on input line 28.
+
+
+[1
+
+]
+LaTeX Info: Redefining \. on input line 35.
+LaTeX Info: Redefining \% on input line 35.
 )
 \tf@toc=\write6
 \openout6 = `main.toc'.
 
 
 
-[1
-
-] (out/main.lof
+[2] (out/main.lof
 LaTeX Info: Redefining \. on input line 2.
 LaTeX Info: Redefining \% on input line 2.
-LaTeX Info: Redefining \. on input line 12.
-LaTeX Info: Redefining \% on input line 12.
+LaTeX Info: Redefining \. on input line 13.
+LaTeX Info: Redefining \% on input line 13.
 )
 \tf@lof=\write7
 \openout7 = `main.lof'.
 
 
 
-[2
+[3
 
 ] (out/main.lot
 LaTeX Info: Redefining \. on input line 2.
 LaTeX Info: Redefining \% on input line 2.
-LaTeX Info: Redefining \. on input line 6.
-LaTeX Info: Redefining \% on input line 6.
+LaTeX Info: Redefining \. on input line 7.
+LaTeX Info: Redefining \% on input line 7.
 )
 \tf@lot=\write8
 \openout8 = `main.lot'.
 
 
-
-[3
-
-]
 
 [4
 
@@ -1351,7 +1350,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `lmtt' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-<figures/fusion-download.png, id=174, 1445.4pt x 776.14969pt>
+<figures/fusion-download.png, id=209, 1445.4pt x 776.14969pt>
 File: figures/fusion-download.png Graphic file (type png)
 <use figures/fusion-download.png>
 Package pdftex.def Info: figures/fusion-download.png  used on input line 22.
@@ -1363,6 +1362,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 [1
+
 
 
 {/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}])
@@ -1380,14 +1380,14 @@ Parte 2.
 
 
 ]
-<figures/fallo-traccion.jpg, id=194, 2007.5pt x 1505.625pt>
+<figures/fallo-traccion.jpg, id=229, 2007.5pt x 1505.625pt>
 File: figures/fallo-traccion.jpg Graphic file (type jpg)
 <use figures/fallo-traccion.jpg>
-Package pdftex.def Info: figures/fallo-traccion.jpg  used on input line 27.
+Package pdftex.def Info: figures/fallo-traccion.jpg  used on input line 28.
 (pdftex.def)             Requested size: 236.01561pt x 176.99136pt.
-)
 
-[4]
+
+[4{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}])
 
 LaTeX Info: Redefining \. on input line 68.
 LaTeX Info: Redefining \% on input line 68.
@@ -1398,7 +1398,7 @@ Package babel Info: 'spanish' activates 'spanish' shorthands.
 
  (./cuerpo/chapter3.tex
 Parte 3.
-<figures/chaflan.pdf, id=203, 329.23pt x 131.49126pt>
+<figures/chaflan.pdf, id=240, 329.23pt x 131.49126pt>
 File: figures/chaflan.pdf Graphic file (type pdf)
 <use figures/chaflan.pdf>
 Package pdftex.def Info: figures/chaflan.pdf  used on input line 14.
@@ -1411,27 +1411,27 @@ Package pdftex.def Info: figures/chaflan.pdf  used on input line 14.
 
 
  <./figures/chaflan.pdf>]
-<figures/chaflan.png, id=211, 585.68813pt x 453.94594pt>
+<figures/chaflan.png, id=248, 585.68813pt x 453.94594pt>
 File: figures/chaflan.png Graphic file (type png)
 <use figures/chaflan.png>
 Package pdftex.def Info: figures/chaflan.png  used on input line 25.
 (pdftex.def)             Requested size: 231.2979pt x 179.26857pt.
-<figures/chaflan-prusa.png, id=212, 707.64375pt x 511.15968pt>
+<figures/chaflan-prusa.png, id=249, 707.64375pt x 511.15968pt>
 File: figures/chaflan-prusa.png Graphic file (type png)
 <use figures/chaflan-prusa.png>
 Package pdftex.def Info: figures/chaflan-prusa.png  used on input line 32.
 (pdftex.def)             Requested size: 231.2979pt x 167.06868pt.
-<figures/engranaje.png, id=214, 502.12593pt x 463.7325pt>
+<figures/engranaje.png, id=251, 502.12593pt x 463.7325pt>
 File: figures/engranaje.png Graphic file (type png)
 <use figures/engranaje.png>
 Package pdftex.def Info: figures/engranaje.png  used on input line 45.
 (pdftex.def)             Requested size: 236.01561pt x 217.97552pt.
-<figures/engranaje-agujeros.png, id=216, 549.55313pt x 557.08125pt>
+<figures/engranaje-agujeros.png, id=253, 549.55313pt x 557.08125pt>
 File: figures/engranaje-agujeros.png Graphic file (type png)
 <use figures/engranaje-agujeros.png>
 Package pdftex.def Info: figures/engranaje-agujeros.png  used on input line 55.
 (pdftex.def)             Requested size: 231.2979pt x 234.46555pt.
-<figures/engranaje-agujeros-slice.png, id=217, 647.41875pt x 636.87938pt>
+<figures/engranaje-agujeros-slice.png, id=254, 647.41875pt x 636.87938pt>
 File: figures/engranaje-agujeros-slice.png Graphic file (type png)
 <use figures/engranaje-agujeros-slice.png>
 Package pdftex.def Info: figures/engranaje-agujeros-slice.png  used on input line 62.
@@ -1449,7 +1449,7 @@ Underfull \vbox (badness 1297) has occurred while \output is active []
 
 
 [8 <./figures/engranaje.png>]
-<figures/agujero-rediseño.pdf, id=233, 72.27pt x 71.26625pt>
+<figures/agujero-rediseño.pdf, id=270, 72.27pt x 71.26625pt>
 File: figures/agujero-rediseño.pdf Graphic file (type pdf)
 <use figures/agujero-rediseño.pdf>
 Package pdftex.def Info: figures/agujero-rediseño.pdf  used on input line 92.
@@ -1460,7 +1460,19 @@ LaTeX Info: Redefining \. on input line 99.
 LaTeX Info: Redefining \% on input line 99.
 [9 <./figures/engranaje-agujeros.png> <./figures/engranaje-agujeros-slice.png>])
 
-[10 <./figures/agujero-rediseño.pdf>] (out/main.tdo)
+[10 <./figures/agujero-rediseño.pdf>]
+\openout2 = `cuerpo/chapter4.aux'.
+
+ (./cuerpo/chapter4.tex
+Parte 4.
+)
+
+[11
+
+
+
+
+] (out/main.tdo)
 \tf@tdo=\write9
 \openout9 = `main.tdo'.
 
@@ -1468,37 +1480,37 @@ LaTeX Info: Redefining \. on input line 87.
 LaTeX Info: Redefining \% on input line 87.
 
 
-[11
+[12
 
 
 
 ] (out/main.aux
 LaTeX Info: Redefining \. on input line 17.
 LaTeX Info: Redefining \% on input line 17.
- (out/cuerpo/chapter1.aux) (out/cuerpo/chapter2.aux) (out/cuerpo/chapter3.aux)
-LaTeX Info: Redefining \. on input line 26.
-LaTeX Info: Redefining \% on input line 26.
+ (out/cuerpo/chapter1.aux) (out/cuerpo/chapter2.aux) (out/cuerpo/chapter3.aux) (out/cuerpo/chapter4.aux)
+LaTeX Info: Redefining \. on input line 27.
+LaTeX Info: Redefining \% on input line 27.
 )
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-09-02>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: F2C29496C2BA35F316EE69114D6EA0A5;4381.
+(rerunfilecheck)             Checksum: FA01CF85C8059E41ABA161A09C7B8372;5873.
  ) 
 Here is how much of TeX's memory you used:
- 40819 strings out of 467748
- 813974 string characters out of 5426964
- 1294010 words of memory out of 5000000
- 68671 multiletter control sequences out of 15000+600000
- 699788 words of font info for 157 fonts, out of 8000000 for 9000
+ 40865 strings out of 467748
+ 814966 string characters out of 5426964
+ 1297952 words of memory out of 5000000
+ 68698 multiletter control sequences out of 15000+600000
+ 699873 words of font info for 158 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 91i,12n,120p,2607b,720s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmr12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmri12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmtt12.pfb>
-Output written on out/main.pdf (16 pages, 1617155 bytes).
+ 91i,12n,120p,2607b,883s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmr12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmri12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmtt12.pfb>
+Output written on out/main.pdf (17 pages, 1627373 bytes).
 PDF statistics:
- 304 PDF objects out of 1000 (max. 8388607)
- 251 compressed objects within 3 object streams
- 52 named destinations out of 1000 (max. 500000)
- 41740 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 355 PDF objects out of 1000 (max. 8388607)
+ 298 compressed objects within 3 object streams
+ 60 named destinations out of 1000 (max. 500000)
+ 41796 words of extra memory for PDF output out of 42996 (max. 10000000)
 

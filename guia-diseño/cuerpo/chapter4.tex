@@ -1,0 +1,17 @@
+% !TEX root = ../main.tex
+% called by main.tex
+\chapter{Análisis de la defectología}\label{ch:defectology}
+
+En esta parte quiero dedicar un espacio a comentar algunos de los defectos de impresión típicos. Con esto me refiero a cualquier anomalía, desde un mínimo artefacto imprevisto en la pieza final, a fallos en la impresión. 
+
+\section{Infra-extrusión o Sobre-extrusión}
+\todo{Conseguir e incluir foto de sobre extrusión e infra-extrusión}\\
+Este tipo de errores son más complicados de ver. Se pueden detectar en la capa superior de una impresión, donde el relleno se une con los perímetros, y se puede solucionar ajustando el multiplicador de extrusión (\texttt{Extrusion Multiplier}) en PrusaSlicer, en la dirección correcta. Si se ve sobre-extrusión, habría que reducirlo ligeramente, y si se ve infra-extrusión, habrá que aumentarlo ligeramente. Es importante comentar que este parámetro vale 1 por defecto, y que un filamento bien calibrado tiene el multiplicador de extrusión oscilando entre 0.94 y 1.04. Valores mayores o menores son indicativos de que el problema es otro.  
+
+\section{Perímetros externos primero}
+
+\section{Pie de elefante (Elephant's foot)}
+
+\section{La pieza se levanta de la cama}
+
+\section{Mal alineamiento de las capas}

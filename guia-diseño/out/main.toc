@@ -1,8 +1,8 @@
 \babel@toc {english}{}\relax 
 \babel@toc {spanish}{}\relax 
-\contentsline {section}{Índice General}{I}{chapter*.1}%
-\contentsline {section}{Índice de figuras}{II}{chapter*.2}%
-\contentsline {section}{Índice de tablas}{III}{chapter*.3}%
+\contentsline {section}{Índice General}{II}{chapter*.1}%
+\contentsline {section}{Índice de figuras}{III}{chapter*.2}%
+\contentsline {section}{Índice de tablas}{IV}{chapter*.3}%
 \contentsline {chapter}{\numberline {1}Introducción al software CAD}{1}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Autodesk Fusion}{1}{section.1.1}%
 \contentsline {subsection}{\numberline {1.1.1}Instalación de Fusion}{1}{subsection.1.1.1}%
@@ -14,6 +14,7 @@
 \contentsline {subsection}{\numberline {2.1.1}De un diseño a una pieza real}{3}{subsection.2.1.1}%
 \contentsline {section}{\numberline {2.2}Importancia del Slicer}{4}{section.2.2}%
 \contentsline {section}{\numberline {2.3}Anisotropía de las piezas}{4}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Enfriamiento de las piezas}{4}{section.2.4}%
 \contentsline {chapter}{\numberline {3}Recomendaciones de diseño}{6}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Puentes y geometría no soportada}{6}{section.3.1}%
 \contentsline {section}{\numberline {3.2}Piezas o partes de piezas estructurales}{7}{section.3.2}%
@@ -24,5 +25,11 @@
 \contentsline {subsection}{\numberline {3.3.3}Agujeros}{9}{subsection.3.3.3}%
 \contentsline {subsection}{\numberline {3.3.4}Juntas en Cola de Milano}{10}{subsection.3.3.4}%
 \contentsline {section}{\numberline {3.4}Piezas planas o placas}{10}{section.3.4}%
-\contentsline {chapter}{Lista de cosas pendientes}{11}{chapter*.13}%
+\contentsline {chapter}{\numberline {4}Análisis de la defectología}{11}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Infra-extrusión o Sobre-extrusión}{11}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Perímetros externos primero}{11}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Pie de elefante (Elephant's foot)}{11}{section.4.3}%
+\contentsline {section}{\numberline {4.4}La pieza se levanta de la cama}{11}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Mal alineamiento de las capas}{11}{section.4.5}%
+\contentsline {chapter}{Lista de cosas pendientes}{12}{chapter*.13}%
 \babel@toc {spanish}{}\relax 
