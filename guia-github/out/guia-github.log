@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.10.15)  5 DEC 2025 16:01
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.10.15)  3 FEB 2026 15:00
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -675,7 +675,9 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 
 [4]
 
-[5{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}] (out/guia-github.aux
+[5{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}]
+
+[6] (out/guia-github.aux
 LaTeX Info: Redefining \. on input line 12.
 LaTeX Info: Redefining \% on input line 12.
 LaTeX Info: Redefining \. on input line 13.
@@ -689,18 +691,18 @@ Package rerunfilecheck Info: File `guia-github.out' has not changed.
 (rerunfilecheck)             Checksum: CF6ADCAF5DC867867F4DD2E2D5FB2463;256.
  ) 
 Here is how much of TeX's memory you used:
- 19334 strings out of 467748
- 323006 string characters out of 5426964
- 855728 words of memory out of 5000000
+ 19338 strings out of 467748
+ 323042 string characters out of 5426964
+ 856728 words of memory out of 5000000
  47574 multiletter control sequences out of 15000+600000
  680598 words of font info for 127 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  94i,6n,93p,1065b,1222s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmr12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmri12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmtt12.pfb>
-Output written on out/guia-github.pdf (5 pages, 205498 bytes).
+Output written on out/guia-github.pdf (6 pages, 208182 bytes).
 PDF statistics:
- 155 PDF objects out of 1000 (max. 8388607)
- 128 compressed objects within 2 object streams
- 61 named destinations out of 1000 (max. 500000)
+ 162 PDF objects out of 1000 (max. 8388607)
+ 134 compressed objects within 2 object streams
+ 65 named destinations out of 1000 (max. 500000)
  29730 words of extra memory for PDF output out of 29859 (max. 10000000)
 

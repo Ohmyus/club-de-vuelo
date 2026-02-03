@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1764946918.75926 "/home/pablo/Documents/Personal/club-de-vuelo/guia-github/guia-github.tex" "out/guia-github.pdf" "guia-github" 1764946919.98403 0
-  "/home/pablo/Documents/Personal/club-de-vuelo/guia-github/guia-github.tex" 1764946918.57523 15422 d6ff6b8721a81542493781a8bd3a2edc ""
+["pdflatex"] 1770127205.89579 "/home/pablo/Documents/Personal/club-de-vuelo/guia-github/guia-github.tex" "out/guia-github.pdf" "guia-github" 1770127207.14255 0
+  "/home/pablo/Documents/Personal/club-de-vuelo/guia-github/guia-github.tex" 1770127205.69839 16518 e416b8f632323c58d894b21ca8c4b126 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc" 1254269338 2375 baa924870cfb487815765f9094cf3728 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc" 1202520719 2840 216e6e45ad352e2456e1149f28885bee ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -134,9 +134,9 @@
   "/usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1760479319 3628771 1902135922bca16f9853a8d51da61028 ""
   "/usr/local/texlive/2025/texmf.cnf" 1760479240.46187 455 5b996dcaa0eb4ef14a83b026bc0a008c ""
   "figures/git-brach.png" 1764263191.43812 21008 91eec642286b13e5be3130353367a2f6 ""
-  "guia-github.tex" 1764946918.57523 15422 d6ff6b8721a81542493781a8bd3a2edc ""
-  "out/guia-github.aux" 1764946919.86824 1045 d1218b202dff79fb987a0449df817b21 "pdflatex"
-  "out/guia-github.out" 1764946919.87124 256 cf6adcaf5dc867867f4dd2e2d5fb2463 "pdflatex"
+  "guia-github.tex" 1770127205.69839 16518 e416b8f632323c58d894b21ca8c4b126 ""
+  "out/guia-github.aux" 1770127207.0294 1045 2a06e9a0872aad3f5e2bffadc6d4a325 "pdflatex"
+  "out/guia-github.out" 1770127207.0324 256 cf6adcaf5dc867867f4dd2e2d5fb2463 "pdflatex"
   (generated)
   "out/guia-github.aux"
   "out/guia-github.log"

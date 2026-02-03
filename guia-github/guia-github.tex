@@ -121,7 +121,7 @@ A partir de ahora, cada vez que se busque copiar todos los cambios del repositor
 Que se encargará de copiar todos los cambios que se han hecho en el repositorio remoto y efectuarlos en el repositorio local. Esta es la forma de actualizar el repositorio local con el remoto y ponerse al día.
 \par Con esto, toda la configuración básica de GitHub está hecha, y se puede proceder a describir con más detalle su uso.
 
-\section*{Trabajando de forma colaborativa con Git}
+\section*{Flujo de trabajo con Git}
 Para poder aprovechar las ventajas de git, es importante comprender su funcionamiento. Git funciona utilizando el concepto de \textbf{ramas} o \textit{branches}, que permiten controlar el flujo de los cambios en el proyecto. Pero antes de esto, hay que establecer dos conceptos fundamentales: el del repositorio local y el repositorio remoto.
 \par El repositorio local no es más que la carpeta del proyecto que se encuentra en el dispositivo desde el que se está trabajando, y existe uno por cada miembro que colabore en el proyecto. Esto funciona exactamente de la misma manera que cualquier conjunto de archivos y directorios en una máquina local. En principio, se conservan todas las libertades para poder crear, mover y modificar archivos. Veremos más adelante por qué es recomendable tener algún tipo de cuidado al hacer esto, pero en principio no hay ninguna limitación.
 \par Por otro lado, está el repositorio remoto. Este es un lugar único en la nube donde todo el código puesto en común del proyecto vive. Sin embargo, esto no quiere decir que en el repositorio remoto solo pueda existir una versión del proyecto.
@@ -182,7 +182,7 @@ Para tener acceso al repositorio de GitHub desde una máquina cualquiera, es nec
         \item Contents
     \end{itemize}
     Se añadirá el permiso de metadata en read-only, es normal.
-    \item Generaremos el token y en la pantalla a continuación, es muy importante copiarlo y guardarlo en un sitio seguro, ya que esta será la contraseña que siempre se debe usar para iniciar sesión en una máquina remota.
+    \item Generaremos el \textit{token} y en la pantalla a continuación, es muy importante copiarlo y guardarlo en un sitio seguro, ya que esta será la contraseña que siempre se debe usar para iniciar sesión en una máquina remota.
 \end{enumerate}
 Con el \textit{token} ya generado y disponible, podemos iniciar git en el escritorio virtual. La recomendación más cómoda para hacer esto, es abrir una terminal en el escritorio. Para ello, se puede hacer \textbf{click derecho} sobre un espacio vacío en el escritorio $\to$ abrir en terminal. En esta línea de comandos introduciremos los típicos:
 \begin{lstlisting}[style=powershell]
@@ -210,4 +210,22 @@ Con esto, estaremos trabajando en la rama principal del repositorio remoto, y a 
     git push
 \end{lstlisting}
 
+\section*{Colaboradores en GitHub}
+Cuando varias personas van a trabajar de forma colaborativa en un repositiorio, GitHub proporciona dos formas distintas de facilitar este tipo de trabajo. Ahora se explicará lo sencillo que es añadir colaboradores en un repositorio.
+
+\subsection*{Requisitos previos}
+Es necesario que:
+\begin{itemize}
+    \item El repositorio exista (no necesariamente que contenga nada).
+    \item Todos los colaboradores tengan una cuenta de GitHub.
+\end{itemize}
+
+\subsection*{Añadir a colaboradores}
+El propietario del repositorio deberá:
+\begin{itemize}
+    \item Ir a los ajustes del repositorio $\to$ colaboradores $\to$ añadir gente
+    \item Escribir la dirección de correo electrónico asociada con la cuenta de un colaborador o su nombre de usuario.
+    \item Hacer click sobre añadir `nombre-usuario'.
+\end{itemize}
+El colaborador deberá entonces aceptar la solicitud de colaboración. Una vez hecho esto, el propietario podrá ajustar el nivel de permisos de cada uno de los colaboradoes. Para permitir la contribución, deberá seleccionarse \textbf{read/write}.
 \end{document}
