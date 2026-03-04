@@ -1,0 +1,27 @@
+\documentclass[10pt, oneside]{apuntes}
+
+\title{Definición y esquemas para el Simulador}
+\author{Pablo Martín Yuste}
+
+\begin{document}
+\maketitle
+
+\section{Definición del simulador}
+El simulador consiste en el fuselaje de la cabina de un planeador \todo{Modelo del planeador del simu}, montada sobre una junta universal que permite los giros de cabeceo y alabeo, y dotado de dos motores eléctricos que mueven las articulaciones en el corte del fuselaje.
+\par El software empleado es \href{https://www.condorsoaring.com/}{Condor 3}, que permite una extración de los datos del estado de vuelo del planeador mediante UDP.
+\par Este proyecto consiste en poder leer los datos extraídos del Condor, obtener las fuerzas y momentos que se sentirían en cabina, y cambiar la actitud del simulador para reproducirlos de la forma más fiel posible.
+
+\section{Sistemas del simulador}
+El funcionaimento del simulador se explica a continuación:
+\begin{figure}[ht]
+	\centering
+	\begin{tikzpicture}
+		%Nodos del diagrama de bloques
+		\node[block] (condor3) {Condor 3};
+		\node[block, below left=1cm of condor3] (decoder) {Decoder};
+		\node[block, below=1cm of decoder] (physics) {Modelo de\\física};
+		%Flechas del diagrama de bloques
+	\end{tikzpicture}
+\end{figure}
+
+\end{document}
