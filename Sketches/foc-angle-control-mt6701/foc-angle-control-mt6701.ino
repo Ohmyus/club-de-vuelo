@@ -1,21 +1,21 @@
 #include <SimpleFOC.h>
 #include <Wire.h>
 
-// --- CHECK YOUR WIRING ---
-// Make sure your physical wires match these numbers!
-// GP12/13 are on the corner of the Pico. GP14/15 are slightly further down.
+bool system_ready;
 const int SENSOR_SDA = 12; 
 const int SENSOR_SCL = 13;
 
 long int lastSend = 0;
 
 MagneticSensorI2C sensor = MagneticSensorI2C(0x06, 14, 0x03, 8);
-BLDCMotor motor = BLDCMotor(7); 
+BLDCMotor motor = BLDCMotor(7, 19.6); 
 BLDCDriver3PWM driver = BLDCDriver3PWM(18, 19, 20, 16);
 
 float target_angle = 0;
 Commander command = Commander(Serial);
 void doTarget(char* cmd) { command.scalar(&target_angle, cmd); }
+// Commander para actualizar parámetros del motor
+void doMotor(char* cmd) { command.motor(&motor, cmd); }
 
 void setup() {
   Serial.begin(115200);
@@ -46,37 +46,56 @@ void setup() {
   motor.controller = MotionControlType::angle;
 
   // 3. CRITICAL SETTINGS FOR DRONE MOTORS
-  motor.voltage_limit = 0.5;       // Limit max voltage to avoid overheating
-  motor.voltage_sensor_align = 0.4; // CRITICAL: Low voltage for calibration wiggle!
+  motor.voltage_limit = 9;       // Limit max voltage to avoid overheating
+  motor.voltage_sensor_align = 4; // CRITICAL: Low voltage for calibration wiggle!
   
   // Controller PID
-  // We drop P from 4 to 0.2 to stop the shaking
-  motor.PID_velocity.P = 0.3f;  
-  motor.PID_velocity.I = 0.2f;  // Turn off 'I' for now to simplify tuning
-  motor.PID_velocity.D = 0.0f;
-  motor.LPF_velocity.Tf = 0.05f; // Slightly more filtering (0.01 -> 0.05)
+  motor.PID_velocity.P = 0.15f; 
+  motor.PID_velocity.I = 0.6f; 
+  motor.PID_velocity.D = 0.001f;
+  motor.LPF_velocity.Tf = 0.05f;
 
   // 3. Angle Loop (The Outer Loop)
-  motor.P_angle.P = 2.0f;       // A safe starting point
-  motor.velocity_limit = 10; // I'm still missing what unit this is supposed to be
+  motor.P_angle.P = 6.0f;
+  //motor.P_angle.I = 0.5f;
 
+  motor.velocity_limit = 20;     // Limit speed to 20 rad/s
+  
   motor.init();
   
   // 4. Start FOC
-  motor.initFOC();
-
-  command.add('T', doTarget, "target_angle");
-  Serial.println(F("Motor ready. Send 'T 1.0' to turn."));
+if (motor.initFOC()) {
+    Serial.println("MOT: Success! Calibration valid.");
+    system_ready = true;
+    command.add('T', doTarget, "target_angle");
+    command.add('M', doMotor, "Motor Tuning");
+    Serial.println(F("Ready, "));
+    Serial.println(F("Commands: 'T 1.57' to move. 'M' to see settings."));
+  } else {
+    Serial.println("MOT: CRITICAL FAILURE. Pole Pair Check Failed!");
+    Serial.println("Check magnet alignment or power supply.");
+    system_ready = false;
+  }
 }
 
 void loop() {
+  if (!system_ready) {//Initialization not succesful
+    // Print error every second
+    static long lastError = 0;
+    if (millis() - lastError > 1000) {
+       Serial.println("SYSTEM HALTED: Calibration Failed");
+       lastError = millis();
+    }
+    return; //Execution stops here
+  }
+
   motor.loopFOC();
   motor.move(target_angle);
   command.run();
 
-  if (millis() - lastSend > 2000) {
-    Serial.print("motor is holding: ");
-    Serial.println(target_angle);
-    lastSend = millis();
+  if (millis() - lastSend > 100) {
+    Serial.print(target_angle);
+    Serial.print("\t");
+    Serial.println(sensor.getAngle(),6);
   }
 }

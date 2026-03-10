@@ -9,11 +9,12 @@
 \usepackage{blindtext}
 \usepackage{booktabs}    % nicer horizontal rules in tables
 \usepackage[small,hang,bf]{caption}    % caption options
-\usepackage{comment} 
+\usepackage{comment}
 \usepackage{csquotes}
 \usepackage{emptypage}  % no headers in empty pages
 \usepackage{eso-pic}    % Para tener control sobre los márgenes y fondo
 \usepackage{enumitem}
+\usepackage{titlesec}   % Control sobre la apariencia de "Capítulo, Sección, etc"
 \usepackage{fancyhdr}   % personalizar encabezado
 \usepackage{float}      % control más fino sobre dónde se colocan las imágenes/tablas
 \usepackage[T1]{fontenc}
@@ -32,7 +33,7 @@
 \usepackage{setspace}
 \usepackage{subcaption}
 \usepackage{parskip}     % paragraph spacing (suppress indentation)
-\usepackage{ragged2e} 
+\usepackage{ragged2e}
 %\usepackage{pdfpages}
 \usepackage{tabularx}    % tables spanning the full text width
 \usepackage{tikz}                % drawing custom shapes
@@ -43,7 +44,7 @@
 \usepackage[square,numbers]{natbib}
 
 \usepackage[spanish,english,es-tabla]{babel}
-\usepackage{amsmath,amssymb} 
+\usepackage{amsmath,amssymb}
 \usepackage{hyperref}
 
 % ==================================================
@@ -52,6 +53,14 @@
 % Define the geometry of the document
 \newgeometry{top=2.5cm, bottom=2.5cm, right=2.5cm, left=2.5cm}
 
+\titleformat{\chapter}[hang]
+{\normalfont\LARGE\bfseries} % 1. Formato general (fuente, tamaño, negrita)
+{\thechapter.}              % 2. Etiqueta (ej: "1.")
+{20pt}                      % 3. Separación horizontal entre el número y el título
+{\Huge}                     % 4. Formato específico antes de imprimir el título
+
+% Redefinir los espacios en blanco
+\titlespacing*{\chapter}{0pt}{-30pt}{20pt}
 \setlength{\parskip}{7pt}   % Change the default value of paragraph spacing
 \setlength{\parindent}{0pt}    %Change default paragraph indentation
 
@@ -59,10 +68,10 @@
 % hiperlinks
 % ----------------------------
 \hypersetup{
-    colorlinks=true,          % Enable colored links
-    linkcolor=black,          % Color for internal links
-    urlcolor=blue,            % Color para las URL's u texto que mande a URL's
-    citecolor=blue            % Color para las citas (comando \cite{} o \citet{})
+	colorlinks=true,          % Enable colored links
+	linkcolor=black,          % Color for internal links
+	urlcolor=blue,            % Color para las URL's u texto que mande a URL's
+	citecolor=blue            % Color para las citas (comando \cite{} o \citet{})
 }
 
 % ----------------------------
@@ -86,7 +95,7 @@
 % Español - Las traducciones se pueden cambiar a gusto del autor
 % ----------------------------
 % Cambia el título del índice general:
-\addto\captionsspanish{\renewcommand{\contentsname}{Índice General}} 
+\addto\captionsspanish{\renewcommand{\contentsname}{Índice General}}
 % Cambia el título de la Bibliografía:
 \addto\captionsspanish{\renewcommand{\bibname}{Referencias}} % Alternativamente: Bibliografía
 % Cambia los apéndices por anexos:
@@ -111,13 +120,13 @@
 \newlength{\captionlabelwidth}
 
 \newcommand{\source}[1]{
-  \settowidth{\captionlabelwidth}{\small\bfseries\figurename~\thefigure:\hspace{\labelsep}}
-  \par\nopagebreak\vspace{2pt}
-  \noindent
-  \hspace*{\captionlabelwidth}
-  \parbox[t]{\dimexpr\linewidth-\captionlabelwidth\relax}{
-    \small FUENTE: #1
-  }
+	\settowidth{\captionlabelwidth}{\small\bfseries\figurename~\thefigure:\hspace{\labelsep}}
+	\par\nopagebreak\vspace{2pt}
+	\noindent
+	\hspace*{\captionlabelwidth}
+	\parbox[t]{\dimexpr\linewidth-\captionlabelwidth\relax}{
+		\small FUENTE: #1
+	}
 }
 % --------------- TODO Command Configuration ---------------
 \makeatletter % Allow use of @ in command names
@@ -125,35 +134,35 @@
 \newcounter{mytodocounter}
 
 \newcommand{\todo}[1]{%
-    \stepcounter{mytodocounter}%
-    \ifnum\value{mytodocounter}=1 % Only do this for the first todo item
-        \@bsphack % Prevents unwanted spaces
-        \protected@write\@auxout{}{%
-            \string\gdef\string\todosfound{true}% Define \todosfound globally for next run
-        }\@esphack % Prevents unwanted spaces
-    \fi
-    \textcolor{red}{\textbf{ToDo~\themytodocounter:} #1}%
-    \addcontentsline{tdo}{todoitem}{\protect\numberline{\themytodocounter}#1}%
+	\stepcounter{mytodocounter}%
+	\ifnum\value{mytodocounter}=1 % Only do this for the first todo item
+		\@bsphack % Prevents unwanted spaces
+		\protected@write\@auxout{}{%
+			\string\gdef\string\todosfound{true}% Define \todosfound globally for next run
+		}\@esphack % Prevents unwanted spaces
+	\fi
+	\textcolor{red}{\textbf{ToDo~\themytodocounter:} #1}%
+	\addcontentsline{tdo}{todoitem}{\protect\numberline{\themytodocounter}#1}%
 }
 
 \newcommand{\listoftodos}{%
-    \@ifundefined{todosfound}{}{
-        \chapter*{Lista de cosas pendientes}% 
-        \addcontentsline{toc}{chapter}{Lista de cosas pendientes}
-        \@starttoc{tdo}%
-    }%
+	\@ifundefined{todosfound}{}{
+		\chapter*{Lista de cosas pendientes}% 
+		\addcontentsline{toc}{chapter}{Lista de cosas pendientes}
+		\@starttoc{tdo}%
+	}%
 }
 
 \newcommand*\l@todoitem[2]{%
-    \setlength{\parskip}{7pt}
-    \par
-    \setlength{\@tempdima}{1.5em}% 
-    \noindent
-    {#1}% 
-    \nobreak
-    \hfill
-    (#2)%
-    \par
+	\setlength{\parskip}{7pt}
+	\par
+	\setlength{\@tempdima}{1.5em}% 
+	\noindent
+	{#1}% 
+	\nobreak
+	\hfill
+	(#2)%
+	\par
 }
 
 \makeatother % Revert @ to its special meaning
