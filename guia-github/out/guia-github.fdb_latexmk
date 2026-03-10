@@ -1,6 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1770127205.89579 "/home/pablo/Documents/Personal/club-de-vuelo/guia-github/guia-github.tex" "out/guia-github.pdf" "guia-github" 1770127207.14255 0
-  "/home/pablo/Documents/Personal/club-de-vuelo/guia-github/guia-github.tex" 1770127205.69839 16518 e416b8f632323c58d894b21ca8c4b126 ""
+["pdflatex"] 1773156759.54654 "guia-github.tex" "out/guia-github.pdf" "guia-github" 1773156760.99946 0
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc" 1254269338 2375 baa924870cfb487815765f9094cf3728 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc" 1202520719 2840 216e6e45ad352e2456e1149f28885bee ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -40,7 +39,10 @@
   "/usr/local/texlive/2025/texmf-dist/tex/generic/babel/txtbabel.def" 1747250289 5231 82bb24bf20af7e4d760717f2cadb5170 ""
   "/usr/local/texlive/2025/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty" 1576625341 40635 c40361e206be584d448876bba8a64a3b ""
   "/usr/local/texlive/2025/texmf-dist/tex/generic/bitset/bitset.sty" 1576016050 33961 6b5c75130e435b2bfdb9f480a09a39f9 ""
+  "/usr/local/texlive/2025/texmf-dist/tex/generic/catchfile/catchfile.sty" 1576016007 8622 63834878edeb14dd71d58d8f22bc3e06 ""
+  "/usr/local/texlive/2025/texmf-dist/tex/generic/etexcmds/etexcmds.sty" 1576625273 7734 b98cbb34c81f667027c1e3ebdbfce34b ""
   "/usr/local/texlive/2025/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty" 1576625223 8371 9d55b8bd010bc717624922fb3477d92e ""
+  "/usr/local/texlive/2025/texmf-dist/tex/generic/iftex/ifluatex.sty" 1572645307 492 1994775aa15b0d1289725a0b1bbc2d4c ""
   "/usr/local/texlive/2025/texmf-dist/tex/generic/iftex/iftex.sty" 1734129479 7984 7dbb9280f03c0a315425f1b4f35d43ee ""
   "/usr/local/texlive/2025/texmf-dist/tex/generic/iftex/ifvtex.sty" 1572645307 1057 525c2192b5febbd8c1f662c9468335bb ""
   "/usr/local/texlive/2025/texmf-dist/tex/generic/infwarerr/infwarerr.sty" 1575499628 8356 7bbb2c2373aa810be568c29e333da8ed ""
@@ -93,6 +95,7 @@
   "/usr/local/texlive/2025/texmf-dist/tex/latex/hyperref/nameref.sty" 1750533789 11027 0fe7ce2c6b5291fd809c2de7bbdca37e ""
   "/usr/local/texlive/2025/texmf-dist/tex/latex/hyperref/pd1enc.def" 1752350709 14249 e14b403fb70abdf1f6742598a63b0e2a ""
   "/usr/local/texlive/2025/texmf-dist/tex/latex/hyperref/puenc.def" 1752350709 117118 e2f5f7983a43f89e2ffcd709fc59d37c ""
+  "/usr/local/texlive/2025/texmf-dist/tex/latex/ifplatform/ifplatform.sty" 1507930826 3910 e04f6a6d983bdbdb024917b7ccc80262 ""
   "/usr/local/texlive/2025/texmf-dist/tex/latex/koma-script/scrbase.sty" 1757447679 101067 62c0ebfb221ee83c2edd59ff6f1e5eff ""
   "/usr/local/texlive/2025/texmf-dist/tex/latex/koma-script/scrlfile-hook.sty" 1757447679 11185 14750cd198d99e759e6b1c8beccdcfab ""
   "/usr/local/texlive/2025/texmf-dist/tex/latex/koma-script/scrlfile.sty" 1757447679 3328 1e3627ccc04197e70a93339b37793f13 ""
@@ -134,9 +137,9 @@
   "/usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1760479319 3628771 1902135922bca16f9853a8d51da61028 ""
   "/usr/local/texlive/2025/texmf.cnf" 1760479240.46187 455 5b996dcaa0eb4ef14a83b026bc0a008c ""
   "figures/git-brach.png" 1764263191.43812 21008 91eec642286b13e5be3130353367a2f6 ""
-  "guia-github.tex" 1770127205.69839 16518 e416b8f632323c58d894b21ca8c4b126 ""
-  "out/guia-github.aux" 1770127207.0294 1045 2a06e9a0872aad3f5e2bffadc6d4a325 "pdflatex"
-  "out/guia-github.out" 1770127207.0324 256 cf6adcaf5dc867867f4dd2e2d5fb2463 "pdflatex"
+  "guia-github.tex" 1773156756.80244 22895 fb9e2c75f092b1c0ddd1c5c4e0a5536c ""
+  "out/guia-github.aux" 1773156760.87225 3542 ebb8e2c803eb6004ef596c1737ca11a3 "pdflatex"
+  "out/guia-github.out" 1773156760.87525 3609 1749f70f039124dccbca57491db19160 "pdflatex"
   (generated)
   "out/guia-github.aux"
   "out/guia-github.log"

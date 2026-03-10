@@ -95,7 +95,7 @@ Como ya se ha comentado antes, GitHub es un servicio de internet. Para poder acc
 \par Además, se puede colaborar con GitHub en los repositorios públicos, los cuales son accesibles por todo el mundo (pero el propietario siempre tendrá la potestad de decidir qué pasa con el código del repositorio). 
 \par Cuando ya se dispone de un repositorio remoto donde se busca trabajar, bien porque este se haya creado y esté vacío, o bien comenzando a colaborar con un grupo de personas, es necesario seguir unos cuantos pasos para tener la combinación git-GitHub funcionando.
 
-\subsection*{Vinculación del usuario de GitHub a git}
+\subsection{Vinculación del usuario de GitHub a git}
 Los primeros pasos que hay que seguir son indicar a git qué usuario y credenciales deberá utilizar para acceder a los repositorios remotos. Esto lo podremos hacer introduciendo en la terminal estas dos líneas:
 \begin{lstlisting}[style=powershell]
     git config --global user.name "tu-usuario"
@@ -121,7 +121,7 @@ A partir de ahora, cada vez que se busque copiar todos los cambios del repositor
 Que se encargará de copiar todos los cambios que se han hecho en el repositorio remoto y efectuarlos en el repositorio local. Esta es la forma de actualizar el repositorio local con el remoto y ponerse al día.
 \par Con esto, toda la configuración básica de GitHub está hecha, y se puede proceder a describir con más detalle su uso.
 
-\section*{Flujo de trabajo con Git}
+\section{Flujo de trabajo con Git}
 Para poder aprovechar las ventajas de git, es importante comprender su funcionamiento. Git funciona utilizando el concepto de \textbf{ramas} o \textit{branches}, que permiten controlar el flujo de los cambios en el proyecto. Pero antes de esto, hay que establecer dos conceptos fundamentales: el del repositorio local y el repositorio remoto.
 \par El repositorio local no es más que la carpeta del proyecto que se encuentra en el dispositivo desde el que se está trabajando, y existe uno por cada miembro que colabore en el proyecto. Esto funciona exactamente de la misma manera que cualquier conjunto de archivos y directorios en una máquina local. En principio, se conservan todas las libertades para poder crear, mover y modificar archivos. Veremos más adelante por qué es recomendable tener algún tipo de cuidado al hacer esto, pero en principio no hay ninguna limitación.
 \par Por otro lado, está el repositorio remoto. Este es un lugar único en la nube donde todo el código puesto en común del proyecto vive. Sin embargo, esto no quiere decir que en el repositorio remoto solo pueda existir una versión del proyecto.
@@ -135,7 +135,112 @@ Con esto hemos hecho dos cosas. En primer lugar, \texttt{git add{ }.} habrá tom
     git push
 \end{lstlisting}
 
-Que se encargará de subir todos los \textbf{commits} nuevos al repositorio remoto. Sin embargo, esto nos deja con una posible fuente de conflictos en el caso de un desarrollo colaborativo. Si dos personas hace modificaciones en el mismo archivo en sus respectivos repositorios locales y quisieran subir ambos sus cambios al repositorio remoto, habrá conflictos. Estos surgirán en git indicando que hay varios cambios nuevos en el mismo archivo, y que no sabe cuáles son los que debe conservar (y entonces comenzará el tedioso trabajo de ir línea a línea eligiendo cuál conservar). Para evitar esto, se introduce el concepto de las ramas o \textit{branches}, como se puede ver representado en la \autoref{fig:git-branches}
+Que se encargará de subir todos los \textbf{commits} nuevos al repositorio remoto. 
+
+\subsection{Staging Area}
+\subsubsection{Funcionamiento General}
+El Staging Area es un ``buffer'' dentro del cual se guardan los archivos indicados con el comando
+\begin{lstlisting}[style=powershell]
+    git add "archivo"
+\end{lstlisting}
+Pasar a este comando el punto, \texttt{git add .} sirve para indicar que se deben añadir al Staging Area todos los archivos que hayan sido modificados del directorio. Cuando se ejecuta
+\begin{lstlisting}[style=powershell]
+    git commit -m "mensaje"
+\end{lstlisting}
+Se genera una nueva versión en el repositorio local, con todo lo que había entonces en el Staging Area.
+
+\subsubsection{Quitar archivos del Staging Area}
+Para eliminar archivos del Staging Area antes de hacer un commit, se puede utilizar el comando:
+\begin{lstlisting}[style=powershell]
+    git rm --cached nombre/archivo
+\end{lstlisting}
+GitHub tiene un límite de 100 MB para el tamaño de los archivos. Si hay un archivo que exceda este tamaño en el repositorio local, el comando \texttt{git push} fallará, con el mensaje correspondiente de que el archivo mencionado excede el límite de tamaño. Por esto, puede ser interesante quitar estos archivos del Staging Area.
+
+\subsection{Log de cambios}
+Para acceder a todos los cambios que se han hecho en el directorio, se puede acceder al log que git hace con cada commit:
+\begin{lstlisting}[style=powershell]
+    git log --oneline
+\end{lstlisting}
+En este caso, se ha añadido la etiqueta \texttt{--oneline} para que aparezca por línea la ID del commit y su mensaje. Con esto, se pueden copiar las ID's de cada commit para, por ejemplo poder resetear el Staging Area o los cambios a un estado anterior.
+\par Sin embargo, si ha llegado a saltar el mensaje de error al hacer el \texttt{git push}, esto quiere decir que ya existe un commit con los cambios que incluyen el archivo grande. Los commits guardan cambios respecto al commit anterior, y ya se ha guardado localmente un commit con este archivo, lo único que se puede hacer es resetear el historial de commits hasta justo antes de este commit erróneo.
+
+\subsection{Eliminar commits erróneos}
+En el caso de haber hecho un commit erróneo (y tener añadido un archivo demasiado grande, por ejemplo), hay varias formas de volver atrás. Para ello, se utiliza el comando:
+\begin{lstlisting}[style=powershell]
+    git reset
+\end{lstlisting}
+Este comando puede funcionar directamente. Sin embargo, es preferible especificar también la forma en la que se quiere resetear, y a qué estado se quiere resetear. El comando completo quedaría:
+\begin{lstlisting}[style=powershell]
+    git reset --type commit-ID
+\end{lstlisting}
+Donde \texttt{type} puede ser \texttt{hard, mixed} o \texttt{soft}, y \texttt{commit-ID} es la ID del commit al que se quiere resetear. A continuación se explica la diferencia (a nivel práctico) entre los distintos modos de \texttt{git reset}.
+
+\subsubsection{--hard}
+Esta opción restaurará el estado del repositorio local a exactamente el estado del commit indicado. Se perderán los cambios en los archivos, los archivos nuevos creados desde entonces, y los cambios añadidos al Staging Area.
+
+\subsubsection{--soft}
+Esta opción mantendrá los archivos sin cambiar, pero tomará como referencia para los cambios el commit al que se retrocede, por lo que en el Staging Area estarán todos los cambios que se han hecho desde entonces.
+
+\subsubsection{--mixed}
+Esta opción es igual que la \texttt{--soft}, es decir, que no se modificarán los archivos dentro del repositorio local, pero sí que se sobreescribe el Staging Area con la del commit al que se retrocede, por lo que si se quieren guardar los cambios que se han hecho hasta ahora, habrá que volver a escribir \texttt{git add .}
+
+\subsubsection{Ejemplo solución de commit erróneo}
+Supongamos que se está trabajando con Patran-Nastran y se ha generado un archivo \texttt{.f06} muy grande que supera el límite de 100 MB. Una vez alcanzado un hito del trabajo, se ejecutan los comandos:
+\begin{lstlisting}[style=powershell]
+    git add .
+    git commit -m "Trabajo terminado"
+    git push
+\end{lstlisting}
+Y el comando que falla es \texttt{git push}, con el aviso de que hay un archivo que excede el tamaño máximo permitido por GitHub. Si ahora se elimina el archivo \texttt{.f06}, y se vuelve a hacer \texttt{git add.}, \texttt{git commit} y \texttt{git push}, seguirá habiendo errores, porque el commit anterior en este caso sigue conteniendo el archivo grande.
+\par La forma de solucionar esto, evitando perder todo el progreso conseguido, es utilizando \texttt{git reset --mixed}. El flujo de trabajo sería:
+\begin{lstlisting}[style=powershell]
+    git reset --mixed origin/main
+    git add .
+    git rm --cached *.f06
+    git commit -m "descripcion de los cambios"
+    git push
+\end{lstlisting}
+Lo que se ha hecho ha sido:
+\begin{enumerate}
+    \item Resetear para volver a un commit donde no existe el archivo .f06 (o existe una versión anterior no tan grande)
+    \item Añadir al Staging Area todo
+    \item Eliminar del Staging Area los archivos \texttt{.f06}
+    \item Commit estándar
+    \item Push estándar
+\end{enumerate}
+
+\subsection{Archivo .gitignore}
+Cuando se está trabajando con programas que generan archivos muy grandes (como Patran-Nastran o Ansys), o se generan carpetas de \textit{builds} que son específicas para cada máquina y no deben compartirse en el repositorio, la forma más cómoda de evitar que estos archivos entren al Staging Area y a los commits es diciéndo a git que ignore los cambios en estos archivos o carpetas, y que no los añada nunca al repositorio remoto.
+\par La forma de hacer esto es con un archivo \texttt{.gitignore}, que se encarga de especificar qué archivos ignorar. Además, soporta sintaxis para seleccionar archivos por extensión o carpetas/directorios por nombre.
+\par Para incluir esto, simplemente hay que crear un documento de texto en el editor de preferencia con nombre y extensión simplemente \texttt{.gitignore} (el punto es importante). A continuación se presenta un ejemplo de lo que podría ser interesante añadir para estudiantes de grado y máster en la ETSIAE:
+
+\begin{lstlisting}[style=powershell]
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+.venv/
+
+# Lsp Cache
+.cache/
+
+# Builds
+build/
+dist/
+*.exe
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Nastran
+*.f06
+\end{lstlisting}
+
+\subsection{Branches}
+Esto nos deja con una posible fuente de conflictos en el caso de un desarrollo colaborativo. Si dos personas hacen modificaciones en el mismo archivo en sus respectivos repositorios locales y quisieran subir ambos sus cambios al repositorio remoto, habrá conflictos. Estos surgirán en git indicando que hay varios cambios nuevos en el mismo archivo, y que no sabe cuáles son los que debe conservar (y entonces comenzará el tedioso trabajo de ir línea a línea eligiendo cuál conservar). Para evitar esto, se introduce el concepto de las ramas o \textit{branches}, como se puede ver representado en la \autoref{fig:git-branches}
 
 \begin{figure}[ht]
     \centering
@@ -145,7 +250,7 @@ Que se encargará de subir todos los \textbf{commits} nuevos al repositorio remo
 
 A la hora de añadir cualquier tipo de funcionalidad nueva al proyecto, la mejor práctica es hacer una nueva rama desde el estado anterior (normalmente la rama principal, o \textbf{main branch}) y hacer allí todos los commits que sea necesario. Cuando la funcionalidad haya sido deibdamente implementada (recomendable que se haya hecho añadiendo archivos nuevos y evitando modificar los originales en la mayor medida de lo posible), se podrá combinar esta rama con la principal.
 
-\subsection*{Cómo abrir una rama nueva}
+\subsubsection{Cómo abrir una rama nueva}
 Cuando se estima que se van a desarrollar una serie de cambios nuevos, puede resultar interesante abrir una rama nueva para poder separar el desarrollo de estas características del de las demás. En estos casos, lo más interesante es declarar una nueva rama en el repositorio remoto y comenzar a subir los cambios allí. Los comandos para hacer esto son:
 \begin{lstlisting}[style=powershell]
     git checkout -b nombre-rama
@@ -160,12 +265,12 @@ Hasta que se llegue a un hito importante, y entonces la forma de sincronizar los
 \begin{lstlisting}[style=powershell]
     git push -u origin nombre-rama
 \end{lstlisting}
-Aquí, la \texttt{-u} quiere decir: ``a partir de ahora, todas los \textit{commits} que haga deben ir a la rama \texttt{nombre-rama}''. Con esto, habremos subido los cambios al repositorio remoto en la rama nueva, y los cambios que subamos serán en esta misma rama nueva. No obstante, para proyectos no muy grandes, es interesante trabajar en la rama principal. Los mismos git o GitHub se encargarán de conservar el historial de versiones y facilitarán volver atrás en caso de ``liarla'' y que surja la necesidad de revertir los cambios.
+Aquí, la etiqueta \texttt{-u} quiere decir: ``a partir de ahora, todas los \textit{commits} que haga deben ir a la rama \texttt{nombre-rama}''. Con esto, habremos subido los cambios al repositorio remoto en la rama nueva, y los cambios que subamos serán en esta misma rama nueva. No obstante, para proyectos no muy grandes, es interesante trabajar en la rama principal. Los mismos git o GitHub se encargarán de conservar el historial de versiones y facilitarán volver atrás en caso de ``liarla'' y que surja la necesidad de revertir los cambios.
 
-\section*{Configuración de git desde el escritorio remoto UPM}
+\section{Configuración de git desde el escritorio remoto UPM}
 Uno de los usos más útiles de esta herramienta, es para poder trabajar cómodamente entre varias estaciones de trabajo. Por ejemplo, FLUENT es un programa que está disponible en el escritorio UPM, y su instalación es compleja. Por otro lado, trabajar en fluent genera una grandísima cantidad de archivos y su transferencia mediante una memoria portátil (USB) o mandando el directorio de trabajo no es rápido. Para solucionar esto, la recomendación es activar git en el escritorio remoto, que viene ya instalado. 
 
-\subsection*{Configuración previa en GitHub}
+\subsection{Configuración previa en GitHub}
 Para tener acceso al repositorio de GitHub desde una máquina cualquiera, es necesario iniciar sesión. Es muy recomendable, en lugar de iniciar sesión de la forma estándar, utilizar un \textit{token} personalizado para reducir los permisos concedidos a los estrictamente necesarios. De esta forma, se reduce el riesgo de compartir por error el \textit{token} de acceso. 
 \par Para conseguir el \textit{token}, el procedimiento a seguir desde la página web de GitHub es el siguiente:
 \begin{enumerate}
@@ -210,17 +315,17 @@ Con esto, estaremos trabajando en la rama principal del repositorio remoto, y a 
     git push
 \end{lstlisting}
 
-\section*{Colaboradores en GitHub}
+\section{Colaboradores en GitHub}
 Cuando varias personas van a trabajar de forma colaborativa en un repositiorio, GitHub proporciona dos formas distintas de facilitar este tipo de trabajo. Ahora se explicará lo sencillo que es añadir colaboradores en un repositorio.
 
-\subsection*{Requisitos previos}
+\subsection{Requisitos previos}
 Es necesario que:
 \begin{itemize}
     \item El repositorio exista (no necesariamente que contenga nada).
     \item Todos los colaboradores tengan una cuenta de GitHub.
 \end{itemize}
 
-\subsection*{Añadir a colaboradores}
+\subsection{Añadir a colaboradores}
 El propietario del repositorio deberá:
 \begin{itemize}
     \item Ir a los ajustes del repositorio $\to$ colaboradores $\to$ añadir gente

@@ -1,8 +1,8 @@
-PWD /home/pablo/Documents/Personal/club-de-vuelo/guia-github
+PWD /home/pablo/Documents/Personal/projects/club-de-vuelo/guia-github
 INPUT /usr/local/texlive/2025/texmf.cnf
 INPUT /usr/local/texlive/2025/texmf-dist/web2c/texmf.cnf
 INPUT /usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT /home/pablo/Documents/Personal/club-de-vuelo/guia-github/guia-github.tex
+INPUT guia-github.tex
 OUTPUT out/guia-github.log
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/base/article.cls
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/base/article.cls
@@ -90,6 +90,17 @@ INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/trimspaces/trimspaces.sty
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/trimspaces/trimspaces.sty
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/tools/shellesc.sty
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/tools/shellesc.sty
+INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/ifplatform/ifplatform.sty
+INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/ifplatform/ifplatform.sty
+INPUT /usr/local/texlive/2025/texmf-dist/tex/generic/catchfile/catchfile.sty
+INPUT /usr/local/texlive/2025/texmf-dist/tex/generic/catchfile/catchfile.sty
+INPUT /usr/local/texlive/2025/texmf-dist/tex/generic/etexcmds/etexcmds.sty
+INPUT /usr/local/texlive/2025/texmf-dist/tex/generic/etexcmds/etexcmds.sty
+INPUT /usr/local/texlive/2025/texmf-dist/tex/generic/iftex/ifluatex.sty
+INPUT /usr/local/texlive/2025/texmf-dist/tex/generic/iftex/ifluatex.sty
+INPUT ./guia-github.w18
+INPUT ./guia-github.w18
+INPUT guia-github.w18
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/xcolor/xcolor.sty
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/xcolor/xcolor.sty
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/graphics-cfg/color.cfg
@@ -209,6 +220,7 @@ INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.st
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+INPUT 'inkscape' -V 
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/graphics/color.sty
 INPUT out/guia-github.out
 INPUT out/guia-github.out
