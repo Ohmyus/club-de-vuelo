@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.10.15)  19 MAR 2026 21:59
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.10.15)  20 MAR 2026 00:15
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -1104,7 +1104,7 @@ Package hyperref Info: Link coloring ON on input line 7.
 \@outlinefile=\write4
 \openout4 = `specs_simu.out'.
 
-<upm_logo.pdf, id=79, 367.04027pt x 184.94295pt>
+<upm_logo.pdf, id=91, 367.04027pt x 184.94295pt>
 File: upm_logo.pdf Graphic file (type pdf)
 <use upm_logo.pdf>
 Package pdftex.def Info: upm_logo.pdf  used on input line 8.
@@ -1145,13 +1145,13 @@ LaTeX Font Info:    Font shape `T1/FiraSans-LF/regular/n' will be
  (/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/mt-cmr.cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 34.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 35.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 34.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 35.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/mt-msb.cfg
@@ -1162,29 +1162,29 @@ File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 
 {/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/fira/fir_tz2nek.enc}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/fira/fir_uhzub2.enc} </home/pablo/texmf/tex/latex/trabajo/upm_logo.pdf>]
 LaTeX Font Info:    Font shape `T1/FiraSans-LF/m/it' in size <10> not available
-(Font)              Font shape `T1/FiraSans-LF/regular/it' tried instead on input line 53.
+(Font)              Font shape `T1/FiraSans-LF/regular/it' tried instead on input line 54.
 LaTeX Font Info:    Font shape `T1/FiraSans-LF/regular/it' will be
-(Font)              scaled to size 10.0pt on input line 53.
+(Font)              scaled to size 10.0pt on input line 54.
 LaTeX Font Info:    Font shape `T1/FiraSans-LF/sb/n' in size <12> not available
-(Font)              Font shape `T1/FiraSans-LF/semibold/n' tried instead on input line 55.
+(Font)              Font shape `T1/FiraSans-LF/semibold/n' tried instead on input line 56.
 LaTeX Font Info:    Font shape `T1/FiraSans-LF/semibold/n' will be
-(Font)              scaled to size 12.0pt on input line 55.
+(Font)              scaled to size 12.0pt on input line 56.
 
 
-<etsiae-upm.pdf, id=95, 613.57729pt x 121.9225pt>
+<etsiae-upm.pdf, id=107, 613.57729pt x 121.9225pt>
 File: etsiae-upm.pdf Graphic file (type pdf)
 <use etsiae-upm.pdf>
-Package pdftex.def Info: etsiae-upm.pdf  used on input line 71.
+Package pdftex.def Info: etsiae-upm.pdf  used on input line 74.
 (pdftex.def)             Requested size: 214.78336pt x 42.67912pt.
 LaTeX Font Info:    Font shape `T1/FiraSans-LF/m/sc' in size <10> not available
-(Font)              Font shape `T1/FiraSans-LF/regular/sc' tried instead on input line 71.
+(Font)              Font shape `T1/FiraSans-LF/regular/sc' tried instead on input line 74.
 LaTeX Font Info:    Font shape `T1/FiraSans-LF/regular/sc' will be
-(Font)              scaled to size 10.0pt on input line 71.
+(Font)              scaled to size 10.0pt on input line 74.
 [2 </home/pablo/texmf/tex/latex/trabajo/etsiae-upm.pdf>]
 
 File: etsiae-upm.pdf Graphic file (type pdf)
 <use etsiae-upm.pdf>
-Package pdftex.def Info: etsiae-upm.pdf  used on input line 73.
+Package pdftex.def Info: etsiae-upm.pdf  used on input line 88.
 (pdftex.def)             Requested size: 214.78336pt x 42.67912pt.
 [3] (out/specs_simu.tdo)
 \tf@tdo=\write5
@@ -1194,7 +1194,7 @@ Package pdftex.def Info: etsiae-upm.pdf  used on input line 73.
 
 File: etsiae-upm.pdf Graphic file (type pdf)
 <use etsiae-upm.pdf>
-Package pdftex.def Info: etsiae-upm.pdf  used on input line 75.
+Package pdftex.def Info: etsiae-upm.pdf  used on input line 90.
 (pdftex.def)             Requested size: 214.78336pt x 42.67912pt.
 [4] (out/specs_simu.aux
 LaTeX Info: Redefining \. on input line 11.
@@ -1205,21 +1205,21 @@ LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-09-02>
  ***********
 Package rerunfilecheck Info: File `specs_simu.out' has not changed.
-(rerunfilecheck)             Checksum: 37F40C791FA2B97C69C83C711DF0D82E;1480.
+(rerunfilecheck)             Checksum: 5F9A6BF9F5D5E45D2AD77AADC5B0EBFC;1845.
  ) 
 Here is how much of TeX's memory you used:
- 65283 strings out of 467748
- 1642354 string characters out of 5426964
- 2492168 words of memory out of 5000000
- 92996 multiletter control sequences out of 15000+600000
- 820585 words of font info for 152 fonts, out of 8000000 for 9000
+ 65321 strings out of 467748
+ 1643218 string characters out of 5426964
+ 2493166 words of memory out of 5000000
+ 93007 multiletter control sequences out of 15000+600000
+ 823281 words of font info for 168 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  101i,18n,131p,1007b,807s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/fira/FiraSans-Italic.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/fira/FiraSans-Regular.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/fira/FiraSans-SemiBold.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb>
-Output written on out/specs_simu.pdf (4 pages, 267316 bytes).
+Output written on out/specs_simu.pdf (4 pages, 270514 bytes).
 PDF statistics:
- 154 PDF objects out of 1000 (max. 8388607)
- 109 compressed objects within 2 object streams
- 15 named destinations out of 1000 (max. 500000)
- 51439 words of extra memory for PDF output out of 51595 (max. 10000000)
+ 168 PDF objects out of 1000 (max. 8388607)
+ 123 compressed objects within 2 object streams
+ 18 named destinations out of 1000 (max. 500000)
+ 51463 words of extra memory for PDF output out of 51595 (max. 10000000)
 

@@ -13,7 +13,7 @@ El simulador consiste en el fuselaje de la cabina de un planeador \todo{Foto de 
 \par Este proyecto implementa un software para la extracción, interpretación y procesado de la telemetría de Condor 3, y lo combina con un hardware para controlar dinámicamente la actitud del planeador, con el objetivo de ofrecer una experiencia de vuelo realista.
 
 \section{Sistemas del simulador}
-El funcionaimento del simulador se explica a continuación:
+El funcionamiento del simulador se explica a continuación:
 \begin{figure}[ht]
 	\centering
 	\begin{tikzpicture}
@@ -21,7 +21,7 @@ El funcionaimento del simulador se explica a continuación:
 		\node[block] (condor3) {Condor 3};
 		\node[block, below=1cm of condor3] (fisica) {Modelo de\\Física};
 		\node[block, below=1cm of fisica] (kinematics) {Cinemática\\Inversa};
-		\node[block, right=4cm of kinematics] (control) {Controlador\\USB};
+		\node[block, right=4cm of kinematics] (control) {Gestor\\USB};
 		\node[block, above=1.8cm of control] (mcu) {MCU\\STM32F411};
 		\node[block, left=1.3cm of mcu] (esc1) {HB 1};
 		\node[block, right=1.3cm of mcu] (esc2) {HB 2};
@@ -29,6 +29,7 @@ El funcionaimento del simulador se explica a continuación:
 		\node[round, draw=black, right=0.5cm of esc2] (m2) {M2};
 		\node[block, above=0.5cm of mcu] (esc) {ESS};
 		\node[above=0.5cm of esc] (vs) {24 V};
+		\node[block, right=2cm of control] (logger) {Data logger\\Control manual};
 		%Flechas del diagrama de bloques
 		\path[line] (condor3.south) -- (fisica.north) node[midway, left] {\footnotesize Telemetría};
 		\path[line] (fisica.south) -- (kinematics.north) node[midway, left] {$\theta, \phi$};
@@ -36,7 +37,7 @@ El funcionaimento del simulador se explica a continuación:
 		\node[commbus, fill=cyan!20, shape border rotate=90, minimum height=1.8cm] at ($(control.north)!0.5!(mcu.south)$) {USB};
 		\path[reline] (mcu.west) -- (esc1.east) node[midway, above, font=\footnotesize] {PWM};
 		\path[reline] (mcu.east) -- (esc2.west) node[midway, above, font=\footnotesize] {PWM};
-
+		\path[reline] (control.east) -- (logger.west);
 		\path[line, draw=red] (vs.south) -- (esc.north);
 		\path[line, draw=red] (esc.west) -| (esc1.north);
 		\path[line, draw=red] (esc.east) -| (esc2.north);
@@ -48,19 +49,32 @@ El funcionaimento del simulador se explica a continuación:
 \end{figure}
 
 Como se puede observar, los datos brutos extraídos del Condor 3 pasan por dos tipos de procesado. En primer lugar la telemetría se convierte en unos ángulos de cabeceo y alabeo para el simulador real, utlizando un modelo de física que busca reproducir de la forma más fiel posible las fuerzas que se sentirían en cabina en las condiciones del vuelo simulado.
-\par A continuación, un cálculo de cinemática inversa resuelve a qué posiciones se deben mover cada uno de los motores para alcanzar esa posición. Una vez determinadas estas posiciones, estos datos son pasados al controlador USB mediante un ciclo de control de altra frecuencia, para mover los motores.
+\par A continuación, un cálculo de cinemática inversa resuelve a qué posiciones se deben mover cada uno de los motores para alcanzar esa posición. Una vez determinadas estas posiciones, estos datos son pasados al gestor USB mediante un ciclo de control de alta frecuencia, para mover los motores.
 \par El microcontrolador es responsable de implementar un algoritmo de control \todo{referencia cuando se explique este algoritmo} para mover los motores. Cada uno de los motores está instrumentado con un sensor de ángulo magnético para conocer exactamente su posición, permitiendo un control en bucle cerrado.
 \par Como medida de protección activa, está presente un botón de desconexión de emergencia (ESS, \textit{Emergency Stop Switch}), que desactivará los puentes H e interrumpirá físicamente el suministro de corriente a los motores, permitiendo parar instantáneamente el movimiento del simulador. Además, el microcontrolador está conectado a este botón, indicando al software de escritorio esta detención.
 
 \subsection{Modelo de física}
 \todo{Escribir detalladamente el funcionamiento del modelo de física}
-\par Se debe explicar qué datos se extraen de la telemetría, por qué son útiles, en qué ejes están expresados, cómo se manipulan, qué tipos de algoritmos de control se han empleado, si hay washout o no, etc.
+\par Se debe explicar qué datos se extraen de la telemetría, por qué son útiles, en qué ejes están expresados, cómo se manipulan, qué tipos de algoritmos de control se han empleado, si hay washout o no, qué limitaciones hay en las interfaces (ángulos máximos, velocidades máximas) etc.
+\par Idealmente en el departamento de Mecánica del Vuelo me pueden explicar algo de cómo hacer esto...
 
 \subsection{Cinemática inversa}
 \todo{Explicar la resolución de la cinemática inversa}
+\par Puede ser interesante explorar cómo se podrían encontrar los límites del movimiento del simulador, establecer los distintos criterios para encontrarlos, y programar en esta parte del código fail-safes.
 
-\subsection{Controlador USB}
-Esta parte de la aplicación de escritorio desarrollada se encarga de procesar los datos que deben transmitirse por la comunicación USB y recibir la informacicón de estado que el microcontrolador devuelve. Se ha programado de forma independiente para poder gestionar eficientemente altos volúmenes de información.
+\subsection{Gestor USB}
+Esta parte de la aplicación de escritorio desarrollada se encarga de procesar los datos que deben transmitirse por la comunicación USB y recibir la información de estado que el microcontrolador devuelve. Se ha programado de forma independiente para poder gestionar eficientemente altos volúmenes de información.
+
+\subsection{Microcontrolador}
+\todo{Explicar qué código se ejecuta en el microcontrolador}, y qué algoritmos se emplean para el control de los motores (actuadores), si se implementa (o no) la regulación de la intensidad máxima...
+\par Se ha elegido el STM32F411 por su alta frecuencia del microprocesador, además de tener disponibles dos buses I2C independientes, permitiendo una comunicación de milisegundos con los encoders magnéticos en paralelo.
+
+\subsection{Actuadores}
+Se ha considerado como actuadores a todo el conjunto de puente H, motor y encoder magnético que está duplicado en el simulador. Cuando está conectado todo, el puente H recibe una señal PWM del microcontrolador que determina el par (y la velocidad) con la que el motor busca alcanzar la posición comandada.
+\par Los sensores magnéticos utilizados son los MT6701, dada su elevada precisión (14 bits), su alta disponibilidad y la familiaridad con su uso.
+
+\subsection{Comunicación USB}
+\todo{Definir comunicación}, qué datos van desde la app de escritorio, qué datos manda el microcontrolador de vuelta, cuál es la latencia objetivo de la comunicación, etc.
 
 \section{Consideraciones}
 \subsection{Control de Intensidad}
@@ -69,6 +83,7 @@ Experiencias pasadas con este sistema, utilizando algoritmos de control menos so
 \subsection{Resensorización del simulador}
 En el estado actual del simulador, las palancas físicas responsables del movimiento de los ejes de control está siendo gestionado por dos microcontroladores independientes: un LEO-BODNAR (antiguo) y un Arduino Pro Micro (más moderno). El LEO-BODNAR se encarga de los interruptores del tren de aterrizaje, mientras que el Arduino se encarga de los ejes de freno, guiñada y compensador. 
 \par Para evitar cableado y sistemas extra que no son necesarios, una posible mejora sería eliminar el controlador LEO-BODNAR y utilizar el Arduino Pro Micro para controlar todos los botones y ejes de la cabina. Además, los ejes cuya medida se hace ahora mediante potenciómetros, se deberían cambiar a sensores magnéticos de efecto de campo o encoders magnéticos, para aumentar la precisión y la vida de estos sensores.
+\par La mejor propuesta para hacer esto consistiría en utilizar el multiplexor TCA9548A, conectado al Arduino para tener hasta 8 canales I2C con los que leer datos de encoders magnéticos, y considerar utilizar alguna de las matrices para botones que hay disponibles en el club.
 
 \newpage
 \listoftodos
