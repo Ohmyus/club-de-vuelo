@@ -13,7 +13,7 @@ El simulador consiste en el fuselaje de la cabina de un planeador \todo{Foto de 
 \par Este proyecto implementa un software para la extracción, interpretación y procesado de la telemetría de Condor 3, y lo combina con un hardware para controlar dinámicamente la actitud del planeador, con el objetivo de ofrecer una experiencia de vuelo realista.
 
 \section{Sistemas del simulador}
-El funcionamiento del simulador se explica a continuación:
+El funcionamiento general del simulador se explica a continuación:
 \begin{figure}[ht]
 	\centering
 	\begin{tikzpicture}
@@ -23,28 +23,22 @@ El funcionamiento del simulador se explica a continuación:
 		\node[block, below=1cm of fisica] (kinematics) {Cinemática\\Inversa};
 		\node[block, right=4cm of kinematics] (control) {Gestor\\USB};
 		\node[block, above=1.8cm of control] (mcu) {MCU\\STM32F411};
-		\node[block, left=1.3cm of mcu] (esc1) {HB 1};
-		\node[block, right=1.3cm of mcu] (esc2) {HB 2};
-		\node[round, draw=black, left=0.5cm of esc1] (m1) {M1};
-		\node[round, draw=black, right=0.5cm of esc2] (m2) {M2};
-		\node[block, above=0.5cm of mcu] (esc) {ESS};
-		\node[above=0.5cm of esc] (vs) {24 V};
+		\node[block, left=1.3cm of mcu] (esc1) {Actuador 1};
+		\node[block, right=1.3cm of mcu] (esc2) {Actuador 2};
+		\node[block, above=0.5cm of mcu] (ess) {ESS};
+		\node[above=0.5cm of ess] (vs) {24 V};
 		\node[block, right=2cm of control] (logger) {Data logger\\Control manual};
 		%Flechas del diagrama de bloques
 		\path[line] (condor3.south) -- (fisica.north) node[midway, left] {\footnotesize Telemetría};
 		\path[line] (fisica.south) -- (kinematics.north) node[midway, left] {$\theta, \phi$};
 		\path[line] (kinematics.east) -- (control.west) node[midway, above] {$\psi_1, \psi_2$};
 		\node[commbus, fill=cyan!20, shape border rotate=90, minimum height=1.8cm] at ($(control.north)!0.5!(mcu.south)$) {USB};
-		\path[reline] (mcu.west) -- (esc1.east) node[midway, above, font=\footnotesize] {PWM};
-		\path[reline] (mcu.east) -- (esc2.west) node[midway, above, font=\footnotesize] {PWM};
+		\path[reline] (mcu.west) -- (esc1.east);
+		\path[reline] (mcu.east) -- (esc2.west);
 		\path[reline] (control.east) -- (logger.west);
-		\path[line, draw=red] (vs.south) -- (esc.north);
-		\path[line, draw=red] (esc.west) -| (esc1.north);
-		\path[line, draw=red] (esc.east) -| (esc2.north);
-		\path[line, draw=red, -] ([yshift=1mm]esc1.west) -- ([yshift=1mm]m1.east);
-		\path[line, -] ([yshift=-1mm]esc1.west) -- ([yshift=-1mm]m1.east);
-		\path[line, draw=red, -] ([yshift=1mm]esc2.east) -- ([yshift=1mm]m2.west);
-		\path[line, -] ([yshift=-1mm]esc2.east) -- ([yshift=-1mm]m2.west);
+		\path[line, draw=red] (vs.south) -- (ess.north);
+		\path[line, draw=red] (ess.west) -| (esc1.north);
+		\path[line, draw=red] (ess.east) -| (esc2.north);
 	\end{tikzpicture}
 \end{figure}
 
@@ -53,35 +47,55 @@ Como se puede observar, los datos brutos extraídos del Condor 3 pasan por dos t
 \par El microcontrolador es responsable de implementar un algoritmo de control \todo{referencia cuando se explique este algoritmo} para mover los motores. Cada uno de los motores está instrumentado con un sensor de ángulo magnético para conocer exactamente su posición, permitiendo un control en bucle cerrado.
 \par Como medida de protección activa, está presente un botón de desconexión de emergencia (ESS, \textit{Emergency Stop Switch}), que desactivará los puentes H e interrumpirá físicamente el suministro de corriente a los motores, permitiendo parar instantáneamente el movimiento del simulador. Además, el microcontrolador está conectado a este botón, indicando al software de escritorio esta detención.
 
-\subsection{Modelo de física}
+\subsection{Aplicación de escritorio}
+Para implementar de forma centralizada todo el código, se ha desarrollado una aplicación de escritorio responsable de preprocesar los datos de telemetría de Condor 3, y convertirlos en comandos de posición que enviar al sistema de control de los actuadores. Esta aplicación se ha desarrollado en Python, por sus facilidades para el desarrollo de la interfaz gráfica, con módulos individuales programados en \texttt{C++}. A continuación se explica detalladamente cada uno de sus componentes.
+
+\subsubsection{Interfaz Gráfica}
+Para facilitar el uso del software, se ha desarrollado una interfaz gráfica de uso general, que proporciona controles útiles, como activar o desactivar el sistema de movimiento, indicar si la telemetría se recibe correctamente de Condor 3, o controlar manualmente el simulador.
+
+\subsubsection{Modelo de física}
 \todo{Escribir detalladamente el funcionamiento del modelo de física}
+\par Programado en \texttt{C++} para reducir el tiempo de ejecución y aumentar la fiabilidad del código.
 \par Se debe explicar qué datos se extraen de la telemetría, por qué son útiles, en qué ejes están expresados, cómo se manipulan, qué tipos de algoritmos de control se han empleado, si hay washout o no, qué limitaciones hay en las interfaces (ángulos máximos, velocidades máximas) etc.
 \par Idealmente en el departamento de Mecánica del Vuelo me pueden explicar algo de cómo hacer esto...
 
-\subsection{Cinemática inversa}
+\subsubsection{Cinemática inversa}
 \todo{Explicar la resolución de la cinemática inversa}
+\par Programado en \texttt{C++} para reducir el tiempo de ejecución y aumentar la fiabilidad del código.
 \par Puede ser interesante explorar cómo se podrían encontrar los límites del movimiento del simulador, establecer los distintos criterios para encontrarlos, y programar en esta parte del código fail-safes.
 
-\subsection{Gestor USB}
+\subsubsection{Gestor USB}
 Esta parte de la aplicación de escritorio desarrollada se encarga de procesar los datos que deben transmitirse por la comunicación USB y recibir la información de estado que el microcontrolador devuelve. Se ha programado de forma independiente para poder gestionar eficientemente altos volúmenes de información.
+\par \todo{Decidir si programar en Python o en \texttt{C++}}.
 
-\subsection{Microcontrolador}
+\subsubsection{Comunicación USB}
+\todo{Definir comunicación}, qué datos van desde la app de escritorio, qué datos manda el microcontrolador de vuelta, cuál es la latencia objetivo de la comunicación, etc.
+
+\subsection{Sistema de control del movimiento}
+Externo a la aplicación de escritorio, y utilizando el protocolo USB \todo{Esta terminología es correcta?} como comunicación, el sistema de control del movimiento consiste en toda la electrónica encargada de garantizar el movimiento de los actuadores de forma precisa y rápida. Los componentes se describen a continuación.
+\par Se ha considerado como actuadores a todo el conjunto de puente H, motor y encoder magnético que está duplicado en el simulador. Cuando está conectado todo, el puente H recibe una señal PWM del microcontrolador que determina el par (y la velocidad) con la que el motor busca alcanzar la posición comandada.
+
+\subsubsection{Microcontrolador}
 \todo{Explicar qué código se ejecuta en el microcontrolador}, y qué algoritmos se emplean para el control de los motores (actuadores), si se implementa (o no) la regulación de la intensidad máxima...
 \par Se ha elegido el STM32F411 por su alta frecuencia del microprocesador, además de tener disponibles dos buses I2C independientes, permitiendo una comunicación de milisegundos con los encoders magnéticos en paralelo.
+\par \todo{añadir foto del microcontrolador}
+\\ \todo{Link a la hoja técnica del blackpill}
 
-\subsection{Actuadores}
-Se ha considerado como actuadores a todo el conjunto de puente H, motor y encoder magnético que está duplicado en el simulador. Cuando está conectado todo, el puente H recibe una señal PWM del microcontrolador que determina el par (y la velocidad) con la que el motor busca alcanzar la posición comandada.
-\par Los sensores magnéticos utilizados son los MT6701, dada su elevada precisión (14 bits), su alta disponibilidad y la familiaridad con su uso.
+\subsubsection{Motores}
+Los motores son actuadores del parabrisas de un autobús, extraídos de un desguace. Se trata de motores de contínua de 24 V. Son capaces de proporcionar 16 Nm de par, con una reducción mediante tornillo sinfín.
+\par \todo{Añadir foto de los motores}
 
-\subsection{Comunicación USB}
-\todo{Definir comunicación}, qué datos van desde la app de escritorio, qué datos manda el microcontrolador de vuelta, cuál es la latencia objetivo de la comunicación, etc.
+\subsubsection{Encoders Magnéticos}
+Para determinar con precisión la posición de cada uno de los motores, se están utilizando encoders magnéticos MT6701. Estos se comunican mediante el protocolo I2C al microcontrolador, con una precisión de 14 bits en la comunicación.
+\\ \todo{Foto de MT6701 montado y sin montar}
+\par \href{https://datasheet4u.com/pdf/1556274/MT6701.pdf}{Datasheet} del sensor.
 
 \section{Consideraciones}
 \subsection{Control de Intensidad}
 Experiencias pasadas con este sistema, utilizando algoritmos de control menos sofisticados, han demostrado que es frecuente que se exceda la intensidad máxima de trabajo de los actuadores, durante cambios bruscos de sentido (inversiones de carga). Esto puede provocar el colapso de los puentes H o daños en los devanados de los motores, por lo que es recomendable implementar instrumentación de medida de corriente, para añadir regulación en un futuro.
 
 \subsection{Resensorización del simulador}
-En el estado actual del simulador, las palancas físicas responsables del movimiento de los ejes de control está siendo gestionado por dos microcontroladores independientes: un LEO-BODNAR (antiguo) y un Arduino Pro Micro (más moderno). El LEO-BODNAR se encarga de los interruptores del tren de aterrizaje, mientras que el Arduino se encarga de los ejes de freno, guiñada y compensador. 
+En el estado actual del simulador, las palancas físicas responsables del movimiento de los ejes de control está siendo gestionado por dos microcontroladores independientes: un LEO-BODNAR (antiguo) y un Arduino Pro Micro (más moderno). El LEO-BODNAR se encarga de los interruptores del tren de aterrizaje, mientras que el Arduino se encarga de los ejes de freno, guiñada y compensador.
 \par Para evitar cableado y sistemas extra que no son necesarios, una posible mejora sería eliminar el controlador LEO-BODNAR y utilizar el Arduino Pro Micro para controlar todos los botones y ejes de la cabina. Además, los ejes cuya medida se hace ahora mediante potenciómetros, se deberían cambiar a sensores magnéticos de efecto de campo o encoders magnéticos, para aumentar la precisión y la vida de estos sensores.
 \par La mejor propuesta para hacer esto consistiría en utilizar el multiplexor TCA9548A, conectado al Arduino para tener hasta 8 canales I2C con los que leer datos de encoders magnéticos, y considerar utilizar alguna de las matrices para botones que hay disponibles en el club.
 
