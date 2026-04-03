@@ -1,4 +1,4 @@
-\documentclass[10pt, oneside]{trabajo}
+\documentclass[sans]{trabajo}
 
 \title{Definición y esquemas para el Simulador}
 \author{Pablo Martín Yuste}
@@ -53,16 +53,38 @@ Para implementar de forma centralizada todo el código, se ha desarrollado una a
 \subsubsection{Interfaz Gráfica}
 Para facilitar el uso del software, se ha desarrollado una interfaz gráfica de uso general, que proporciona controles útiles, como activar o desactivar el sistema de movimiento, indicar si la telemetría se recibe correctamente de Condor 3, o controlar manualmente el simulador.
 
-\subsubsection{Modelo de física}
-\todo{Escribir detalladamente el funcionamiento del modelo de física}
+\subsubsection{Modelo de vuelo}
+\todo{Escribir detalladamente el funcionamiento del modelo de vuelo}
 \par Programado en \texttt{C++} para reducir el tiempo de ejecución y aumentar la fiabilidad del código.
 \par Se debe explicar qué datos se extraen de la telemetría, por qué son útiles, en qué ejes están expresados, cómo se manipulan, qué tipos de algoritmos de control se han empleado, si hay washout o no, qué limitaciones hay en las interfaces (ángulos máximos, velocidades máximas) etc.
 \par Idealmente en el departamento de Mecánica del Vuelo me pueden explicar algo de cómo hacer esto...
 
 \subsubsection{Cinemática inversa}
 \todo{Explicar la resolución de la cinemática inversa}
-\par Programado en \texttt{C++} para reducir el tiempo de ejecución y aumentar la fiabilidad del código.
-\par Puede ser interesante explorar cómo se podrían encontrar los límites del movimiento del simulador, establecer los distintos criterios para encontrarlos, y programar en esta parte del código fail-safes.
+\\ \todo{Programar en \texttt{C++} para reducir el tiempo de ejecución y aumentar la fiabilidad del código.}
+\par La resolución de la cinemática inversa se hace en varios pasos. A continuación se explica el proceso para un actuador, pero evidentemente el cálculo se hace por duplicado al haber dos actuadores.
+\begin{enumerate}
+	\item Con los ángulos $\theta$ y $\phi$ obtenidos del modelo de vuelo, se calcula la matriz de rotación que permite convertir vectores de ejes cuerpo a ejes tierra. Para obtener esta matriz, se ha empleado el criterio mostrado en la \autoref{fig:rotacion-simu}
+	\begin{figure}
+		\begin{center}
+			\includegraphics[width=0.5\textwidth]{figures/theta_phi.pdf}
+		\end{center}
+		\caption{Diagrama de la rotación mediante ángulos de Euler}\label{fig:rotacion-simu}
+	\end{figure}
+
+	\item Se calcula la posición final de los puntos $J$, los extremos de la barra horizontal unida al fuselaje a la que se unen las barras de las articulaciones. Con esto, se calcula la distancia del centro de cada motor (puntos $M$) a las juntas. Esta distancia será $l$.
+	\item Con esto, los tres lados del triángulo formado por los lados $l$, $s$ y $t$ son conocidos, de forma que se puede emplear el teorema del coseno para calcular el ángulo ($\hat{S}$) que hay entre el lado $l$ y el lado $t$.
+	\item A partir de las componentes $l_x$ y $l_z$ del vector $\vec{l}$, se puede calcular la longitud que tendrá el lado $l'$, que será la proyección del lado $l$ del triángulo en el plano $XZ$. De este triángulo, el lado $t$ también es conocido, porque este mismo lado está contenido siempre en el plano $XZ$.
+	\item Aprovechando que la prependicularidad entre $b$, el segmento que es perpendicular a $l$ y pasa por el otro extremo de $t$, se conserva entre proyecciones\footnote{Esto no es una propiedad de la proyección, sino una particularidad por estar proyectando un triángulo que tiene un lado contenido en el plano $XZ$ a ese mismo plano.}, se puede resolver el triángulo $tp'b'$, ya que se conocen dos lados y un ángulo (ver \autoref{fig:triangle-projection})
+	\begin{figure}
+		\begin{center}
+		\includegraphics{figures/out/triangulos.pdf}
+		\end{center}
+		\caption{Representación de los triángulos $lst, btp$ y $b'p't$.}\label{fig:triangle-projection}
+	\end{figure}
+        \item Con el triángulo $b'p't$ resuelto, se puede calcular finalmente el ángulo que formará $t$ con la horizontal, resolviendo finalmente el ángulo $\psi$ del actuador.
+
+\end{enumerate}
 
 \subsubsection{Gestor USB}
 Esta parte de la aplicación de escritorio desarrollada se encarga de procesar los datos que deben transmitirse por la comunicación USB y recibir la información de estado que el microcontrolador devuelve. Se ha programado de forma independiente para poder gestionar eficientemente altos volúmenes de información.
@@ -72,14 +94,56 @@ Esta parte de la aplicación de escritorio desarrollada se encarga de procesar l
 \todo{Definir comunicación}, qué datos van desde la app de escritorio, qué datos manda el microcontrolador de vuelta, cuál es la latencia objetivo de la comunicación, etc.
 
 \subsection{Sistema de control del movimiento}
-Externo a la aplicación de escritorio, y utilizando el protocolo USB \todo{Esta terminología es correcta?} como comunicación, el sistema de control del movimiento consiste en toda la electrónica encargada de garantizar el movimiento de los actuadores de forma precisa y rápida. Los componentes se describen a continuación.
-\par Se ha considerado como actuadores a todo el conjunto de puente H, motor y encoder magnético que está duplicado en el simulador. Cuando está conectado todo, el puente H recibe una señal PWM del microcontrolador que determina el par (y la velocidad) con la que el motor busca alcanzar la posición comandada.
+Externo a la aplicación de escritorio, y utilizando la conexión USB como comunicación, el sistema de control del movimiento consiste en toda la electrónica encargada de garantizar el movimiento de los actuadores de forma precisa y rápida. Los componentes se describen a continuación.
+\par Se ha considerado como actuadores a todo el conjunto de puente H, motor y encoder magnético que está duplicado en el simulador. Cuando está conectado todo, el puente H recibe una señal PWM del microcontrolador que determina el par (y la velocidad) con la que el motor busca alcanzar la posición comandada. Para una representación general del funcionamiento de este subsistema, consultar la \autoref{fig:electronics-overview}
+
+\begin{figure}[ht]
+	\centering
+	\begin{tikzpicture}
+		\node[block, minimum width = 2.5cm] (mcu) {MCU\\STM32F411};
+		\node[block, above=5mm of mcu] (ess) {ESS};
+		\node[block, above=5mm of ess] (vplus) {24 \unit{\volt}};
+		\node[polyarrow, fill=cyan!20, shape border rotate=90, minimum height=1.8cm, below=0mm of mcu] {USB};
+		\node[block, left=1cm of mcu] (hb1) {BTS7960};
+		\node[round, left=14mm of hb1] (Mo1) {Motor 1};
+		\node[block, below=1mm of Mo1] (enc1) {MT6701};
+		\node[block, left=7mm of hb1, anchor=south, yshift=3mm] (amp1) {Sens A};
+		\node[block, right=1cm of mcu] (hb2) {BTS7960};
+		\node[round, right=14mm of hb2] (Mo2) {Motor 2};
+		\node[block, below=1mm of Mo2] (enc2) {MT6701};
+		\node[block, right=7mm of hb2, anchor=south, yshift=3mm] (amp2) {Sens A};
+		%Paths
+		\draw[thick, red] (vplus.south) -- (ess.north);
+		\draw[line, red] (ess.west) -| (hb1.north);
+		\draw[line, red] (ess.east) -| (hb2.north);
+		\draw[thick, red] ([yshift=1mm]hb1.west) -- ([yshift=1mm]Mo1.east);
+		\draw[thick] ([yshift=-1mm]hb1.west) -- ([yshift=-1mm]Mo1.east);
+		\draw[thick, red] ([yshift=1mm]hb2.east) -- ([yshift=1mm]Mo2.west);
+		\draw[thick] ([yshift=-1mm]hb2.east) -- ([yshift=-1mm]Mo2.west);
+		\draw[line] (mcu.west) -- (hb1.east) node[midway, above, textonly] {PWM};
+		\draw[line] (mcu.east) -- (hb2.west) node[midway, above, textonly] {PWM};
+		\draw[line] ([yshift=1mm]amp1.east) -| ([xshift=-5mm]mcu.north);
+		\draw[line] ([yshift=1mm]amp2.west) -| ([xshift=5mm]mcu.north);
+		\draw[line] (enc1.east) -| ([xshift=-10mm]mcu.south) node[midway, above left, textonly] {I2C};
+		\draw[line] (enc2.west) -| ([xshift=10mm]mcu.south) node[midway, above right, textonly] {I2C};
+		
+	\end{tikzpicture}
+	\caption{Funcionamiento general del sistema de control de movimiento}\label{fig:electronics-overview}
+\end{figure}
+
 
 \subsubsection{Microcontrolador}
 \todo{Explicar qué código se ejecuta en el microcontrolador}, y qué algoritmos se emplean para el control de los motores (actuadores), si se implementa (o no) la regulación de la intensidad máxima...
-\par Se ha elegido el STM32F411 por su alta frecuencia del microprocesador, además de tener disponibles dos buses I2C independientes, permitiendo una comunicación de milisegundos con los encoders magnéticos en paralelo.
-\par \todo{añadir foto del microcontrolador}
-\\ \todo{Link a la hoja técnica del blackpill}
+\par Se ha elegido el \href{https://www.st.com/resource/en/datasheet/stm32f411ce.pdf}{STM32F411} por su alta frecuencia del microprocesador, además de tener disponibles dos buses I2C independientes, permitiendo una comunicación de milisegundos con los encoders magnéticos en paralelo.
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.4\textwidth]{figures/blackpill-mcu.jpg}
+	\caption{Foto del microontrolador STM32F411}\label{fig:mcu-photo}
+\end{figure}
+
+\subsubsection{Puentes H BTS7960-43A}
+Para poder conseguir un buen control de los motores, se utilizarán los puentes H BTS7960-43A para suministrar una tensión variable entre 0 y 24 \unit{\volt}. Estos componentes reciben una señal PWM (Pulse Width Modulation) del microcontrolador, y la utilizarán para polarizar de forma directa o inversa el motor, dando pulsos de tensión con el mismo \emph{duty cycle} que la señal PWM.
+\\ \todo{Foto de los puentes h}.
 
 \subsubsection{Motores}
 Los motores son actuadores del parabrisas de un autobús, extraídos de un desguace. Se trata de motores de contínua de 24 V. Son capaces de proporcionar 16 Nm de par, con una reducción mediante tornillo sinfín.
@@ -89,6 +153,11 @@ Los motores son actuadores del parabrisas de un autobús, extraídos de un desgu
 Para determinar con precisión la posición de cada uno de los motores, se están utilizando encoders magnéticos MT6701. Estos se comunican mediante el protocolo I2C al microcontrolador, con una precisión de 14 bits en la comunicación.
 \\ \todo{Foto de MT6701 montado y sin montar}
 \par \href{https://datasheet4u.com/pdf/1556274/MT6701.pdf}{Datasheet} del sensor.
+
+\subsubsection{Fuentes de Alimentación}
+Las fuentes utilizadas en este sistema son las DPS-600 PB. Estas son unas fuentes con un diseño propietario, por lo que no hay disponibilidad de manual de uso. Sin embargo, su uso es popular entre aficcionados al radiocontrol, y hay mucha información disponible en foros. 
+\par \todo{Foto de las fuentes de alimentación}.
+\\ \todo{Foto del pinout de las fuentes de alimientación}.
 
 \section{Consideraciones}
 \subsection{Control de Intensidad}

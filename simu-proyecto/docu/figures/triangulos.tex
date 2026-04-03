@@ -1,0 +1,41 @@
+\documentclass[10pt, tikz, border=2mm]{standalone}
+\usepackage{tikz-3dplot}
+\usetikzlibrary{arrows.meta}
+
+\newcommand{\tx}{0}
+\newcommand{\ty}{2}
+\newcommand{\tz}{1}
+\newcommand{\vect}{(\tx, \ty, \tz)}
+\newcommand{\lengtht}{\fpeval{sqrt((\tx)^2 + (\ty)^2 + (\tz)^2)}}
+
+\newcommand{\lx}{-1}
+\newcommand{\ly}{2.5}
+\newcommand{\lz}{4}
+\newcommand{\vecl}{(\lx, \ly, \lz)}
+\newcommand{\lengthl}{\fpeval{sqrt((\lx)^2 + (\ly)^2 + (\lz)^2)}}
+
+\newcommand{\lengths}{\fpeval{sqrt((\lx-\tx)^2 + (\ly-\ty)^2 + (\lz-\tz)^2)}}
+
+\newcommand{\sangle}{\fpeval{acos((\lengthl^2 + \lengtht^2 - \lengths^2)/(2*\lengthl*\lengtht))}}
+
+\newcommand{\factp}{\fpeval{\lengtht/cos(\sangle)/\lengthl}}
+\newcommand{\px}{\fpeval{\lx*\factp}}
+\newcommand{\py}{\fpeval{\ly*\factp}}
+\newcommand{\pz}{\fpeval{\lz*\factp}}
+\newcommand{\vecp}{(\px,\py,\pz)}
+
+\begin{document}
+
+\tdplotsetmaincoords{70}{130}
+\begin{tikzpicture}[tdplot_main_coords]
+    \draw[thick] (0,0,0) -- \vect node[pos=0.5, anchor=north] {$t$};
+    \draw[thick] \vect -- \vecl node[pos=0.5, anchor=west] {$s$};
+    \draw[thick] (0, 0, 0) -- \vecl node[pos=0.7, anchor=east] {$l$};
+    \draw[thick] \vect -- \vecp node[pos=0.7, anchor=south west] {$p$};
+
+    \draw[thick] \vect -- (0, \ly, \lz) node[pos=0.5, anchor=west] {$s'$};
+    \draw[thick] (0, 0, 0) -- (0, \ly, \lz) node[pos=0.5, anchor=east] {$l'$};
+    \draw[thick] \vect -- (0, \py, \pz) node[pos=0.4, anchor=east] {$p'$};
+
+\end{tikzpicture}
+\end{document}
