@@ -18,7 +18,7 @@
       ],
 
       align(horizon)[
-        #datetime.today().display("[day]-[month]-[year]")
+        #datetime.today().display("[day]/[month]/[year]")
       ],
     )
     #v(0.2em)
@@ -30,6 +30,8 @@
     #context [Page #counter(page).display("1 of 1", both: true)]
   ],
 )
+#set heading(numbering: "1.")
+
 = Especificaciones para la base:
 Los requisitos para la base son los siguientes:
 

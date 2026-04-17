@@ -1,4 +1,5 @@
 #set document(title: "Club de Vuelo - Especificaciones throttle", author: "cdv-diseño")
+#set heading(numbering: "1.")
 
 #set page(
   margin: (top: 4cm, bottom: 2cm),
