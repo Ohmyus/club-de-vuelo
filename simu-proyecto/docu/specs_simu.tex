@@ -1,8 +1,8 @@
-\documentclass[sans]{trabajo}
+\documentclass[sans]{cdvreport}
 
 \title{Definición y esquemas para el Simulador}
 \author{Pablo Martín Yuste}
-\degree{Club de Vuelo UPM}
+\doctype{Especificaciones Técnicas}
 
 \begin{document}
 \maketitle
@@ -60,31 +60,10 @@ Para facilitar el uso del software, se ha desarrollado una interfaz gráfica de 
 \par Idealmente en el departamento de Mecánica del Vuelo me pueden explicar algo de cómo hacer esto...
 
 \subsubsection{Cinemática inversa}
-\todo{Explicar la resolución de la cinemática inversa}
+\todo{Explicar en un anexo la resolución de la cinemática inversa}
 \\ \todo{Programar en \texttt{C++} para reducir el tiempo de ejecución y aumentar la fiabilidad del código.}
-\par La resolución de la cinemática inversa se hace en varios pasos. A continuación se explica el proceso para un actuador, pero evidentemente el cálculo se hace por duplicado al haber dos actuadores.
-\begin{enumerate}
-	\item Con los ángulos $\theta$ y $\phi$ obtenidos del modelo de vuelo, se calcula la matriz de rotación que permite convertir vectores de ejes cuerpo a ejes tierra. Para obtener esta matriz, se ha empleado el criterio mostrado en la \autoref{fig:rotacion-simu}
-	\begin{figure}
-		\begin{center}
-			\includegraphics[width=0.5\textwidth]{figures/theta_phi.pdf}
-		\end{center}
-		\caption{Diagrama de la rotación mediante ángulos de Euler}\label{fig:rotacion-simu}
-	\end{figure}
-
-	\item Se calcula la posición final de los puntos $J$, los extremos de la barra horizontal unida al fuselaje a la que se unen las barras de las articulaciones. Con esto, se calcula la distancia del centro de cada motor (puntos $M$) a las juntas. Esta distancia será $l$.
-	\item Con esto, los tres lados del triángulo formado por los lados $l$, $s$ y $t$ son conocidos, de forma que se puede emplear el teorema del coseno para calcular el ángulo ($\hat{S}$) que hay entre el lado $l$ y el lado $t$.
-	\item A partir de las componentes $l_x$ y $l_z$ del vector $\vec{l}$, se puede calcular la longitud que tendrá el lado $l'$, que será la proyección del lado $l$ del triángulo en el plano $XZ$. De este triángulo, el lado $t$ también es conocido, porque este mismo lado está contenido siempre en el plano $XZ$.
-	\item Aprovechando que la prependicularidad entre $b$, el segmento que es perpendicular a $l$ y pasa por el otro extremo de $t$, se conserva entre proyecciones\footnote{Esto no es una propiedad de la proyección, sino una particularidad por estar proyectando un triángulo que tiene un lado contenido en el plano $XZ$ a ese mismo plano.}, se puede resolver el triángulo $tp'b'$, ya que se conocen dos lados y un ángulo (ver \autoref{fig:triangle-projection})
-	\begin{figure}
-		\begin{center}
-		\includegraphics{figures/out/triangulos.pdf}
-		\end{center}
-		\caption{Representación de los triángulos $lst, btp$ y $b'p't$.}\label{fig:triangle-projection}
-	\end{figure}
-        \item Con el triángulo $b'p't$ resuelto, se puede calcular finalmente el ángulo que formará $t$ con la horizontal, resolviendo finalmente el ángulo $\psi$ del actuador.
-
-\end{enumerate}
+\par La cinemática inversa es el penúltimo proceso del cálculo de la posición de los actuadores. Consiste en, a partir de la actitud deseada para el planeador, resolver la posición y la velocidad de los actuadores.
+\par Una explicación más detallada de este cálculo se puede encontrar en el \todo{referencia al anexo.}
 
 \subsubsection{Gestor USB}
 Esta parte de la aplicación de escritorio desarrollada se encarga de procesar los datos que deben transmitirse por la comunicación USB y recibir la información de estado que el microcontrolador devuelve. Se ha programado de forma independiente para poder gestionar eficientemente altos volúmenes de información.
@@ -170,4 +149,36 @@ En el estado actual del simulador, las palancas físicas responsables del movimi
 
 \newpage
 \listoftodos
+\newpage
+
+\appendix
+
+\section{Resolución de la cinemática inversa}
+\label{ax:inverse-kinematics}
+\par La resolución de la cinemática inversa se hace en varios pasos. A continuación se explica el proceso para un actuador, pero evidentemente el cálculo se hace por duplicado al haber dos actuadores.
+\begin{enumerate}
+	\item Con los ángulos $\theta$ y $\phi$ obtenidos del modelo de vuelo, se calcula la matriz de rotación que permite convertir vectores de ejes cuerpo a ejes tierra. Para obtener esta matriz, se ha empleado el criterio mostrado en la \autoref{fig:rotacion-simu}
+
+		\begin{figure}[!ht]
+		\begin{center}
+			\includegraphics[width=0.5\textwidth]{figures/theta_phi.pdf}
+		\end{center}
+		\caption{Diagrama de la rotación mediante ángulos de Euler}\label{fig:rotacion-simu}
+	\end{figure}
+
+	\item Se calcula la posición final de los puntos $J$, los extremos de la barra horizontal unida al fuselaje a la que se unen las barras de las articulaciones. Con esto, se calcula la distancia del centro de cada motor (puntos $M$) a las juntas. Esta distancia será $l$.
+	\item Con esto, los tres lados del triángulo formado por los lados $l$, $s$ y $t$ son conocidos, de forma que se puede emplear el teorema del coseno para calcular el ángulo ($\hat{S}$) que hay entre el lado $l$ y el lado $t$.
+	\item A partir de las componentes $l_x$ y $l_z$ del vector $\vec{l}$, se puede calcular la longitud que tendrá el lado $l'$, que será la proyección del lado $l$ del triángulo en el plano $XZ$. De este triángulo, el lado $t$ también es conocido, porque este mismo lado está contenido siempre en el plano $XZ$.
+	\item Aprovechando que la prependicularidad entre $b$, el segmento que es perpendicular a $l$ y pasa por el otro extremo de $t$, se conserva entre proyecciones\footnote{Esto no es una propiedad de la proyección, sino una particularidad por estar proyectando un triángulo que tiene un lado contenido en el plano $XZ$ a ese mismo plano.}, se puede resolver el triángulo $tp'b'$, ya que se conocen dos lados y un ángulo (ver \autoref{fig:triangle-projection})
+
+	\begin{figure}[!ht]
+		\begin{center}
+		\includegraphics{figures/out/triangulos.pdf}
+		\end{center}
+		\caption{Representación de los triángulos $lst, btp$ y $b'p't$.}\label{fig:triangle-projection}
+	\end{figure}
+        \item Con el triángulo $b'p't$ resuelto, se puede calcular finalmente el ángulo que formará $t$ con la horizontal, resolviendo finalmente el ángulo $\psi$ del actuador.
+
+\end{enumerate}
+
 \end{document}
