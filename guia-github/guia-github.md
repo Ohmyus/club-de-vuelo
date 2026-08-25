@@ -37,6 +37,7 @@ En [GitHub](https://github.com/) se debe crear un repositorio pinchando en el bo
 
 <div style="text-align: center;">
   <img src="pictures/plantilla_creacion_repo.png" alt="alt text" width="600">
+
   <figcaption><strong>Formulario para la creación del repositorio en GitHub.</strong></figcaption>
 </div>
 <br>
@@ -47,6 +48,7 @@ Una vez creado, aparecen instrucciones para conectar el repositorio con los arch
 
 <div style="text-align: center;">
   <img src="pictures/instrucciones.png" alt="alt text" width="600">
+
   <figcaption><strong>Comandos del repositorio en GitHub.</strong></figcaption>
 </div>
 
@@ -160,10 +162,9 @@ Para consultar los commits realizados:
 
 ```bash
 git log --oneline
-
 ```
 
-Muestra una línea resumida por commit con su ID y mensaje, útil para identificar referencias al usar `git reset`.
+Muestra una línea resumida por commit con su ID (el hash) y mensaje, útil para identificar referencias al usar `git reset`. Es posible que la *Terminal* se quede 'ocupada' después de ejecutar este comando. Para solucionarlo, simplemente hay que pulsar la tecla `q` (minúscula).
 
 ## 14. Revertir commits (`git reset`)
 
@@ -241,11 +242,15 @@ Para clonar o operar en entornos remotos donde el inicio de sesión web no es vi
 3. En *Permissions*, configurar con permisos de lectura y escritura (*Read and write*):
 * *Contents*
 * *Pull requests*
-* *Commit statuses*
-*(Metadata se añadirá automáticamente en modo lectura).*
-
+* *Commit statuses* (El campo *Metadata* se añadirá automáticamente en modo lectura).
 
 4. Generar, copiar el token y usarlo como contraseña al autenticarte en la terminal remota.
+
+# Colaboración en GitHub
+
+El principal motivo por el que se ha decidido utilizar esta herramienta para la colaboración en el Club de Vuelo es el control de versiones y su versatilidad. Si bien la longitud de esta guía demuestra que es algo complejo de utilizar, la combinación git + GitHub permite tener disponibilidad siempre para que cualquier miembro pueda acceder a los diseños, códigos y documentación del Club.
+
+En esta sección se explica cómo se puede colaborar. Existen dos formas principales.
 
 # Resumen
 
@@ -253,90 +258,42 @@ Para clonar o operar en entornos remotos donde el inicio de sesión web no es vi
 
 Cada vez que se quieran subir cambios al repositorio, se deben realizar los siguientes pasos:
 
-* #### 0. Realizar los cambios en el repositorio local y guardar Ctrl + s.
-
-
-* #### 1. Abrir el *Terminal* en la carpeta del repositorio (Ctrl + ñ).
-
-
-* #### 2. `git status`
-
-
+* #### 0. Realizar los cambios en el repositorio local y guardar: `Ctrl + s`.
+* #### 1. Abrir el *Terminal* en la carpeta del repositorio (Ctrl + ñ en *VS Code*).
+* #### 2. (opcional, para comprobar que hay *unstaged changes*) `git status`
 * #### 3. `git add .`
-
-
-* #### 4. `git status`
-
-
+* #### 4. (opcional) `git status`)
 * #### 5. `git commit -m "[mensaje descriptivo]"`
-
-
-* #### 6. `git status`
-
-
+* #### 6. (opcional) `git status`)
 * #### 7. `git push`
-
-
 * #### 8: Verificar en GitHub la correcta actualización del repositorio.
-
-
 
 ## Gestión de `.gitignore`
 
 * #### 1. Crear el `.gitignore` antes de que existan los archivos que se quieren ignorar.
-
-
 * #### (2.) En caso de que se hayan generado archivos que se deciden ignorar posteriormente, actualizar el `.gitignore` y usar el comando `git rm --cached -r .`
-
-
 
 ## Bajar cambios de GitHub
 
 * #### 1. `git fetch`
-
-
 * #### 2. `git status`
-
-
 * #### 3. `git pull`
-
-
 
 ## Resolver conflictos al hacer `git push`
 
 * #### 1. `git pull`
-
-
 * #### 2. *Mergear* los cambios de la forma deseada.
-
-
 * #### 3. `git add .`
-
-
 * #### 4. `git commit -m "[descripción]"`
-
-
 * #### 5. `git push`
-
-
 
 ## Crear y *mergear* ramas
 
 * #### 1. `git checkout -b [nombre de la rama]`
-
-
 * #### 2. Subir y bajar cambios de GitHub de igual forma que en la rama `master`
-
-
 * #### 3. `git checkout master`
-
-
 * #### 4. `git merge [nombre de la rama]`
-
-
 * #### (5.) Si se quiere eliminar del repositorio remoto, `git push origin --delete [nombre de la rama]`
-
-
 
 ## Descargar y conectar repositorio remoto
 
