@@ -1,4 +1,4 @@
-# <p style="text-align: center;">**Guía git - Github**</p>
+# <p style="text-align: center;">**Guía básica git - Github**</p>
 
 ## 1. Instalación.
 
@@ -66,6 +66,7 @@ Para ello, abrimos en *Visual Studio Code* una *Terminal* en la carpeta que quer
 ### En el caso de querer vincular un repositorio existente (y con contenido)
 
 Se puede navegar con la terminal o abrir directamente dentro de la carpeta dentro de la cual se quiera colocar el repositorio. Este proceso resultará en *una carpeta con el nombre del repositorio* dentro de la ubicación donde se ejecute el comando. Una vez allí, se ejecuta:
+
 ```bash
 git clone [URL_DEL_REPO]
 
@@ -94,7 +95,7 @@ De esta manera, localmente, ya está todo preparado para subirlo a GitHub. Es re
 
 Para subir los cambios a GitHub, se debe ejecutar el comando `git push`.
 
-* En caso de que sea la primera vez que se sube información al repositorio remoto, se va a producir un error, porque no se ha creado la *branch* necesaria. Por tanto, se debe establecer esta *branch* antes de poder hacer *push*. En el *Terminal*, git ya ofrece el comando que se debe emplear, `git push --set-upstream origin master`. Al hacerlo, aparece que ya sí se ha subido el contenido a GitHub.
+* En caso de que sea la primera vez que se sube información al repositorio remoto, se va a producir un error, porque no se ha creado la *branch* necesaria. Por tanto, se debe establecer esta *branch* antes de poder hacer *push*. En el *Terminal*, git ya ofrece el comando que se debe emplear, `git push --set-upstream origin main`. Al hacerlo, aparece que ya sí se ha subido el contenido a GitHub.
 
 El nombre de la rama principal antiguamente era `master`, pero esto está siendo deprecado y la mayoría de repositorios utilizan la nueva convención de llamar a la rama principal `main`.
 
@@ -132,14 +133,12 @@ En caso de que varios usuarios hayan hecho cambios y quieran hacer `git push` de
 * `git merge --abort`: aborta el merge, y vuelve al estado anterior a ejecutar `git pull`.
 * `git rebase --abort`: aborta el rebase, y vuelve al estado anterior a ejecutar `git pull`.
 
-
-
-Si se quiere evitar esto para la próxima vez, se puede cambiar la configuración de `git`.
+Si se quiere evitar esto para la próxima vez, se puede cambiar la configuración de `git`:
 
 * `git config pull.rebase false` : Evita entrar en modo *rebase* la próxima vez que sea necesario hacer un *merge* en este repositorio.
 * `git config --global pull.rebase false` : Evita entrar en modo *rebase* la próxima vez que sea necesario hacer un *merge* en todos los repositorios (configuración global de `git`).
 
-Supuestamente, basta con ejecutar una vez el comando deseado para que el *Terminal* ya no se quede en esos modos y vuelva por defecto al funcionamiento habitual tras hacer un *merge* o *rebase*.
+Supuestamente, basta con ejecutar una vez el comando deseado para que el *Terminal* ya no se quede en esos modos y vuelva por defecto al funcionamiento habitual tras hacer un *merge* o *rebase*. Sin embargo, la terminal de *VS Code* a veces se pone exquisita, y todavía no se ha encontrado una buena forma de evitar esto.
 
 ## 12. Conectarse al repositorio remoto de otro usuario
 
@@ -172,9 +171,7 @@ Si necesitas deshacer un commit (por ejemplo, tras añadir un archivo que supera
 
 ```bash
 git reset --[tipo] [commit-ID]
-
 ```
-
 Tipos de reset:
 
 * `--hard`: Restaura el repositorio y los archivos exactamente al estado del commit (se pierden los cambios locales no guardados).
@@ -183,18 +180,28 @@ Tipos de reset:
 
 **Ejemplo para eliminar un archivo grande (ej. `.f06`) ya commiteado:**
 
-```bash
-git reset --mixed origin/main
-git add .
-git rm --cached *.f06
-git commit -m "Corregir commit y excluir archivo grande"
-git push
+Si no está claro en qué commit se ha añadido el archivo, pero no se están subiendo los commits al repositorio remoto (a GitHub), se pueden eliminar los commits locales **sin perder el trabajo** y eliminar del *staging area* el archivo grande.
 
+```bash
+git reset --mixed origin/main #mixed para conservar los archivos locales
+git add .
+git rm --cached *.f06 #eliminamos todos los archivos con extensión .f06
+git commit -m "Corregir commit y excluir .f06"
+git push
 ```
 
 ## 15. Crear una rama de trabajo
 
 Para trabajar de forma más correcta y no afectar al trabajo de otros, se pueden crear ramas de trabajo independientes que, si bien mantienen la misma lógica de comandos ya descrita, se separan de la rama principal y no la afectan. Después, se pueden *mergear* con la principal si así se desea.
+
+Para ver todas las ramas que hay abiertas en el repositorio local, se puede ejecutar
+```bash
+git branch
+```
+Para ver todas las ramas que hay abiertas en el repositorio local y en el remoto (a la vez) se puede ejecutar:
+```bash
+git branch -a
+```
 
 Para crear una rama, se debe ejecutar el comando `git branch [nombre de la rama]`.
 
@@ -206,16 +213,12 @@ Después, para cambiarte a esta y trabajar en ella, se debe ejecutar `git checko
 ```bash
 git add .
 git commit -m "descripción de los cambios"
-
-
 ```
 
 Se debe añadir al `git push` la bandera `-u [nombre-rama]`:
 
 ```bash
 git push -u origin [nombre-rama]
-
-
 ```
 
 Una vez terminado el trabajo deseado en la rama, se puede *mergear* con la rama principal (generalmente llamada `main` o `master`). Para ello, se ejecuta el comando `git checkout [nombre de la rama que se quiere mantener, normalmente main o master]` para trasladarse a la rama deseada, y después `git merge [nombre de la rama que se desea mergear]`. Se puede ejecutar un `git pull` entre medias para cargar posibles cambios en la rama `main` o `master` y que no haya conflictos.
@@ -230,7 +233,6 @@ Además, si se desea eliminar una rama en tu repositorio remoto de GitHub una ve
 
 ```bash
 git push origin --delete [nombre de la rama a borrar]
-
 ```
 
 ## 16. Tokens de Acceso Personal (PAT) para máquinas virtuales
@@ -289,6 +291,10 @@ git push -u origin nombre-rama
 ### 5. Crea una solicitud de Pull (*Pull Request*, PR)
 
 Ve a la [página web del repositorio original](https://github.com/Ohmyus/club-de-vuelo) en GitHub. Un banner aparecerá automáticamente sugiriendo abrir un *Pull Request*. Haz click en "Comparar y Pull Request", añade una descripción de tus cambios o trabajo para ayudar al revisor, y envíala. Entonces el propietario o colaboradores del repositorio podrán revisar, aprobar y *mergear* tu trabajo o código en el repositorio.
+
+## B) Siendo colaborador
+
+Para ser colaborador en un repositorio, se le debe pedir al propietario que te añada como colaborador. Una vez hecho esto, el funcionamiento es el mismo que habría si se fuera propietario del repositorio.
 
 # Resumen
 
