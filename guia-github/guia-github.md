@@ -286,9 +286,9 @@ Como el propietario del *Fork* eres tú, tienes permisos para poder subir los ca
 git push -u origin nombre-rama
 ```
 
-### 5. Create a Pull Request (PR)
+### 5. Crea una solicitud de Pull (*Pull Request*, PR)
 
-Go to the original repository's page on GitHub. A banner will automatically appear suggesting you open a **Pull Request**. Click "Compare & pull request", add a description of your changes, and submit. The original owner can then review, approve, and merge your code into their repository.
+Ve a la [página web del repositorio original](https://github.com/Ohmyus/club-de-vuelo) en GitHub. Un banner aparecerá automáticamente sugiriendo abrir un *Pull Request*. Haz click en "Comparar y Pull Request", añade una descripción de tus cambios o trabajo para ayudar al revisor, y envíala. Entonces el propietario o colaboradores del repositorio podrán revisar, aprobar y *mergear* tu trabajo o código en el repositorio.
 
 # Resumen
 
@@ -336,3 +336,24 @@ Cada vez que se quieran subir cambios al repositorio, se deben realizar los sigu
 ## Descargar y conectar repositorio remoto
 
 * #### 1. `git clone [url del repositorio de GitHub]`
+
+## Colaborar sin ser colaborador en el repositorio:
+
+* #### 1. Hacer un Fork del repositorio
+* #### 2. Clonar el repositorio *forkeado*: `git clone [url del repo forkeado]`
+* #### 3. Abrir una nueva rama: `git checkout -b nombre-descriptivo`
+* #### 4. Haz el trabajo, puedes ir haciendo *commits* para ir guardando tu progreso:
+```bash
+git add .
+git commit -m "Añadido algo"
+```
+
+* #### 5. Sube los cambios a la rama que has abierto:
+
+```bash
+git add .
+git commit -m "terminado el trabajo en nombre-descriptivo"
+git push -u origin nombre-descriptivo
+```
+
+* #### 6. Crea una *Pull Request*
