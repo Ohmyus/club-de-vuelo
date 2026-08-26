@@ -1,0 +1,2 @@
+# Evitar conflictos con el control de versión nativo de KiCAD
+.history/
