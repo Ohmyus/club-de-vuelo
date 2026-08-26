@@ -53,15 +53,13 @@ Para implementar de forma centralizada todo el código, se ha desarrollado una a
 \subsubsection{Interfaz Gráfica}
 Para facilitar el uso del software, se ha desarrollado una interfaz gráfica de uso general, que proporciona controles útiles, como activar o desactivar el sistema de movimiento, indicar si la telemetría se recibe correctamente de Condor 3, o controlar manualmente el simulador.
 
-\subsubsection{Modelo de vuelo}
+\subsubsection{Algoritmo de Generación de Movimiento}
 \todo{Escribir detalladamente el funcionamiento del modelo de vuelo}
-\par Programado en \texttt{C++} para reducir el tiempo de ejecución y aumentar la fiabilidad del código.
-\par Se debe explicar qué datos se extraen de la telemetría, por qué son útiles, en qué ejes están expresados, cómo se manipulan, qué tipos de algoritmos de control se han empleado, si hay washout o no, qué limitaciones hay en las interfaces (ángulos máximos, velocidades máximas) etc.
-\par Idealmente en el departamento de Mecánica del Vuelo me pueden explicar algo de cómo hacer esto...
+\par Se ha estudiado cómo implementar de la forma más satisfactoria el algoritmo de generación de movimiento para la plataforma del simulador. En primer lugar, se parte de alguno de los algoritmos de generación de movimiento genéricos \todo{referencia a una figura de MCA}. Después, se ha estudiado la forma más similar de adaptar la pose de una plataforma don 6 GDL a la del simulador, con solamente 2 GDL.
+\par Actualmente, el principal problema consiste en resolver el ``Método de Tustin'', que permite traducir las ecuaciones del MCA, originalmente en el dominio de la frecuencia, a ecuaciones algebraicas en un esquema de diferencias finitas.
 
 \subsubsection{Cinemática inversa}
-\todo{Explicar en un anexo la resolución de la cinemática inversa}
-\\ \todo{Programar en \texttt{C++} para reducir el tiempo de ejecución y aumentar la fiabilidad del código.}
+\todo{Programar en \texttt{C++} para reducir el tiempo de ejecución y aumentar la fiabilidad del código.}
 \par La cinemática inversa es el penúltimo proceso del cálculo de la posición de los actuadores. Consiste en, a partir de la actitud deseada para el planeador, resolver la posición y la velocidad de los actuadores.
 \par Una explicación más detallada de este cálculo se puede encontrar en el \todo{referencia al anexo.}
 
