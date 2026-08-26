@@ -252,6 +252,44 @@ El principal motivo por el que se ha decidido utilizar esta herramienta para la 
 
 En esta sección se explica cómo se puede colaborar. Existen dos formas principales.
 
+## A) Sin ser colaborador
+
+No se puede colaborar directamente a un repositorio a no ser que el propietario haya añadido al usuario como colaborador. Sin este permiso, el flujo de trabajo es el **Fork y Pull-Request**.
+
+### 1. Haz un Fork del Repositorio
+
+En la página de GitHub del repositorio original, haz click en el botón de **Fork** (arriba a la derecha). Esto creará una copia del repositorio original, de la que eres propietario, pero está vinculada al repo original.
+
+### 2. Clona tu *Fork*
+
+Clona la URL del *Fork* que se acaba de crear:
+
+```bash
+git clone https://github.com/[tu-username]/[nombre-repo].git
+```
+
+### 3. Haz una nueva rama y commits
+
+Haz una nueva rama, haz los cambios, y haz el commit para guardarlos localmente:
+
+```bash
+git checkout -b nombre-rama
+git add .
+git commit -m "Description of changes"
+```
+
+### 4. Haz push a tu *Fork*
+
+Como el propietario del *Fork* eres tú, tienes permisos para poder subir los cambios al remoto:
+
+```bash
+git push -u origin nombre-rama
+```
+
+### 5. Create a Pull Request (PR)
+
+Go to the original repository's page on GitHub. A banner will automatically appear suggesting you open a **Pull Request**. Click "Compare & pull request", add a description of your changes, and submit. The original owner can then review, approve, and merge your code into their repository.
+
 # Resumen
 
 ## Subir cambios a GitHub

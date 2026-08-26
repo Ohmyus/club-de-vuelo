@@ -2,7 +2,7 @@
 
 Bienvenido! Este es un repositorio donde intento mantener toda la información de los proyectos en los que participo en el Club de Vuelo de la UPM documentados. En este repositorio hay todo tipo de archivos, desde diseños 3D de piezas para simuladores, sketches de Arduino para los mandos que fabricamos, o códigos para el movimiento del simulador. Además, hay un par de guías muy útiles, para aprender a utilizar git y GitHub, y directrices básicas de impresión 3D.
 
-## Estructura del repositiorio
+## Estructura del repositorio
 
 Se han ido añadiendo las carpetas poco a poco con el tiempo, de forma que los archivos están más o menos ordenados. Se prevé hacer en un futuro próximo una serie de cambios para dividir el repositorio un poco mejor por proyectos. De momento, las cosas más importantes se describen a continuación:
 
