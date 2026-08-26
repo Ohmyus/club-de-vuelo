@@ -65,14 +65,18 @@ Para ello, abrimos en *Visual Studio Code* una *Terminal* en la carpeta que quer
 
 ### En el caso de querer vincular un repositorio existente (y con contenido)
 
-Se puede navegar con la terminal o abrir directamente dentro de la carpeta dentro de la cual se quiera colocar el repositorio. Este proceso resultará en *una carpeta con el nombre del repositorio* dentro de la ubicación donde se ejecute el comando. Una vez allí, se ejecuta:
+Se puede navegar con la terminal o abrir directamente dentro de la carpeta dentro de la cual se quiera colocar el repositorio. Este proceso resultará en **una carpeta con el nombre del repositorio** dentro de la ubicación donde se ejecute el comando. Una vez allí, se ejecuta:
 
 ```bash
 git clone [URL_DEL_REPO]
-
 ```
 
 Por cuestiones de fiabilidad, la URL del repo se puede conseguir del botón `code` que aparece en la página principal, y la opción SSH es la más robusta para este comando.
+
+<div style="text-align: center;">
+    <img src="pictures/code-button.png" alt="Explicación de dónde encontrar el botón de `code`." width="600">
+    <br>
+</div>
 
 Este comando podría fallar si el usuario de GitHub no tiene permisos o no es colaborador en un repositorio privado.
 
