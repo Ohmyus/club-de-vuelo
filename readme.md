@@ -14,6 +14,8 @@ Estamos escribiendo una guía de diseño para piezas que se pretenden imprimir e
 
 Si quieres participar en el desarrollo del software que utilizamos en el Club de Vuelo (principalmente sketches de Arduino para los mandos), tener una herramienta de control de versiones y colaboración como `git` puede resultar de especial interés. [En esta guía](https://github.com/Ohmyus/club-de-vuelo/blob/main/guia-github/guia-github.md) se explica el funcionamiento general de `git` con GitHub y cómo se puede contribuir a este mismo repositorio, o simplemente facilidades para clonarlo en tu propio ordenador.
 
+No es necesario ser un maestro del uso de `git` y GitHub, también se pueden descargar los archivos desde esta misma página web.
+
 ### Sketches de Arduino
 
 Para controlar el hardware que creamos, dentro de la carpeta `Sketches` podrás encontrar todos los códigos de Arduino (pensados para flashear desde el Arduino IDE) que dan vida a nuestras creaciones.
