@@ -23,6 +23,12 @@ Además, cada uno de los registros de desplazamiento debe estar conectado a una 
 
 Los botones están configurados como *pullups*, es decir, que los registros de desplazamiento están leyendo el nivel alto de lógica (3.3V) por defecto, y cuando se actúa el botón, pasan a leer el nivel bajo de lógica (0 V o GND).
 
+ <div style="text-align: center;">
+	<img src="pictures/circuito-basico.png" alt="alt text" width="600">
+    <br> 
+	<figcaption><strong>Esquema del circuito (KiCad)</strong></figcaption>
+</div>
+
 #### Componentes del circuito:
 
 - **Conector p2.54 de 5 pines**: para las conexiones del conector 5-pin Mini-DIN.
