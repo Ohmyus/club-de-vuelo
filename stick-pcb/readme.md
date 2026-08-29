@@ -12,6 +12,7 @@ El trabajo restante consiste en:
 * Diseñar el PCB físico, atendiendo a los requisitos:
 - Polivalencia: debe poder adaptarse a varios *grips*
 - Versatilidad: debe incluir conexiones para soldar cables directamente o conectores (mejorando el *cable-management* dentro del *grip*).
+- Estandarización: Las dimensiones del PCB y los puntos de montaje deben de caber dentro de todos los posibles diseños de *grip*.
 
 ### Visión general:
 

@@ -21,3 +21,23 @@ Para controlar el hardware que creamos, dentro de la carpeta `Sketches` podrás 
 ### Otra documentación
 
 Dentro de este repositorio, también estoy intentando dejar por escrito el funcionamiento de todos los proyectos en los que he participado, con el objetivo de que en un futuro se pueda arreglar, mejorar o reutilizar mi trabajo. Investigando un poco por estas carpetas se puede encontrar de todo. A los lectores que en el futuro se encuentren esto, buena suerte!
+
+# Proyectos activos
+
+### Stick + Base impresos en 3D
+
+Con el objetivo de facilitar la inclusión de nuevos miembros en el Club, estamos diseñando una palanca de mando versátil, cuya fabricación se hará íntegramente en el local, y permita a todos los miembros disponer de un periférico funcional para la simulación de vuelo.
+
+### Simulador de vuelo sin motor
+
+En el local se dispone de un simulador de vuelo sin motor construido con el fuselaje de un planeador real. El simulador es funcional, pero el sistema de movimiento de su plataforma no está activo. Se está trabajando activamente en diseñar la electrónica de control y el algoritmo de generación de movimiento para el simulador.
+
+### *Grip* impreso en 3D
+
+Como complemento a la base MOZA MH6 de Force Feedback adquirida por el Club, se busca diseñar una empuñadura que incluya toda la funcionalidad de un caza moderno (F-16C/F-18D) y sea "estándar", de forma que funcione de forma nativa con las conexiones de la base.
+
+### Simulador VR
+
+El Club cuenta con equipo para simular vuelo en realidad virtual, y periféricos básicos (yoke, palancas de gases). Para aumentar las capacidades de este simulador, se están construyendo varios periféricos adicionales, como:
+- Un Colectivo para el pilotaje de helicópteros.
+- Un panel de botones y radios, para aumentar la accesibilidad de los controles.
