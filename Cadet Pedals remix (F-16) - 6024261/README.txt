@@ -1,1 +1,0 @@
-Cadet Pedals remix (F-16) by Alexey4X on Thingiverse: https://www.thingiverse.com/thing:6024261
