@@ -1,0 +1,22 @@
+MODELOS STEP UNIBODY PARA CATIA V5
+Unidades: milimetros (mm)
+
+Estos archivos se han creado mediante union booleana real y se han vuelto a
+importar para verificar el resultado. Cada archivo contiene exactamente un
+solido cerrado y valido, no un Compound de cuerpos independientes.
+
+ARCHIVOS
+- switch_hat_6_pines_UNIBODY.step
+- pulsador_tactil_6x6x5_THT_UNIBODY.step
+- capuchon_hat_KG13_vastago_3p2_UNIBODY.step
+
+El capuchon mantiene:
+- Diametro exterior maximo: 11.4 mm.
+- Alojamiento cuadrado: 3.35 x 3.35 mm.
+- Profundidad del alojamiento: 5.35 mm.
+
+EN CATIA V5
+Abra el STEP con File > Open. El traductor puede mostrar un nivel superior con
+el nombre del traductor y un CATPart debajo, pero dentro debe existir un unico
+MANIFOLD_SOLID_BREP. Guarde ese documento mediante File > Save As > CATPart y
+despues inserte o copie el CATPart dentro del CATProduct.
