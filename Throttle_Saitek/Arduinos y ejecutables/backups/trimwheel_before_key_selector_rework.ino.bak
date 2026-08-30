@@ -1,0 +1,859 @@
+/*
+ * RP2040-Zero: panel USB HID para simuladores.
+ *
+ * Potenciometro de trim: GPIO26, publicado como eje Z.
+ * Encoder: GPIO6 y GPIO7, publicado como eje Slider virtual.
+ * Pulsacion del encoder: GPIO8.
+ * Cinco botones originales: GPIO2...GPIO5 y GPIO9.
+ * Dos interruptores ON/OFF, con dos entradas cada uno: GPIO10...GPIO13.
+ * Dos conmutadores (ON)-OFF-(ON): GPIO14, GPIO15, GPIO27 y GPIO28.
+ *
+ * Seleccionar en Arduino IDE:
+ *   Placa: Waveshare RP2040 Zero
+ *   USB Stack: Adafruit TinyUSB
+ */
+
+#include <Adafruit_TinyUSB.h>
+
+// Descriptor HID: catorce botones, eje Z real y Slider virtual para el encoder.
+uint8_t const hidReportDescriptor[] = {
+  0x05, 0x01,        // Usage Page (Generic Desktop)
+  0x09, 0x04,        // Usage (Joystick)
+  0xA1, 0x01,        // Collection (Application)
+
+  0x05, 0x09,        //   Usage Page (Button)
+  0x19, 0x01,        //   Usage Minimum (Button 1)
+  0x29, 0x0E,        //   Usage Maximum (Button 14)
+  0x15, 0x00,        //   Logical Minimum (0)
+  0x25, 0x01,        //   Logical Maximum (1)
+  0x75, 0x01,        //   Report Size (1 bit)
+  0x95, 0x0E,        //   Report Count (14)
+  0x81, 0x02,        //   Input (Data, Variable, Absolute)
+
+  0x75, 0x02,        //   Report Size (2 bits)
+  0x95, 0x01,        //   Report Count (1)
+  0x81, 0x03,        //   Input (Constant) - relleno
+
+  0x05, 0x01,        //   Usage Page (Generic Desktop)
+  0x09, 0x32,        //   Usage (Z)
+  0x09, 0x36,        //   Usage (Slider)
+  0x15, 0x00,        //   Logical Minimum (0)
+  0x26, 0xFF, 0x03,  //   Logical Maximum (1023)
+  0x75, 0x10,        //   Report Size (16 bits)
+  0x95, 0x02,        //   Report Count (2)
+  0x81, 0x02,        //   Input (Data, Variable, Absolute)
+
+  0xC0               // End Collection
+};
+
+Adafruit_USBD_HID usbHid;
+
+struct __attribute__((packed)) HidReport {
+  uint16_t buttons;
+  uint16_t z;
+  uint16_t slider;
+};
+
+static_assert(sizeof(HidReport) == 6, "El informe HID debe ocupar 6 bytes");
+
+constexpr uint8_t POT_PIN = 26;
+
+constexpr uint8_t ENCODER_A_PIN = 6;
+constexpr uint8_t ENCODER_B_PIN = 7;
+
+// Correspondencia de botones HID:
+//  1...5  = botones originales, GPIO2...GPIO5 y GPIO9
+//  6      = pulsacion del encoder, GPIO8
+//  7...8  = conmutador 1 ON/OFF, GPIO10/GPIO11
+//  9...10 = conmutador 2 ON/OFF, GPIO12/GPIO13
+// 11...12 = momentaneo 1 ARRIBA/ABAJO, GPIO14/GPIO15
+// 13...14 = momentaneo 2 ARRIBA/ABAJO, GPIO27/GPIO28
+constexpr uint8_t BUTTON_PINS[] = {
+  2, 3, 4, 5, 9,
+  8,
+  10, 11,
+  12, 13,
+  14, 15,
+  27, 28
+};
+constexpr size_t BUTTON_COUNT = sizeof(BUTTON_PINS) / sizeof(BUTTON_PINS[0]);
+static_assert(BUTTON_COUNT == 14, "Deben existir catorce entradas de boton");
+
+// Mismo rango y filtro progresivo que el codigo anterior que funcionaba bien.
+constexpr uint16_t ADC_MAX = 1023;
+constexpr uint8_t FILTER_DIVISOR = 8;
+constexpr bool TRIM_REVERSED = false;
+
+// El encoder no tiene posicion absoluta: al arrancar comienza en el centro.
+// Cada paso mecanico mueve el eje virtual esta cantidad.
+constexpr uint16_t ENCODER_AXIS_MIN = 0;
+constexpr uint16_t ENCODER_AXIS_MAX = 1023;
+constexpr uint16_t ENCODER_AXIS_START = 512;
+constexpr uint16_t ENCODER_AXIS_STEP = 16;
+
+// La mayoria de encoders generan cuatro transiciones por clic.
+// Usar 2 si el eje solo cambia cada dos clics.
+constexpr int8_t ENCODER_TRANSITIONS_PER_DETENT = 4;
+constexpr int8_t ENCODER_DIRECTION = 1;  // Cambiar a -1 si gira al reves.
+
+constexpr uint32_t DEBOUNCE_MS = 12;
+constexpr uint32_t REPORT_INTERVAL_MS = 5;
+constexpr uint32_t HEARTBEAT_MS = 100;
+constexpr uint16_t AXIS_CHANGE_THRESHOLD = 2;
+constexpr uint32_t RADIO_SWAP_PRESS_MS = 1000;
+constexpr uint32_t RADIO_SELECT_PRESS_MS = 2000;
+constexpr uint32_t TRANSPONDER_SELECT_PRESS_MS = 3000;
+constexpr uint32_t RADIO_BLINK_INTERVAL_MS = 350;
+constexpr uint32_t AIRCRAFT_BLINK_INTERVAL_MS = 2000;
+constexpr uint32_t SHORT_CLICK_SEQUENCE_MS = 450;
+constexpr size_t ENCODER_BUTTON_INDEX = 5;
+constexpr size_t AIRCRAFT_MODE_BUTTON_INDEX = 8;  // Boton HID 9, GPIO12.
+constexpr size_t RADIO_MODE_BUTTON_INDEX = 9;     // Boton HID 10, GPIO13.
+
+enum class RadioTarget : uint8_t {
+  COM1,
+  COM2,
+  NAV1,
+  OBS1,
+  NAV2,
+  OBS2,
+  ADF1,
+  ADF_HDG,
+  ALTIMETER,
+  DIRECTIONAL,
+  TRANSPONDER,
+  COUNT
+};
+
+enum class RadioTunePart : uint8_t {
+  WHOLE,
+  FRACTION
+};
+
+enum class EncoderOperatingMode : uint8_t {
+  RADIO,
+  AIRCRAFT
+};
+
+enum class AircraftControl : uint8_t {
+  IGNITION,
+  CARB_HEAT,
+  PITOT_HEAT,
+  NAV_LIGHTS,
+  STROBE_LIGHTS,
+  BEACON_LIGHTS,
+  TAXI_LIGHTS,
+  LANDING_LIGHTS,
+  COUNT
+};
+
+struct ButtonState {
+  bool rawPressed;
+  bool stablePressed;
+  uint32_t changedAt;
+};
+
+ButtonState buttonStates[BUTTON_COUNT] = {};
+HidReport lastSentReport = {};
+bool hasSentReport = false;
+uint32_t lastSampleAt = 0;
+uint32_t lastReportAt = 0;
+uint16_t filteredTrim = 0;
+uint16_t encoderAxis = ENCODER_AXIS_START;
+uint8_t previousEncoderState = 0;
+int8_t encoderTransitionAccumulator = 0;
+RadioTarget radioTarget = RadioTarget::COM1;
+RadioTunePart radioTunePart = RadioTunePart::WHOLE;
+EncoderOperatingMode encoderOperatingMode = EncoderOperatingMode::RADIO;
+AircraftControl aircraftControl = AircraftControl::IGNITION;
+bool radioSelectionMode = false;
+bool aircraftSelectionMode = false;
+bool processedEncoderButtonPressed = false;
+uint32_t encoderButtonPressedAt = 0;
+uint8_t adfDigitIndex = 0;
+uint8_t transponderDigitIndex = 0;
+bool transponderKnobMode = false;
+bool radioBlinkRaised = false;
+uint32_t lastRadioBlinkAt = 0;
+bool aircraftBlinkRaised = false;
+uint32_t lastAircraftBlinkAt = 0;
+uint8_t pendingShortClickCount = 0;
+uint32_t lastShortClickAt = 0;
+
+// Tabla para decodificar el encoder en cuadratura y rechazar rebotes invalidos.
+constexpr int8_t ENCODER_TRANSITION_TABLE[16] = {
+   0, -1,  1,  0,
+   1,  0,  0, -1,
+  -1,  0,  0,  1,
+   0,  1, -1,  0
+};
+
+const char* radioTargetName(RadioTarget target) {
+  switch (target) {
+    case RadioTarget::COM1: return "COM1";
+    case RadioTarget::COM2: return "COM2";
+    case RadioTarget::NAV1: return "NAV1";
+    case RadioTarget::NAV2: return "NAV2";
+    case RadioTarget::ADF1: return "ADF1";
+    case RadioTarget::OBS1: return "OBS1";
+    case RadioTarget::OBS2: return "OBS2";
+    case RadioTarget::ADF_HDG: return "ADFHDG";
+    case RadioTarget::ALTIMETER: return "ALTIMETER";
+    case RadioTarget::DIRECTIONAL: return "DIRECTIONAL";
+    case RadioTarget::TRANSPONDER: return "TRANSPONDER";
+    default: return "COM1";
+  }
+}
+
+const char* aircraftControlName(AircraftControl control) {
+  switch (control) {
+    case AircraftControl::IGNITION: return "IGNITION";
+    case AircraftControl::CARB_HEAT: return "CARBHEAT";
+    case AircraftControl::PITOT_HEAT: return "PITOTHEAT";
+    case AircraftControl::NAV_LIGHTS: return "NAVLIGHTS";
+    case AircraftControl::STROBE_LIGHTS: return "STROBES";
+    case AircraftControl::BEACON_LIGHTS: return "BEACON";
+    case AircraftControl::TAXI_LIGHTS: return "TAXI";
+    case AircraftControl::LANDING_LIGHTS: return "LANDING";
+    default: return "IGNITION";
+  }
+}
+
+bool targetHasWholeAndFraction(RadioTarget target) {
+  return target == RadioTarget::COM1 || target == RadioTarget::COM2 ||
+         target == RadioTarget::NAV1 || target == RadioTarget::NAV2;
+}
+
+bool targetHasStandby(RadioTarget target) {
+  return target == RadioTarget::COM1 || target == RadioTarget::COM2 ||
+         target == RadioTarget::NAV1 || target == RadioTarget::NAV2 ||
+         target == RadioTarget::ADF1;
+}
+
+bool targetMovesDuringSelection(RadioTarget target) {
+  return target < RadioTarget::COUNT;
+}
+
+const char* radioTunePartName() {
+  if (radioTarget == RadioTarget::TRANSPONDER) {
+    if (transponderKnobMode) {
+      return "KNOB";
+    }
+
+    switch (transponderDigitIndex) {
+      case 0: return "DIGIT1";
+      case 1: return "DIGIT2";
+      case 2: return "DIGIT3";
+      default: return "DIGIT4";
+    }
+  }
+
+  if (radioTarget == RadioTarget::ADF1) {
+    switch (adfDigitIndex) {
+      case 0: return "DIGIT1";
+      case 1: return "DIGIT2";
+      default: return "DIGIT3";
+    }
+  }
+
+  return radioTunePart == RadioTunePart::WHOLE ? "WHOLE" : "FRACTION";
+}
+
+void sendRadioTurn(int8_t direction) {
+  Serial.print(F("RADIO,TURN,"));
+  Serial.print(radioTargetName(radioTarget));
+  Serial.print(',');
+  Serial.print(radioTunePartName());
+  Serial.print(',');
+  Serial.println(direction > 0 ? '+' : '-');
+}
+
+void sendAircraftTurn(int8_t direction) {
+  Serial.print(F("AIRCRAFT,TURN,"));
+  Serial.print(aircraftControlName(aircraftControl));
+  Serial.print(',');
+  Serial.println(direction > 0 ? '+' : '-');
+}
+
+void sendAircraftBlinkStep(AircraftControl control, int8_t direction) {
+  Serial.print(F("AIRCRAFT,BLINK,"));
+  Serial.print(aircraftControlName(control));
+  Serial.print(',');
+  Serial.println(direction > 0 ? '+' : '-');
+}
+
+void sendAircraftActivate() {
+  Serial.print(F("AIRCRAFT,ACTIVATE,"));
+  Serial.println(aircraftControlName(aircraftControl));
+}
+
+void announceAircraftControl() {
+  Serial.print(F("AIRCRAFT,SELECT,"));
+  Serial.println(aircraftControlName(aircraftControl));
+}
+
+void announceAircraftMode() {
+  Serial.print(F("AIRCRAFT,MODE,"));
+  Serial.print(aircraftSelectionMode ? F("SELECT") : F("DIRECT"));
+  Serial.print(',');
+  Serial.println(aircraftControlName(aircraftControl));
+}
+
+void sendRadioBlinkStep(RadioTarget target, int8_t direction) {
+  Serial.print(F("RADIO,BLINK,"));
+  Serial.print(radioTargetName(target));
+  Serial.print(',');
+  Serial.println(direction > 0 ? '+' : '-');
+}
+
+void sendRadioSwap() {
+  if (!targetHasStandby(radioTarget)) {
+    return;
+  }
+
+  Serial.print(F("RADIO,SWAP,"));
+  Serial.println(radioTargetName(radioTarget));
+}
+
+void announceRadioSelection() {
+  Serial.print(F("RADIO,SELECT,"));
+  Serial.println(radioTargetName(radioTarget));
+}
+
+void announceRadioMode() {
+  Serial.print(F("RADIO,MODE,"));
+  Serial.print(radioSelectionMode ? F("SELECT") : F("TUNE"));
+  Serial.print(',');
+  Serial.println(radioTargetName(radioTarget));
+}
+
+void announceAdfDigit() {
+  Serial.print(F("RADIO,DIGIT,ADF1,"));
+  Serial.println(adfDigitIndex + 1U);
+}
+
+void announceTransponderControl() {
+  Serial.print(F("RADIO,XPDRMODE,"));
+  if (transponderKnobMode) {
+    Serial.println(F("KNOB"));
+    return;
+  }
+
+  Serial.print(F("DIGIT"));
+  Serial.println(transponderDigitIndex + 1U);
+}
+
+void restoreRadioBlink() {
+  if (radioBlinkRaised) {
+    sendRadioBlinkStep(radioTarget, -1);
+    radioBlinkRaised = false;
+  }
+}
+
+void changeRadioTarget(int8_t direction, uint32_t now) {
+  restoreRadioBlink();
+
+  int8_t nextTarget = static_cast<int8_t>(radioTarget) +
+                      (direction > 0 ? 1 : -1);
+  const int8_t targetCount = static_cast<int8_t>(RadioTarget::COUNT);
+  if (nextTarget >= targetCount) {
+    nextTarget = 0;
+  } else if (nextTarget < 0) {
+    nextTarget = targetCount - 1;
+  }
+
+  radioTarget = static_cast<RadioTarget>(nextTarget);
+  radioTunePart = RadioTunePart::WHOLE;
+  if (radioTarget == RadioTarget::ADF1) {
+    adfDigitIndex = 0;
+  }
+  if (radioTarget == RadioTarget::TRANSPONDER) {
+    transponderDigitIndex = 0;
+    transponderKnobMode = false;
+  }
+  lastRadioBlinkAt = now;
+  announceRadioSelection();
+}
+
+void setRadioSelectionMode(bool enabled, uint32_t now) {
+  if (!enabled) {
+    restoreRadioBlink();
+  }
+
+  radioSelectionMode = enabled;
+  radioTunePart = RadioTunePart::WHOLE;
+  if (radioTarget == RadioTarget::ADF1) {
+    adfDigitIndex = 0;
+  }
+  if (radioTarget == RadioTarget::TRANSPONDER) {
+    transponderDigitIndex = 0;
+    transponderKnobMode = false;
+  }
+  lastRadioBlinkAt = now;
+  announceRadioMode();
+}
+
+void resetRadioControl(uint32_t now) {
+  restoreRadioBlink();
+  radioSelectionMode = false;
+  radioTarget = RadioTarget::COM1;
+  radioTunePart = RadioTunePart::WHOLE;
+  adfDigitIndex = 0;
+  transponderDigitIndex = 0;
+  transponderKnobMode = false;
+  lastRadioBlinkAt = now;
+  announceRadioMode();
+  announceRadioSelection();
+}
+
+void restoreAircraftBlink() {
+  if (aircraftBlinkRaised) {
+    sendAircraftBlinkStep(aircraftControl, -1);
+    aircraftBlinkRaised = false;
+  }
+}
+
+void setAircraftSelectionMode(bool enabled, uint32_t now) {
+  restoreAircraftBlink();
+  aircraftSelectionMode = enabled;
+  lastAircraftBlinkAt = now;
+  announceAircraftMode();
+}
+
+void changeAircraftControl(int8_t direction, uint32_t now) {
+  restoreAircraftBlink();
+
+  int8_t nextControl = static_cast<int8_t>(aircraftControl) +
+                       (direction > 0 ? 1 : -1);
+  const int8_t controlCount = static_cast<int8_t>(AircraftControl::COUNT);
+  if (nextControl >= controlCount) {
+    nextControl = 0;
+  } else if (nextControl < 0) {
+    nextControl = controlCount - 1;
+  }
+
+  aircraftControl = static_cast<AircraftControl>(nextControl);
+  lastAircraftBlinkAt = now;
+  announceAircraftControl();
+}
+
+void resetAircraftControl(uint32_t now) {
+  restoreAircraftBlink();
+  aircraftSelectionMode = false;
+  aircraftControl = AircraftControl::IGNITION;
+  lastAircraftBlinkAt = now;
+  announceAircraftMode();
+  announceAircraftControl();
+}
+
+void serviceAircraftSelectionBlink(uint32_t now) {
+  if (encoderOperatingMode != EncoderOperatingMode::AIRCRAFT ||
+      !aircraftSelectionMode) {
+    restoreAircraftBlink();
+    return;
+  }
+
+  if (now - lastAircraftBlinkAt < AIRCRAFT_BLINK_INTERVAL_MS) {
+    return;
+  }
+
+  lastAircraftBlinkAt = now;
+  sendAircraftBlinkStep(aircraftControl, aircraftBlinkRaised ? -1 : 1);
+  aircraftBlinkRaised = !aircraftBlinkRaised;
+}
+
+void serviceEncoderOperatingMode(uint32_t now) {
+  const bool aircraftRequested =
+      buttonStates[AIRCRAFT_MODE_BUTTON_INDEX].stablePressed;
+  const bool radioRequested =
+      buttonStates[RADIO_MODE_BUTTON_INDEX].stablePressed;
+
+  // Durante el transito mecanico puede no haber ninguno o estar ambos activos.
+  // En ese instante se conserva el ultimo modo valido.
+  EncoderOperatingMode nextMode = encoderOperatingMode;
+  if (aircraftRequested && !radioRequested) {
+    nextMode = EncoderOperatingMode::AIRCRAFT;
+  } else if (radioRequested && !aircraftRequested) {
+    nextMode = EncoderOperatingMode::RADIO;
+  }
+
+  if (nextMode == encoderOperatingMode) {
+    return;
+  }
+
+  pendingShortClickCount = 0;
+  if (radioSelectionMode || radioBlinkRaised) {
+    setRadioSelectionMode(false, now);
+  }
+  if (aircraftSelectionMode || aircraftBlinkRaised) {
+    setAircraftSelectionMode(false, now);
+  }
+
+  encoderOperatingMode = nextMode;
+  if (encoderOperatingMode == EncoderOperatingMode::AIRCRAFT) {
+    resetAircraftControl(now);
+  } else {
+    announceRadioMode();
+  }
+}
+
+void serviceRadioSelectionBlink(uint32_t now) {
+  if (encoderOperatingMode != EncoderOperatingMode::RADIO ||
+      !radioSelectionMode || !targetMovesDuringSelection(radioTarget)) {
+    restoreRadioBlink();
+    return;
+  }
+
+  if (now - lastRadioBlinkAt < RADIO_BLINK_INTERVAL_MS) {
+    return;
+  }
+
+  lastRadioBlinkAt = now;
+  sendRadioBlinkStep(radioTarget, radioBlinkRaised ? -1 : 1);
+  radioBlinkRaised = !radioBlinkRaised;
+}
+
+void processRadioShortClick(uint32_t now) {
+  if (radioSelectionMode) {
+    setRadioSelectionMode(false, now);
+    return;
+  }
+
+  if (radioTarget == RadioTarget::TRANSPONDER) {
+    if (!transponderKnobMode) {
+      transponderDigitIndex =
+          static_cast<uint8_t>((transponderDigitIndex + 1U) % 4U);
+      announceTransponderControl();
+    }
+    return;
+  }
+
+  if (radioTarget == RadioTarget::ADF1) {
+    adfDigitIndex = static_cast<uint8_t>((adfDigitIndex + 1U) % 3U);
+    announceAdfDigit();
+    return;
+  }
+
+  if (targetHasWholeAndFraction(radioTarget)) {
+    radioTunePart = radioTunePart == RadioTunePart::WHOLE
+                        ? RadioTunePart::FRACTION
+                        : RadioTunePart::WHOLE;
+  }
+}
+
+void processAircraftShortClick(uint32_t now) {
+  if (aircraftSelectionMode) {
+    restoreAircraftBlink();
+    sendAircraftActivate();
+    lastAircraftBlinkAt = now;
+    return;
+  }
+
+  changeAircraftControl(1, now);
+}
+
+void resetActiveEncoderControl(uint32_t now) {
+  if (encoderOperatingMode == EncoderOperatingMode::AIRCRAFT) {
+    resetAircraftControl(now);
+  } else {
+    resetRadioControl(now);
+  }
+}
+
+void executePendingShortClicks(uint32_t now) {
+  const uint8_t clickCount = pendingShortClickCount;
+  pendingShortClickCount = 0;
+
+  if (encoderOperatingMode == EncoderOperatingMode::AIRCRAFT) {
+    if (clickCount == 2) {
+      setAircraftSelectionMode(!aircraftSelectionMode, now);
+    } else if (clickCount == 1) {
+      processAircraftShortClick(now);
+    }
+    return;
+  }
+
+  for (uint8_t i = 0; i < clickCount; ++i) {
+    if (encoderOperatingMode == EncoderOperatingMode::RADIO) {
+      processRadioShortClick(now);
+    }
+  }
+}
+
+void queueShortClick(uint32_t now) {
+  if (pendingShortClickCount > 0 &&
+      now - lastShortClickAt > SHORT_CLICK_SEQUENCE_MS) {
+    executePendingShortClicks(now);
+  }
+
+  ++pendingShortClickCount;
+  lastShortClickAt = now;
+
+  if (pendingShortClickCount >= 3) {
+    pendingShortClickCount = 0;
+    resetActiveEncoderControl(now);
+  }
+}
+
+void servicePendingShortClicks(uint32_t now) {
+  if (pendingShortClickCount == 0 ||
+      now - lastShortClickAt < SHORT_CLICK_SEQUENCE_MS) {
+    return;
+  }
+
+  executePendingShortClicks(now);
+}
+
+void processEncoderButtonRelease(uint32_t pressDurationMs, uint32_t now) {
+  if (pressDurationMs < RADIO_SWAP_PRESS_MS) {
+    queueShortClick(now);
+    return;
+  }
+
+  pendingShortClickCount = 0;
+
+  // En el modo de motor/luces solo se emplean giro, clic corto y triple clic.
+  if (encoderOperatingMode == EncoderOperatingMode::AIRCRAFT) {
+    return;
+  }
+
+  // Dentro de la seleccion de radios, las pulsaciones largas no hacen nada.
+  if (radioSelectionMode) {
+    return;
+  }
+
+  if (radioTarget == RadioTarget::TRANSPONDER) {
+    // Pulsacion extra larga: abandonar el transpondedor y volver a seleccionar.
+    if (pressDurationMs >= TRANSPONDER_SELECT_PRESS_MS) {
+      setRadioSelectionMode(true, now);
+      return;
+    }
+
+    // Pulsacion larga: alternar entre las cuatro cifras y el selector de modo.
+    if (pressDurationMs >= RADIO_SWAP_PRESS_MS) {
+      transponderKnobMode = !transponderKnobMode;
+      announceTransponderControl();
+      return;
+    }
+
+    return;
+  }
+
+  if (pressDurationMs >= RADIO_SELECT_PRESS_MS) {
+    setRadioSelectionMode(true, now);
+    return;
+  }
+
+  if (pressDurationMs >= RADIO_SWAP_PRESS_MS) {
+    sendRadioSwap();
+    return;
+  }
+
+}
+
+void serviceEncoderButtonActions(uint32_t now) {
+  const bool pressed = buttonStates[ENCODER_BUTTON_INDEX].stablePressed;
+  if (pressed == processedEncoderButtonPressed) {
+    return;
+  }
+
+  processedEncoderButtonPressed = pressed;
+  if (pressed) {
+    encoderButtonPressedAt = now;
+  } else {
+    processEncoderButtonRelease(now - encoderButtonPressedAt, now);
+  }
+}
+
+uint16_t readAxis() {
+  const uint16_t rawTrim = analogRead(POT_PIN);
+
+  // Filtro IIR 1/8: estable, pero responde de forma continua al movimiento.
+  filteredTrim = static_cast<uint16_t>(
+      (static_cast<uint32_t>(filteredTrim) * (FILTER_DIVISOR - 1U) +
+       rawTrim + FILTER_DIVISOR / 2U) /
+      FILTER_DIVISOR);
+
+  return TRIM_REVERSED ? static_cast<uint16_t>(ADC_MAX - filteredTrim)
+                       : filteredTrim;
+}
+
+void moveEncoderAxis(int8_t detents) {
+  const int8_t directedDetents = detents * ENCODER_DIRECTION;
+
+  if (encoderOperatingMode == EncoderOperatingMode::RADIO &&
+      radioSelectionMode) {
+    changeRadioTarget(directedDetents, millis());
+    return;
+  }
+  if (encoderOperatingMode == EncoderOperatingMode::AIRCRAFT &&
+      aircraftSelectionMode) {
+    changeAircraftControl(directedDetents, millis());
+    return;
+  }
+
+  int32_t nextValue =
+      static_cast<int32_t>(encoderAxis) +
+      static_cast<int32_t>(directedDetents) * ENCODER_AXIS_STEP;
+
+  nextValue = constrain(nextValue,
+                        static_cast<int32_t>(ENCODER_AXIS_MIN),
+                        static_cast<int32_t>(ENCODER_AXIS_MAX));
+  encoderAxis = static_cast<uint16_t>(nextValue);
+  if (encoderOperatingMode == EncoderOperatingMode::AIRCRAFT) {
+    sendAircraftTurn(directedDetents);
+  } else {
+    sendRadioTurn(directedDetents);
+  }
+}
+
+void serviceEncoder() {
+  const uint8_t currentState =
+      (static_cast<uint8_t>(digitalRead(ENCODER_A_PIN)) << 1U) |
+      static_cast<uint8_t>(digitalRead(ENCODER_B_PIN));
+
+  if (currentState == previousEncoderState) {
+    return;
+  }
+
+  const uint8_t tableIndex =
+      static_cast<uint8_t>((previousEncoderState << 2U) | currentState);
+  encoderTransitionAccumulator += ENCODER_TRANSITION_TABLE[tableIndex];
+  previousEncoderState = currentState;
+
+  while (encoderTransitionAccumulator >= ENCODER_TRANSITIONS_PER_DETENT) {
+    encoderTransitionAccumulator -= ENCODER_TRANSITIONS_PER_DETENT;
+    moveEncoderAxis(1);
+  }
+
+  while (encoderTransitionAccumulator <= -ENCODER_TRANSITIONS_PER_DETENT) {
+    encoderTransitionAccumulator += ENCODER_TRANSITIONS_PER_DETENT;
+    moveEncoderAxis(-1);
+  }
+}
+
+uint16_t readButtons(uint32_t now) {
+  uint16_t mask = 0;
+
+  for (size_t i = 0; i < BUTTON_COUNT; ++i) {
+    const bool pressed = digitalRead(BUTTON_PINS[i]) == LOW;
+
+    if (pressed != buttonStates[i].rawPressed) {
+      buttonStates[i].rawPressed = pressed;
+      buttonStates[i].changedAt = now;
+    }
+
+    if (pressed != buttonStates[i].stablePressed &&
+        now - buttonStates[i].changedAt >= DEBOUNCE_MS) {
+      buttonStates[i].stablePressed = pressed;
+    }
+
+    if (buttonStates[i].stablePressed) {
+      mask |= static_cast<uint16_t>(1u << i);
+    }
+  }
+
+  return mask;
+}
+
+void setup() {
+  // Rango 0...1023, igual que en el codigo anterior del trim.
+  analogReadResolution(10);
+  pinMode(POT_PIN, INPUT);
+  filteredTrim = analogRead(POT_PIN);
+
+  pinMode(ENCODER_A_PIN, INPUT_PULLUP);
+  pinMode(ENCODER_B_PIN, INPUT_PULLUP);
+  previousEncoderState =
+      (static_cast<uint8_t>(digitalRead(ENCODER_A_PIN)) << 1U) |
+      static_cast<uint8_t>(digitalRead(ENCODER_B_PIN));
+
+  for (size_t i = 0; i < BUTTON_COUNT; ++i) {
+    pinMode(BUTTON_PINS[i], INPUT_PULLUP);
+    const bool pressed = digitalRead(BUTTON_PINS[i]) == LOW;
+    buttonStates[i] = {pressed, pressed, millis()};
+  }
+  processedEncoderButtonPressed =
+      buttonStates[ENCODER_BUTTON_INDEX].stablePressed;
+  if (processedEncoderButtonPressed) {
+    encoderButtonPressedAt = millis();
+  }
+
+  if (buttonStates[AIRCRAFT_MODE_BUTTON_INDEX].stablePressed &&
+      !buttonStates[RADIO_MODE_BUTTON_INDEX].stablePressed) {
+    encoderOperatingMode = EncoderOperatingMode::AIRCRAFT;
+    aircraftControl = AircraftControl::IGNITION;
+  }
+
+  if (!TinyUSBDevice.isInitialized()) {
+    TinyUSBDevice.begin(0);
+  }
+
+  Serial.begin(115200);  // Mantiene disponible la carga automatica por USB.
+
+  usbHid.setPollInterval(2);
+  usbHid.setReportDescriptor(hidReportDescriptor,
+                             sizeof(hidReportDescriptor));
+  usbHid.begin();
+
+  // Fuerza una nueva enumeracion si USB ya estaba conectado.
+  if (TinyUSBDevice.mounted()) {
+    TinyUSBDevice.detach();
+    delay(10);
+    TinyUSBDevice.attach();
+  }
+}
+
+void loop() {
+#ifdef TINYUSB_NEED_POLLING_TASK
+  TinyUSBDevice.task();
+#endif
+
+  // El puente tambien envia el estado de COM1 para la antigua pantalla.
+  // Este controlador no necesita esos datos, pero los consume para evitar
+  // que el bufer serie se llene durante sesiones largas.
+  while (Serial.available() > 0) {
+    Serial.read();
+  }
+
+  const uint32_t now = millis();
+
+  // Se atiende en cada vuelta para no perder pulsos al girar rapido.
+  serviceEncoder();
+  serviceRadioSelectionBlink(now);
+  serviceAircraftSelectionBlink(now);
+
+  if (now - lastSampleAt < REPORT_INTERVAL_MS) {
+    return;
+  }
+  lastSampleAt = now;
+
+  HidReport report;
+  report.buttons = readButtons(now);
+  serviceEncoderOperatingMode(now);
+  serviceEncoderButtonActions(now);
+  servicePendingShortClicks(now);
+  report.z = readAxis();
+  report.slider = encoderAxis;
+
+  const bool buttonsChanged =
+      !hasSentReport || report.buttons != lastSentReport.buttons;
+  const bool trimChanged =
+      !hasSentReport ||
+      abs(static_cast<int32_t>(report.z) - lastSentReport.z) >=
+          AXIS_CHANGE_THRESHOLD;
+  const bool encoderChanged =
+      !hasSentReport || report.slider != lastSentReport.slider;
+  const bool heartbeatDue = now - lastReportAt >= HEARTBEAT_MS;
+
+  if (!TinyUSBDevice.mounted() || !usbHid.ready()) {
+    return;
+  }
+
+  if (buttonsChanged || trimChanged || encoderChanged || heartbeatDue) {
+    usbHid.sendReport(0, &report, sizeof(report));
+    lastSentReport = report;
+    hasSentReport = true;
+    lastReportAt = now;
+  }
+}

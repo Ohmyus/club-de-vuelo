@@ -1,0 +1,182 @@
+/*
+ * RP2040-Zero: joystick USB HID con un eje y cinco botones.
+ *
+ * Eje X: potenciometro en GPIO26 (ADC0)
+ * Botones: GPIO2, GPIO3, GPIO4, GPIO5 y GPIO6, activos a GND
+ *
+ * Seleccionar en Arduino IDE:
+ *   Placa: Waveshare RP2040 Zero
+ *   USB Stack: Adafruit TinyUSB
+ */
+
+#include <Adafruit_TinyUSB.h>
+
+// Descriptor HID: cinco botones, tres bits de relleno y un eje X de 16 bits.
+uint8_t const hidReportDescriptor[] = {
+  0x05, 0x01,        // Usage Page (Generic Desktop)
+  0x09, 0x04,        // Usage (Joystick)
+  0xA1, 0x01,        // Collection (Application)
+
+  0x05, 0x09,        //   Usage Page (Button)
+  0x19, 0x01,        //   Usage Minimum (Button 1)
+  0x29, 0x05,        //   Usage Maximum (Button 5)
+  0x15, 0x00,        //   Logical Minimum (0)
+  0x25, 0x01,        //   Logical Maximum (1)
+  0x75, 0x01,        //   Report Size (1 bit)
+  0x95, 0x05,        //   Report Count (5)
+  0x81, 0x02,        //   Input (Data, Variable, Absolute)
+
+  0x75, 0x03,        //   Report Size (3 bits)
+  0x95, 0x01,        //   Report Count (1)
+  0x81, 0x03,        //   Input (Constant) - relleno
+
+  0x05, 0x01,        //   Usage Page (Generic Desktop)
+  0x09, 0x30,        //   Usage (X)
+  0x16, 0x01, 0x80,  //   Logical Minimum (-32767)
+  0x26, 0xFF, 0x7F,  //   Logical Maximum (32767)
+  0x75, 0x10,        //   Report Size (16 bits)
+  0x95, 0x01,        //   Report Count (1)
+  0x81, 0x02,        //   Input (Data, Variable, Absolute)
+
+  0xC0               // End Collection
+};
+
+Adafruit_USBD_HID usbHid;
+
+struct __attribute__((packed)) HidReport {
+  uint8_t buttons;
+  int16_t x;
+};
+
+static_assert(sizeof(HidReport) == 3, "El informe HID debe ocupar 3 bytes");
+
+constexpr uint8_t POT_PIN = 26;
+constexpr uint8_t BUTTON_PINS[] = {2, 3, 4, 5, 6};
+constexpr size_t BUTTON_COUNT = sizeof(BUTTON_PINS) / sizeof(BUTTON_PINS[0]);
+
+// Ajustar estos dos valores si el potenciometro no alcanza ambos extremos.
+constexpr int ADC_MIN = 0;
+constexpr int ADC_MAX = 4095;
+constexpr uint8_t ADC_SAMPLES = 8;
+
+constexpr uint32_t DEBOUNCE_MS = 12;
+constexpr uint32_t REPORT_INTERVAL_MS = 5;
+constexpr uint32_t HEARTBEAT_MS = 100;
+constexpr int16_t AXIS_CHANGE_THRESHOLD = 32;
+
+struct ButtonState {
+  bool rawPressed;
+  bool stablePressed;
+  uint32_t changedAt;
+};
+
+ButtonState buttonStates[BUTTON_COUNT] = {};
+HidReport lastSentReport = {};
+bool hasSentReport = false;
+uint32_t lastSampleAt = 0;
+uint32_t lastReportAt = 0;
+
+int16_t readAxis() {
+  uint32_t sum = 0;
+
+  for (uint8_t i = 0; i < ADC_SAMPLES; ++i) {
+    sum += analogRead(POT_PIN);
+  }
+
+  int32_t adc = (sum + ADC_SAMPLES / 2) / ADC_SAMPLES;
+  adc = constrain(adc, static_cast<int32_t>(ADC_MIN),
+                  static_cast<int32_t>(ADC_MAX));
+
+  // Convierte ADC_MIN...ADC_MAX en -32767...32767 sin desbordar int32_t.
+  const int32_t axis =
+      ((adc - ADC_MIN) * 65534L) / (ADC_MAX - ADC_MIN) - 32767L;
+  return static_cast<int16_t>(axis);
+}
+
+uint8_t readButtons(uint32_t now) {
+  uint8_t mask = 0;
+
+  for (size_t i = 0; i < BUTTON_COUNT; ++i) {
+    const bool pressed = digitalRead(BUTTON_PINS[i]) == LOW;
+
+    if (pressed != buttonStates[i].rawPressed) {
+      buttonStates[i].rawPressed = pressed;
+      buttonStates[i].changedAt = now;
+    }
+
+    if (pressed != buttonStates[i].stablePressed &&
+        now - buttonStates[i].changedAt >= DEBOUNCE_MS) {
+      buttonStates[i].stablePressed = pressed;
+    }
+
+    if (buttonStates[i].stablePressed) {
+      mask |= static_cast<uint8_t>(1u << i);
+    }
+  }
+
+  return mask;
+}
+
+void setup() {
+  analogReadResolution(12);
+  pinMode(POT_PIN, INPUT);
+
+  for (size_t i = 0; i < BUTTON_COUNT; ++i) {
+    pinMode(BUTTON_PINS[i], INPUT_PULLUP);
+    const bool pressed = digitalRead(BUTTON_PINS[i]) == LOW;
+    buttonStates[i] = {pressed, pressed, millis()};
+  }
+
+  if (!TinyUSBDevice.isInitialized()) {
+    TinyUSBDevice.begin(0);
+  }
+
+  Serial.begin(115200);  // Mantiene disponible la carga automatica por USB.
+
+  usbHid.setPollInterval(2);
+  usbHid.setReportDescriptor(hidReportDescriptor,
+                             sizeof(hidReportDescriptor));
+  usbHid.begin();
+
+  // Fuerza una nueva enumeracion si USB ya estaba conectado.
+  if (TinyUSBDevice.mounted()) {
+    TinyUSBDevice.detach();
+    delay(10);
+    TinyUSBDevice.attach();
+  }
+}
+
+void loop() {
+#ifdef TINYUSB_NEED_POLLING_TASK
+  TinyUSBDevice.task();
+#endif
+
+  const uint32_t now = millis();
+  if (now - lastSampleAt < REPORT_INTERVAL_MS) {
+    return;
+  }
+  lastSampleAt = now;
+
+  HidReport report;
+  report.buttons = readButtons(now);
+  report.x = readAxis();
+
+  const bool buttonsChanged =
+      !hasSentReport || report.buttons != lastSentReport.buttons;
+  const bool axisChanged =
+      !hasSentReport ||
+      abs(static_cast<int32_t>(report.x) - lastSentReport.x) >=
+          AXIS_CHANGE_THRESHOLD;
+  const bool heartbeatDue = now - lastReportAt >= HEARTBEAT_MS;
+
+  if (!TinyUSBDevice.mounted() || !usbHid.ready()) {
+    return;
+  }
+
+  if (buttonsChanged || axisChanged || heartbeatDue) {
+    usbHid.sendReport(0, &report, sizeof(report));
+    lastSentReport = report;
+    hasSentReport = true;
+    lastReportAt = now;
+  }
+}
