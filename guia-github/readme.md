@@ -144,20 +144,17 @@ Si se quiere evitar esto para la próxima vez, se puede cambiar la configuració
 
 Supuestamente, basta con ejecutar una vez el comando deseado para que el *Terminal* ya no se quede en esos modos y vuelva por defecto al funcionamiento habitual tras hacer un *merge* o *rebase*. Sin embargo, la terminal de *VS Code* a veces se pone exquisita, y todavía no se ha encontrado una buena forma de evitar esto.
 
-## 12. Conectarse al repositorio remoto de otro usuario
+## 12. Descargar el repositorio remoto de otro usuario
 
-Para trabajar de la forma indicada pero en un repositorio creado por otro usuario, se debe primero crear una carpeta local en donde descargar el repositorio remoto.
-
-Después, se debe ejecutar el comando
+Para trabajar de la forma indicada pero en un repositorio creado por otro usuario, se debe navegar a una carpeta donde se quiera copiar el repositorio. Abriendo una terminal en esa carpeta, se debe ejecutar el comando:
 
 ```bash
 git clone [url del repositorio de GitHub]
 
 ```
-
 Que crea una copia local del repositorio remoto y lo conecta con GitHub.
 
-A partir de aquí, ya se puede trabajar como se ha descrito anteriormente.
+A partir de aquí, ya se cuentan con todos los archivos. Si se tienen permisos de escritura (el propietario del repositorio remoto ha añadido al usuario como colaborador), se puede utilizar el flujo de trabajo estándar. Si no, se debe consultar la sección de **colaboración sin ser colaborador**.
 
 ## 13. Ver el historial de cambios (`git log`)
 
@@ -207,9 +204,18 @@ Para ver todas las ramas que hay abiertas en el repositorio local y en el remoto
 git branch -a
 ```
 
-Para crear una rama, se debe ejecutar el comando `git branch [nombre de la rama]`.
+Antes de crear una nueva rama, si estamos en `main`, es altamente recomendable ejecutar `git pull` para asegurarnos de que la rama parte del estado más reciente de `main`.
 
-Después, para cambiarte a esta y trabajar en ella, se debe ejecutar `git checkout [nombre de la rama]`. Aquí ya se trabaja de la forma habitual.
+Para crear una rama, se debe ejecutar el comando:
+```bash
+git branch [nombre de la rama]
+```
+
+Después, para cambiarte a esta y trabajar en ella, se debe ejecutar:
+```bash
+git checkout [nombre de la rama]
+```
+Aquí ya se trabaja de la forma habitual.
 
 * Se pueden unir ambos pasos con el comando `git checkout -b [nombre de la rama]`, que crea la rama y te cambia a esta.
 * Cuando se haya terminado el trabajo y se quiera subir un *commit* al repositorio remoto, hay que indicarle a `git` que ahora tiene que subir los cambios a una rama nueva. `git` es lo suficientemente listo como para dar el error si ya se ha ejecutado el comando `git checkout`. Entonces, después del flujo de trabajo estándar:
@@ -233,7 +239,7 @@ Por ejemplo, para hacer el merge de *característica* con *main*, el flujo de tr
 2. `git merge caracteristica`
 3. Resolver posibles conflictos en el *merge*.
 
-Además, si se desea eliminar una rama en tu repositorio remoto de GitHub una vez ya se ha mergeado con `master`, se debe ejecutar el comando:
+Además, si se desea eliminar una rama en tu repositorio remoto de GitHub una vez ya se ha mergeado con `main`, se debe ejecutar el comando:
 
 ```bash
 git push origin --delete [nombre de la rama a borrar]
@@ -296,6 +302,29 @@ git push -u origin nombre-rama
 
 Ve a la [página web del repositorio original](https://github.com/Ohmyus/club-de-vuelo) en GitHub. Un banner aparecerá automáticamente sugiriendo abrir un *Pull Request*. Haz click en "Comparar y Pull Request", añade una descripción de tus cambios o trabajo para ayudar al revisor, y envíala. Entonces el propietario o colaboradores del repositorio podrán revisar, aprobar y *mergear* tu trabajo o código en el repositorio.
 
+### 6. Mantente actualizado
+
+Es posible que durante el tiempo que estés trabajando, el repositorio original reciba *commits*, que al trabajar en una copia del repositorio, no se aplican automáticamente al *fork*.
+
+Para mantener sincronía con el repositorio original, en GitHub existe el botón **Sync Fork**, que se encarga de aplicar los commits en el repositorio original al *fork*.
+
+Se puede hacer todo este trabajo de forma local, definiendo un repositorio 'upstream' con la dirección del repo original. De esta forma, luego se puede hacer `git pull` de los cambios que se hayan hecho en el repo original.
+
+1. Define 'upstream':
+```bash
+git remote add upstream [url-del-repo-original.git]
+```
+
+2. *Pull* de los cambios más recientes al repo local
+```bash
+git pull upstream main
+```
+
+3. Después de hacer el *commit*, `push` al repo *forkeado*:
+```bash
+git push origin main
+```
+
 ## B) Siendo colaborador
 
 Para ser colaborador en un repositorio, se le debe pedir al propietario que te añada como colaborador. Una vez hecho esto, el funcionamiento es el mismo que habría si se fuera propietario del repositorio.
@@ -338,8 +367,8 @@ Cada vez que se quieran subir cambios al repositorio, se deben realizar los sigu
 ## Crear y *mergear* ramas
 
 * #### 1. `git checkout -b [nombre de la rama]`
-* #### 2. Subir y bajar cambios de GitHub de igual forma que en la rama `master`
-* #### 3. `git checkout master`
+* #### 2. Subir y bajar cambios de GitHub de igual forma que en la rama `main`
+* #### 3. `git checkout main`
 * #### 4. `git merge [nombre de la rama]`
 * #### (5.) Si se quiere eliminar del repositorio remoto, `git push origin --delete [nombre de la rama]`
 

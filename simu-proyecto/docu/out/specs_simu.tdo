@@ -1,14 +1,12 @@
 \contentsline {todoitem}{\numberline {1}Foto de un modelo del planeador del simu}{1}{section.1}%
 \contentsline {todoitem}{\numberline {2}referencia cuando se explique este algoritmo}{2}{figure.caption.1}%
 \contentsline {todoitem}{\numberline {3}Escribir detalladamente el funcionamiento del modelo de vuelo}{2}{subsubsection.2.1.2}%
-\contentsline {todoitem}{\numberline {4}referencia a una figura de MCA}{2}{subsubsection.2.1.2}%
-\contentsline {todoitem}{\numberline {5}Programar en \texttt {C++} para reducir el tiempo de ejecución y aumentar la fiabilidad del código.}{2}{subsubsection.2.1.3}%
-\contentsline {todoitem}{\numberline {6}referencia al anexo.}{2}{subsubsection.2.1.3}%
-\contentsline {todoitem}{\numberline {7}Decidir si programar en Python o en \texttt {C++}}{3}{subsubsection.2.1.4}%
-\contentsline {todoitem}{\numberline {8}Definir comunicación}{3}{subsubsection.2.1.5}%
-\contentsline {todoitem}{\numberline {9}Explicar qué código se ejecuta en el microcontrolador}{3}{subsubsection.2.2.1}%
-\contentsline {todoitem}{\numberline {10}Foto de los puentes h}{3}{subsubsection.2.2.2}%
-\contentsline {todoitem}{\numberline {11}Añadir foto de los motores}{4}{subsubsection.2.2.3}%
-\contentsline {todoitem}{\numberline {12}Foto de MT6701 montado y sin montar}{4}{subsubsection.2.2.4}%
-\contentsline {todoitem}{\numberline {13}Foto de las fuentes de alimentación}{4}{subsubsection.2.2.5}%
-\contentsline {todoitem}{\numberline {14}Foto del pinout de las fuentes de alimientación}{4}{subsubsection.2.2.5}%
+\contentsline {todoitem}{\numberline {4}Programar en \texttt {C++} para reducir el tiempo de ejecución y aumentar la fiabilidad del código.}{2}{subsubsection.2.1.3}%
+\contentsline {todoitem}{\numberline {5}Decidir si programar en Python o en \texttt {C++}}{3}{subsubsection.2.1.4}%
+\contentsline {todoitem}{\numberline {6}Definir comunicación}{3}{subsubsection.2.1.5}%
+\contentsline {todoitem}{\numberline {7}Explicar qué código se ejecuta en el microcontrolador}{3}{subsubsection.2.2.1}%
+\contentsline {todoitem}{\numberline {8}Foto de los puentes h}{4}{subsubsection.2.2.2}%
+\contentsline {todoitem}{\numberline {9}Añadir foto de los motores}{4}{subsubsection.2.2.3}%
+\contentsline {todoitem}{\numberline {10}Foto de MT6701 montado y sin montar}{4}{subsubsection.2.2.4}%
+\contentsline {todoitem}{\numberline {11}Foto de las fuentes de alimentación}{5}{subsubsection.2.2.5}%
+\contentsline {todoitem}{\numberline {12}Foto del pinout de las fuentes de alimientación}{5}{subsubsection.2.2.5}%
