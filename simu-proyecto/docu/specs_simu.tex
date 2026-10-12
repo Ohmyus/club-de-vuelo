@@ -76,6 +76,17 @@ Esta parte de la aplicación de escritorio desarrollada se encarga de procesar l
 \subsubsection{Comunicación USB}
 \todo{Definir comunicación}, qué datos van desde la app de escritorio, qué datos manda el microcontrolador de vuelta, cuál es la latencia objetivo de la comunicación, etc.
 
+\subsubsection{Gestor de diagnósticos}
+Para asegurar el correcto funcionamiento del simulador, la aplicación de escritorio recibe información de diagnóstico del simulador y de Condor 3 para garantizar un funcionamiento correcto por parte de todos los sistemas interconectados. La información que recibe es:
+\begin{itemize}
+	\item Códigos de estado por parte del microcontrolador (y códigos de error en caso de algún fallo).
+	\item El estado de la telemetría del Cóndor 3.
+	\item Si el simulador está en funcionamiento, calibrándose o listo para comenzar el movimiento.
+\end{itemize}
+
+\subsubsection{Control manual}
+La plataforma del simulador se puede mover de forma manual, tanto con control individual de cada uno de los actuadores, como con control de la posición de la plataforma en cabeceo y alabeo.
+
 \subsection{Sistema de control del movimiento}
 Externo a la aplicación de escritorio, y utilizando la conexión USB como comunicación, el sistema de control del movimiento consiste en toda la electrónica encargada de garantizar el movimiento de los actuadores de forma precisa y rápida. Los componentes se describen a continuación.
 \par Se ha considerado como actuadores a todo el conjunto de puente H, motor y encoder magnético que está duplicado en el simulador. Cuando está conectado todo, el puente H recibe una señal PWM del microcontrolador que determina el par (y la velocidad) con la que el motor busca alcanzar la posición comandada. Para una representación general del funcionamiento de este subsistema, consultar la \autoref{fig:electronics-overview}
